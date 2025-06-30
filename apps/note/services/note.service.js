@@ -1,6 +1,6 @@
 
-import { loadFromStorage, makeId, saveToStorage } from './util.service.js'
-import { storageService } from './async-storage.service.js'
+import { utilService } from '../../../services/util.service.js'
+import { storageService } from '../../../services/async-storage.service.js'
 
 
 const NOTE_KEY = 'noteDB'
@@ -69,22 +69,44 @@ function getDefaultFilter() {
     return { txt: '', type: '' }
 }
 
+
 function _createNotes() {
-    let notes = loadFromStorage(NOTE_KEY)
+    let notes = utilService.loadFromStorage(NOTE_KEY)
     if (!notes || !notes.length) {
         notes = [
-            _createNote('Walk the dog'),
-            _createNote('Get milk'),
-            _createNote('Do some homework'),
-            _createNote('Play the guitar')
+            {
+                id: utilService.makeId(),
+                createdAt: Date.now() - 1000000,
+                type: 'NoteTxt',
+                isPinned: true,
+                style: { backgroundColor: '#f0f8ff' },
+                info: { txt: 'Welcome to your Notes app!' }
+            },
+            {
+                id: utilService.makeId(),
+                createdAt: Date.now() - 500000,
+                type: 'NoteTxt',
+                isPinned: false,
+                style: { backgroundColor: '#fffae6' },
+                info: { txt: 'Don\'t\ forget to check your tasks.' }
+            },
+            {
+                id: utilService.makeId(),
+                createdAt: Date.now() - 300000,
+                type: 'NoteTxt',
+                isPinned: false,
+                style: { backgroundColor: '#e6ffe6' },
+                info: { txt: 'Meeting notes: project deadlines...' }
+            }
         ]
-        saveToStorage(NOTE_KEY, notes)
+        utilService.saveToStorage(NOTE_KEY, notes)
     }
 }
 
+
 function _createNote(txt) {
     const note = getEmptyNote(txt)
-    note.id = makeId()
+    note.id = utilService.makeId()
     return note
 }
 
