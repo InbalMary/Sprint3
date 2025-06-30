@@ -1,0 +1,73 @@
+.mail-preview {
+    background: inherit;
+    transition: all 0.15s ease-in-out;
+    cursor: pointer;
+    height: 40px;
+    font-size: 14px;
+    position: relative;
+}
+
+.mail-preview:hover {
+    box-shadow: inset -1px 0 0 var(--mail-star-empty), inset 1px 0 0 var(--mail-star-empty), 0 1px 2px 0 rgba(60, 64, 67, .3), 0 1px 3px 1px rgba(60, 64, 67, .15);
+    z-index: 2;
+}
+
+.mail-preview.unread {
+    background: var(--mail-inbox-bg);
+    font-weight: 700;
+}
+
+.mail-preview.read {
+    background: var(--mail-inbox-bg-read);
+    font-weight: 400;
+}
+
+.star-cell {
+    display: flex;
+    flex-basis: auto;
+    align-items: center;
+    padding: 10px;
+    margin: 0;
+}
+
+.star {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    color: var(--mail-color);
+    opacity: 0.32;
+}
+
+.star:hover {
+    background: var(--mail-star-bg);
+    transform: scale(1.1);
+}
+
+
+.star.starred {
+    opacity: 1;
+    color: var(--mail-star-filled);
+}
+
+.from-cell {
+    width: 20%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    font-size: 0.875rem;
+}
+
+.body-content {
+    font-weight: 400;
+    color: var(--mail-body);
+}

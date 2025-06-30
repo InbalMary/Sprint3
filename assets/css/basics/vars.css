@@ -10,4 +10,16 @@
     --gray2: #aaa;
     --gray2: #888;
     --gray2: #333;
+
+    /* vars for mail-app */
+    --mail-inbox-bg: rgb(255, 255, 255);
+    --mail-inbox-bg-read: #f2f6fc;
+    --mail-border: rgb(128, 128, 128);
+    --mail-color: rgb(32, 33, 36);
+    --mail-star-filled: rgb(251, 188, 4);
+    --mail-star-empty: rgb(218, 220, 224);
+    --mail-star-bg: rgba(60, 64, 67, 0.32);
+    --mail-body: rgb(95, 99, 104);
+
+
 }

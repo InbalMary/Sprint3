@@ -1,1 +1,6 @@
  /* mail index  */
+ .mail-index {
+    font-family: "Google Sans",Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+    background-color: var(--mail-inbox-bg);
+}
+

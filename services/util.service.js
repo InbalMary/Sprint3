@@ -10,8 +10,8 @@ export const utilService = {
     saveToStorage,
     animateCSS,
     debounce,
-    getTruthyValues
-
+    getTruthyValues,
+    formatTimestamp
 }
 
 function saveToStorage(key, val) {
@@ -110,4 +110,24 @@ function getTruthyValues(obj) {
         }
     }
     return newObj
+}
+
+function formatTimestamp(timestamp) {
+    const now = new Date()
+    const mailDate = new Date(timestamp)
+
+    const diffInMs = now - mailDate
+    const oneDayInMs = 24 * 60 * 60 * 1000
+
+    if (diffInMs <= oneDayInMs) {
+        return mailDate.toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    }
+
+    return mailDate.toLocaleDateString('en-US', {
+        day: '2-digit',
+        month: 'long',
+    })
 }

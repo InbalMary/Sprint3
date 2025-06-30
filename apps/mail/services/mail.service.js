@@ -78,7 +78,8 @@ function _createMails() {
                 sentAt: 1684902180000,  // 2023-05-24
                 removedAt: null,
                 from: 'momo@momo.com',
-                to: 'user@appsus.com'
+                to: 'user@appsus.com',
+                isStared: false
             },
             {
                 id: 'e102',
@@ -89,7 +90,8 @@ function _createMails() {
                 sentAt: 1684602780000,  // 2023-05-19
                 removedAt: null,
                 from: 'john@meeting.com',
-                to: 'user@appsus.com'
+                to: 'user@appsus.com',
+                isStared: false
             },
             {
                 id: 'e103',
@@ -100,7 +102,8 @@ function _createMails() {
                 sentAt: 1683474990000,  // 2023-04-19
                 removedAt: null,
                 from: 'sale@shop.com',
-                to: 'user@appsus.com'
+                to: 'user@appsus.com',
+                isStared: false
             },
             {
                 id: 'e104',
@@ -111,7 +114,8 @@ function _createMails() {
                 sentAt: 1683174930000,  // 2023-04-15
                 removedAt: null,
                 from: 'support@service.com',
-                to: 'user@appsus.com'
+                to: 'user@appsus.com',
+                isStared: false
             },
             {
                 id: 'e105',
@@ -122,7 +126,8 @@ function _createMails() {
                 sentAt: 1682856120000,  // 2023-04-02
                 removedAt: null,
                 from: 'newsletter@updates.com',
-                to: 'user@appsus.com'
+                to: 'user@appsus.com',
+                isStared: false
             },
             {
                 id: 'e106',
@@ -133,7 +138,8 @@ function _createMails() {
                 sentAt: 1682760600000,  // 2023-03-31
                 removedAt: null,
                 from: 'admin@account.com',
-                to: 'user@appsus.com'
+                to: 'user@appsus.com',
+                isStared: false
             },
             {
                 id: 'e107',
@@ -144,7 +150,8 @@ function _createMails() {
                 sentAt: 1684435560000,  // 2023-05-17
                 removedAt: null,
                 from: 'offers@deals.com',
-                to: 'user@appsus.com'
+                to: 'user@appsus.com',
+                isStared: false
             },
             {
                 id: 'e108',
@@ -155,7 +162,8 @@ function _createMails() {
                 sentAt: 1684080570000,  // 2023-05-13
                 removedAt: null,
                 from: 'no-reply@verify.com',
-                to: 'user@appsus.com'
+                to: 'user@appsus.com',
+                isStared: false
             },
             {
                 id: 'e109',
@@ -166,7 +174,8 @@ function _createMails() {
                 sentAt: 1681943160000,  // 2023-03-13
                 removedAt: null,
                 from: 'hr@company.com',
-                to: 'user@appsus.com'
+                to: 'user@appsus.com',
+                isStared: false
             },
             {
                 id: 'e110',
@@ -177,7 +186,8 @@ function _createMails() {
                 sentAt: 1682765400000,  // 2023-04-01
                 removedAt: null,
                 from: 'webinars@events.com',
-                to: 'user@appsus.com'
+                to: 'user@appsus.com',
+                isStared: false
             }
         ]
 
