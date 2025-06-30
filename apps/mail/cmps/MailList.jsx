@@ -1,10 +1,16 @@
 import { MailPreview } from "./MailPreview.jsx";
 
-const { Link, useLocation } = ReactRouterDOM
+const { Link, useNavigate, useLocation } = ReactRouterDOM
 
 export function MailList({ mails, onRemoveMail, onAddMail }) {
 
-    const location = useLocation()
+    const navigate = useNavigate()
+    // const location = useLocation()
+
+    function onPreviewClick(mailId) {
+        console.log('mailId', mailId)
+        navigate(`/mail/${mailId}`)
+    }
 
     return (
         <table className="mail-list container">
@@ -18,7 +24,8 @@ export function MailList({ mails, onRemoveMail, onAddMail }) {
             </thead>
             <tbody>
                 {mails.map(mail =>
-                    <MailPreview key={mail.id} mail={mail} />                    
+                    <MailPreview key={mail.id} mail={mail}
+                        onClick={() => onPreviewClick(mail.id)} />
                     /* {!location.pathname.includes('add') ?
                         <section className="btns">
                             <button onClick={() => onRemoveMail(mail.id)}>
