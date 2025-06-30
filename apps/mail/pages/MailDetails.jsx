@@ -29,16 +29,30 @@ export function MailDetails() {
 
     if (isLoading) return <div className="loader">Loading...</div>
 
-    const { vendor, speed } = mail
+    const { subject, body, isRead, sentAt, from, to } = mail
+
     return (
         <section className="mail-details container">
-            <pre>{JSON.stringify(mail, null, 2)}</pre>
-            {/* <h1>Mail Vendor: {vendor}</h1>
-            <h1>Mail Speed: {speed}</h1>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facilis quae fuga eveniet, quisquam ducimus modi optio in alias accusantium corrupti veritatis commodi tenetur voluptate deserunt nihil quibusdam. Expedita, architecto omnis?</p>
-            <img src={`../assets/img/${vendor}.png`} alt="Mail Image" />
-            <button onClick={onBack}>Back</button>
-            <section>
+            {/* <pre>{JSON.stringify(mail, null, 2)}</pre> */}
+            <header>
+                <button>
+                    <img src="../../../assets/icons/mail/arrow_back.svg" alt="back-btn" width="20" height="20"></img>
+                </button>
+                <button>
+                    <img src="../../../assets/icons/mail/reply.svg" alt="back-btn" width="20" height="20"></img>
+                </button>
+                <button>
+                    <img src="../../../assets/icons/mail/delete_btn.svg" alt="delete-btn" width="20" height="20"></img>
+                </button>
+                <button>
+                    <img src="../../../assets/icons/mail/mark_email_unread.svg" alt="delete-btn" width="20" height="20"></img>
+                </button>
+            </header>
+            <h1>Subject: {subject}</h1>
+            <h4>From: {from}</h4>
+            <h4>To: {to}</h4>
+            <p>{body}</p>
+            {/* <section>
                 <button ><Link to={`/mail/${mail.prevMailId}`}>Prev Mail</Link></button>
                 <button ><Link to={`/mail/${mail.nextMailId}`}>Next Mail</Link></button>
             </section> */}

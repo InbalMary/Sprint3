@@ -66,6 +66,7 @@
     text-overflow: ellipsis;
     vertical-align: middle;
     font-size: 0.875rem;
+    padding-inline-end: 0.5em;
 }
 
 .subject-cell {

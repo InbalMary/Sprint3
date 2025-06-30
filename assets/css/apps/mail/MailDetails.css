@@ -1,0 +1,60 @@
+.mail-details {
+    font-family: "Google Sans", Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+    background-color: var(--mail-inbox-bg);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    margin-block: 1em;
+}
+
+.mail-details header {
+    align-self: flex-end;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.mail-details header button:first-child {
+  margin-right: auto;
+}
+
+.mail-details header button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.mail-details header button img {
+    display: flex;
+    flex-basis: auto;
+    align-items: center;
+    padding: 4px;
+    margin: 0;
+    text-align: center;
+}
+
+.mail-details button:hover {
+    background: var(--mail-star-bg);
+    transform: scale(1.1);
+}
+
+.mail-details h4 {
+    font-weight: lighter;
+}
+
+.mail-details h1,
+.mail-details h4 {
+    margin-block-end: 1em;
+}
