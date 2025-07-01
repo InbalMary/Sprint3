@@ -2,7 +2,7 @@
     --bg1: lightblue;
     --bg2: rgb(50, 160, 204);
     --bg3: rgb(89, 134, 206);
-    
+
     --color1: rgb(26, 115, 232);
     --color2: rgb(24, 128, 56);
     --color3: rgb(197, 34, 31);
@@ -20,6 +20,49 @@
     --mail-star-empty: rgb(218, 220, 224);
     --mail-star-bg: rgba(60, 64, 67, 0.32);
     --mail-body: rgb(95, 99, 104);
+
+    /*NOTE APP VARS*/
+    /* --- Sidebar Icons --- */
+    --notes-sidebar-icon-bg-active: rgb(254, 239, 195);
+    /* clicked bg */
+    --notes-sidebar-icon-bg-hover: rgb(241, 243, 244);
+    /* hover bg */
+    --notes-sidebar-icon-color-active: rgb(32, 33, 36);
+    /* clicked + body font color */
+    --notes-sidebar-icon-color-default: rgb(95, 99, 104);
+    /* unclicked */
+
+    /* --- Top Bar Icons --- */
+    --notes-top-bar-icon-hover-bg: rgba(95, 99, 104, 0.157);
+    /* hover bg + opacity 0.87*/
+    --notes-top-bar-icon-color: #5f6368;
+    /* default icon color, hamburger, logo Keep */
+
+    /* --- Logo --- */
+    --notes-logo-bg: #FBBC04;
+
+    /* --- Dropdown Menu --- */
+    --dropdown-settings-menu: rgb(60, 64, 67);
+    /*font color*/
+
+    /* --- Primary Action --- */
+    --notes-primary-color: rgb(26, 115, 232);
+    /*used for buttons (Turn On, Save), modal titles, and highlights */
+
+
+    /*NOTES BG COLOR PICK*/
+
+    --notes-bg1: #faafa8;
+    --notes-bg2: #f39f76;
+    --notes-bg3: #fff8b8;
+    --notes-bg4: #e2f6d3;
+    --notes-bg5: #b4ddd3;
+    --notes-bg6: #d4e4ed;
+    --notes-bg7: #aeccdc;
+    --notes-bg8: #d3bfdb;
+    --notes-bg9: #f6e2dd;
+    --notes-bg10: #e9e3d4;
+    --notes-bg11: #efeff1;
 
 
 }
