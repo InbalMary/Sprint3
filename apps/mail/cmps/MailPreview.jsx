@@ -2,21 +2,23 @@ import { utilService } from '../../../services/util.service.js'
 
 const { useState, useEffect } = React
 
-export function MailPreview({ mail, onClick }) {
+export function MailPreview({ mail, onClick, onToggleStarred }) {
 
     const [starred, setStarred] = useState(mail.isStared)
 
     const { subject, body, isRead, sentAt, from } = mail
     
-    const onToggleStar = () => {
+    const onToggleStar = (ev) => {
+        ev.stopPropagation()
         setStarred(starred => !starred)
+        onToggleStarred(mail.id)
     }
     return (
         <tr onClick={onClick} className={`mail-preview ${isRead ? 'read' : 'unread'}`}>
             {/* <pre>{JSON.stringify(mail, null, 2)}</pre> */}
             <td className="star-cell">
                 <span className={`star ${starred ? 'starred' : ''}`}
-                    onClick={onToggleStar}>
+                    onClick={(ev)=>onToggleStar(ev)}>
                     {starred ? '★' : '☆'}
                 </span>
             </td>

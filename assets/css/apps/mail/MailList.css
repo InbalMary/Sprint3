@@ -1,7 +1,7 @@
  /* mail list */
  .mail-list {
      table-layout: fixed;
-     min-width: 100%;
+     /* min-width: 100%; */
      border-collapse: collapse;
      color: var(--mail-color);
  }
