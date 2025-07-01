@@ -1,8 +1,8 @@
 import { noteService } from '../services/note.service.js'
 // import { NoteFilter } from "../cmps/NoteFilter.jsx"
-// import { NoteList } from "../cmps/NoteList.jsx"
+import { NoteList } from "../cmps/NoteList.jsx"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
-import { getTruthyValues } from "../services/util.service.js"
+// import { getTruthyValues } from "../services/util.service.js"
 
 const { useState, useEffect } = React
 const { Link, useSearchParams } = ReactRouterDOM
@@ -15,12 +15,15 @@ export function NoteIndex() {
 
     useEffect(() => {
         loadNotes()
-        setSearchParams(getTruthyValues(filterBy)) //two-way data binding. whatever is typed in input filer is copied to the url
+        // setSearchParams(getTruthyValues(filterBy)) //two-way data binding. whatever is typed in input filer is copied to the url
     }, [filterBy])
 
     function loadNotes() {
         noteService.query(filterBy)
-            .then(notes => setNotes(notes))
+            .then(notes => {
+                 console.log('Loaded notes:', notes)
+                setNotes(notes)
+    })
             .catch(err => console.log('err:', err))
     }
 
@@ -45,17 +48,17 @@ export function NoteIndex() {
     return (
         <section className="container">Notes app
 
-            {/* <section className="note-index">
-                <NoteFilter
+            <section className="note-index">
+                {/* <NoteFilter
                     defaultFilter={filterBy}
                     onSetFilter={onSetFilter}
-                />
+                /> */}
 
                 <NoteList
                     notes={notes}
                     onRemoveNote={onRemoveNote}
                 />
-            </section> */}
+            </section>
         </section>
     )
 
