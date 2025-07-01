@@ -36,16 +36,16 @@ export function MailDetails() {
             {/* <pre>{JSON.stringify(mail, null, 2)}</pre> */}
             <header>
                 <button>
-                    <img src="../../../assets/icons/mail/arrow_back.svg" alt="back-btn" width="20" height="20"></img>
+                    <img src="/assets/icons/mail/arrow_back.svg" alt="back-btn" width="20" height="20"></img>
                 </button>
                 <button>
-                    <img src="../../../assets/icons/mail/reply.svg" alt="back-btn" width="20" height="20"></img>
+                    <img src="/assets/icons/mail/reply.svg" alt="back-btn" width="20" height="20"></img>
                 </button>
                 <button>
-                    <img src="../../../assets/icons/mail/delete_btn.svg" alt="delete-btn" width="20" height="20"></img>
+                    <img src="/assets/icons/mail/delete_btn.svg" alt="delete-btn" width="20" height="20"></img>
                 </button>
                 <button>
-                    <img src="../../../assets/icons/mail/mark_email_unread.svg" alt="delete-btn" width="20" height="20"></img>
+                    <img src="/assets/icons/mail/mark_email_unread.svg" alt="delete-btn" width="20" height="20"></img>
                 </button>
             </header>
             <h1>Subject: {subject}</h1>

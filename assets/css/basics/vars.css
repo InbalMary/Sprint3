@@ -20,6 +20,11 @@
     --mail-star-empty: rgb(218, 220, 224);
     --mail-star-bg: rgba(60, 64, 67, 0.32);
     --mail-body: rgb(95, 99, 104);
-
-
+    --mail-sidebar-bg: rgb(233, 238, 246);
+    --mail-sidebar-hover-bg: rgb(241, 243, 244);
+    --mail-sidebar-selected-bg: rgb(232, 240, 254);
+    --mail-sidebar-selected-color: #001D35;
+    --mail-compose-bg: rgb(194, 231, 255);
+    --mail-compose-color: #001d35;
+    
 }
