@@ -1,0 +1,152 @@
+import { mailService } from '../services/mail.service.js'
+import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
+
+const { useState, useEffect, useRef } = React
+const { useNavigate, useParams } = ReactRouterDOM
+
+export function MailEdit() {
+    const [mail, setMail] = useState(mailService.getEmptyMail())
+    const [idAutoSaveInterval, setIdAutoSaveInterval] = useState(null)
+    const navigate = useNavigate()
+    const { mailId } = useParams()
+    const mailRef = useRef(mail)
+
+    useEffect(() => {
+        mailRef.current = mail
+    }, [mail])
+
+    useEffect(() => {
+        if (mailId) loadMail()
+
+        const interval = setInterval(() => {
+            const currentMail = mailRef.current
+            if (!currentMail.id) {
+                const newMail = { ...currentMail, createdAt: Date.now() }
+                mailService.save(newMail)
+                    .then(savedMail => {
+                        setMail(savedMail)
+                        // showSuccessMsg('Mail auto-saved')
+                    })
+            } else {
+                const updatedMail = { ...currentMail, updatedAt: Date.now() }
+                mailService.save(updatedMail)
+                    // .then(()=> showSuccessMsg('Mail auto-saved'))
+            }
+        }, 5000)
+        setIdAutoSaveInterval(interval)
+        return () => clearInterval(interval)
+    }, [mailId])
+
+
+    function loadMail() {
+        if (mailId) {
+            mailService.get(mailId)
+                .then(mail => {
+                    setMail(mail)
+                })
+                .catch(err => {
+                    console.log('err:', err)
+                })
+        } else {
+            const newMail = mailService.getEmptyMail()
+            setMail(newMail)
+        }
+    }
+
+    function handleChange({ target }) {
+        const field = target.name
+        let value = target.value
+        switch (target.type) {
+            case 'number':
+            case 'range':
+                value = +value
+                break;
+
+            case 'checkbox':
+                value = target.checked
+                break
+        }
+        setMail(prevMail => ({ ...prevMail, [field]: value }))
+    }
+
+    function onClose() {
+        clearInterval(idAutoSaveInterval)
+        navigate('/mail')
+    }
+
+    function onDelete() {
+        clearInterval(idAutoSaveInterval)
+        console.log('Delete')
+    }
+
+    function onSendMail() {
+        clearInterval(idAutoSaveInterval)
+        const updatedMail = { ...mailRef.current, sentAt: Date.now() }
+        if (!updatedMail.createdAt) {
+            updatedMail.createdAt = Date.now()
+        }
+        console.log(updatedMail)
+        mailService.save(updatedMail).then(() => {
+            const msg = mailId ? 'Mail Updated' : 'Mail created'
+            showSuccessMsg(msg)
+            navigate('/mail')
+        })
+    }
+
+    if (!mail) return <div className="loader">Loading...</div>
+
+    const { subject, body, isRead, sentAt, from, to } = mail
+
+    return (
+        <section className="mail-edit ">
+
+            <form onSubmit={(ev) => {
+                ev.preventDefault()
+                onSendMail()
+            }}>
+                <section className="header">
+                    <h4>New Message</h4>
+                    <button type="button" onClick={onClose} className="close-btn"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" /></svg></button>
+                </section>
+
+                <section className='form-row'>
+                    <label htmlFor="to">To</label>
+                    <input
+                        onChange={handleChange}
+                        value={to}
+                        name="to"
+                        id="to"
+                        type="email"
+                    />
+                </section>
+
+                <section className='form-row'>
+                    <label htmlFor="subject">Subject</label>
+                    <input
+                        onChange={handleChange}
+                        value={subject}
+                        name="subject"
+                        id="subject"
+                        type="text"
+                    />
+                </section>
+
+                <section className='form-row'>
+                    <label htmlFor="body"></label>
+                    <textarea
+                        onChange={handleChange}
+                        value={body}
+                        name="body"
+                        id="body"
+                        type="body"
+                    />
+                </section>
+
+                <div className="actions">
+                    <button type="submit" className="send-btn">Send</button>
+                    <button type="button" onClick={onDelete} className="delete-btn"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#1f1f1f"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" /></svg></button>
+                </div>
+            </form>
+        </section>
+    )
+}

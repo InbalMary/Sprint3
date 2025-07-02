@@ -17,10 +17,10 @@ export function MailPreview({ mail, onClick, onToggleStarred }) {
         <tr onClick={onClick} className={`mail-preview ${isRead ? 'read' : 'unread'}`}>
             {/* <pre>{JSON.stringify(mail, null, 2)}</pre> */}
             <td className="star-cell">
-                <span className={`star ${starred ? 'starred' : ''}`}
+                <p className={`star ${starred ? 'starred' : ''}`}
                     onClick={(ev)=>onToggleStar(ev)}>
                     {starred ? '★' : '☆'}
-                </span>
+                </p>
             </td>
             <td className="from-cell">{from.slice(0, from.indexOf('@'))}</td>
             <td className="subject-cell">
