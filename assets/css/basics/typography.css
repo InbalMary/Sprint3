@@ -5,3 +5,11 @@
     font-weight: 100 1000;
     font-style: normal;
 }
+
+/*ROBOTO REGULAR*/
+@font-face {
+    font-family: 'RobotoRegular';
+    src: url('../../fonts/Roboto-Regular.ttf') format('truetype');
+    font-weight: 100 1000;
+    font-style: normal;
+}

@@ -1,24 +1,40 @@
  /* mail list */
  .mail-list {
-     table-layout: fixed;
-     /* min-width: 100%; */
-     border-collapse: collapse;
      color: var(--mail-color);
+     max-width: calc(100% - 56px);
+
  }
 
- .mail-list th,
- .mail-list tr {
+ .mail-list-header {
+     display: grid;
+     grid-template-columns: 50px minmax(80px, 1fr) minmax(200px, 4fr) minmax(60px, 100px);
+     padding: 10px;
+     border-bottom: 1px solid var(--mail-border);
      background-clip: border-box;
      background-origin: padding-box;
-     padding: 10px;
-     border-color: var(--mail-border);
-     border-collapse: collapse;
      box-shadow: inset 0 -1px 0 0 rgba(100, 121, 143, .12);
+     font-weight: 600;
+ }
+
+ .mail-list-header>div {
+     padding: 0 8px;
      text-align: left;
  }
 
- tr:hover {
+ .header-star {
+     text-align: center;
+ }
 
-     box-shadow: inset -1px 0 0 rgb(218, 220, 224), inset 1px 0 0 rgb(218, 220, 224), 0 1px 2px 0 rgba(60, 64, 67, .3), 0 1px 3px 1px rgba(60, 64, 67, .15);
-     z-index: 2;
+ .mail-items {
+     display: flex;
+     flex-direction: column;
+ }
+
+ @media (max-width: 480px) {
+     .mail-list-header {
+         grid-template-columns: 40px 80px 1fr 60px;
+         padding: 6px 2px;
+         gap: 2px;
+     }
+
  }

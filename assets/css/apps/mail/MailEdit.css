@@ -10,7 +10,7 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    font-family: 'RobotoFlex';
+    font-family: 'RobotoRegular', 'RobotoFlex', Helvetica, Arial, sans-serif;
     background-color: var(--mail-inbox-bg);
 }
 
@@ -60,7 +60,7 @@
     background-color: var(--mail-sidebar-hover-bg);
     height: 20px;
     width: 20px;
-    
+
     border-radius: 5px;
 }
 
@@ -113,7 +113,7 @@
     height: 2.7em;
 }
 
-.mail-edit .send-btn:hover{
+.mail-edit .send-btn:hover {
     box-shadow: 0 1px 2px 0 rgba(26, 115, 232, .45), 0 1px 3px 1px rgba(26, 115, 232, .3);
 }
 
@@ -126,4 +126,20 @@
 
 .form-row:not(:last-of-type) {
     border-bottom: 1px solid var(--mail-star-empty);
+}
+
+@media (max-width: 480px) {
+    .mail-edit {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        z-index: 1000;
+    }
+
+    .mail-edit form >*:last-child {
+        margin-top: auto;
+    }
 }
