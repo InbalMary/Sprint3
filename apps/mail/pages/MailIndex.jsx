@@ -5,7 +5,7 @@ import { MailList } from "../cmps/MailList.jsx"
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { utilService } from "../../../services/util.service.js"
 
-const { Outlet, Link, useSearchParams, useNavigate } = ReactRouterDOM
+const { Outlet, Link, useSearchParams, useNavigate, useLocation } = ReactRouterDOM
 const { useState, useEffect } = React
 
 export function MailIndex() {
@@ -16,7 +16,11 @@ export function MailIndex() {
     const [unreadCount, setUnreadCount] = useState(0)
     const [starredCount, setStarredCount] = useState(0)
     const navigate = useNavigate()
+    const location = useLocation()
 
+    const isDetailsView = location.pathname.match(/^\/mail\/[^\/]+$/) &&
+        !location.pathname.includes('/edit')
+        
     useEffect(() => {
         loadMails()
         setSearchParams(utilService.getTruthyValues(filterBy))
@@ -77,6 +81,10 @@ export function MailIndex() {
     function onReplyClick(mailId, ev) {
         ev.stopPropagation()
         navigate(`/mail/edit/${mailId}`);
+    }
+
+    function onMailClick(mailId) {
+        navigate(`/mail/${mailId}`)
     }
 
     const [isExpanded, setIsExpanded] = useState(false)
@@ -221,14 +229,25 @@ export function MailIndex() {
                 <Link className="btn" to="/mail/chart">Categories chart</Link>
             </section> */}
 
-            <MailList
-                mails={mails}
-                onRemoveMail={onRemoveMail}
-                onToggleStarred={onToggleStarred}
-                onToggleReadStatus={onToggleReadStatus}
-                onReplyClick={onReplyClick}
-            />
-            <Outlet />
+            {!isDetailsView && (
+                <MailList
+                    mails={mails}
+                    onRemoveMail={onRemoveMail}
+                    onToggleStarred={onToggleStarred}
+                    onToggleReadStatus={onToggleReadStatus}
+                    onReplyClick={onReplyClick}
+                    onMailClick={onMailClick}
+                />
+            )}
+
+            <Outlet context={{
+                mails,
+                onRemoveMail,
+                onToggleStarred,
+                onToggleReadStatus,
+                onReplyClick,
+                onMailClick
+            }} />
         </section>
     )
 
