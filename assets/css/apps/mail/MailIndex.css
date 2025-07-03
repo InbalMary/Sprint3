@@ -1,6 +1,6 @@
  /* mail index  */
  .mail-index {
-     font-family: 'RobotoRegular', 'RobotoFlex', Helvetica, Arial, sans-serif;
+     font-family: 'RobotoFlex', 'RobotoRegular', Helvetica, Arial, sans-serif;
      background-color: var(--mail-inbox-bg);
      display: flex;
      position: relative;
@@ -98,11 +98,12 @@
  .sidebar-expanded span {
      white-space: nowrap;
      font-size: 14px;
- }
+}
 
- .mail-index .mail-list {
+.mail-index .mail-list {
      flex-grow: 1;
- }
+     width: 100%;
+}
 
  .mail-index .compose {
      background: var(--mail-compose-bg);
