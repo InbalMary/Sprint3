@@ -1,6 +1,6 @@
  /* mail index  */
  .mail-index {
-     font-family: "Google Sans", Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+     font-family: 'RobotoRegular', 'RobotoFlex', Helvetica, Arial, sans-serif;
      background-color: var(--mail-inbox-bg);
      display: flex;
      position: relative;
@@ -30,7 +30,7 @@
      display: flex;
      justify-content: center;
      align-items: center;
-     height: 48px;
+     height: 32px;
      cursor: pointer;
  }
 
@@ -45,7 +45,7 @@
      position: absolute;
      top: 0;
      left: 0;
-     width: 220px;
+     width: 232px;
      height: 100vh;
      background-color: var(--mail-inbox-bg);
      z-index: 2;
@@ -70,16 +70,18 @@
  .sidebar-expanded .sidebar-item {
      display: flex;
      align-items: center;
-     padding: 12px 16px;
-     gap: 12px;
+     height: 32px;
+     padding-inline: 12px;
+     /* gap: 12px; */
      cursor: pointer;
-     margin-inline: 4px;
+     margin-inline: 12px;
  }
 
  .sidebar-expanded .sidebar-link {
      display: flex;
      align-items: center;
      gap: 12px;
+     width: 100%;
  }
 
  .sidebar-expanded .sidebar-item:not(:first-child):hover {
@@ -100,7 +102,6 @@
 
  .mail-index .mail-list {
      flex-grow: 1;
-     padding: 2em;
  }
 
  .mail-index .compose {
@@ -118,4 +119,15 @@
 
  .mail-index .compose:hover {
      box-shadow: inset -1px 0 0 var(--mail-star-empty), inset 1px 0 0 var(--mail-star-empty), 0 1px 2px 0 rgba(60, 64, 67, .3), 0 1px 3px 1px rgba(60, 64, 67, .15);
+ }
+
+ .sidebar-expanded .compose {
+    width: 114.45px;
+    /* padding-inline-end: 24px;
+    margin-inline-start: 12px; */
+ }
+
+ .sidebar-expanded .sidebar-link .count {
+    color: var(--mail-new-msg-placholders-color);
+    margin-left: auto;
  }

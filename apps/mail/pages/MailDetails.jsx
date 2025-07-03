@@ -35,17 +35,17 @@ export function MailDetails() {
         <section className="mail-details container">
             {/* <pre>{JSON.stringify(mail, null, 2)}</pre> */}
             <header>
-                <button>
-                    <img src="/assets/icons/mail/arrow_back.svg" alt="back-btn" width="20" height="20"></img>
+                <button title="back">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
                 </button>
-                <button>
-                    <img src="/assets/icons/mail/reply.svg" alt="back-btn" width="20" height="20"></img>
+                <button title="reply">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M760-200v-160q0-50-35-85t-85-35H273l144 144-57 56-240-240 240-240 57 56-144 144h367q83 0 141.5 58.5T840-360v160h-80Z"/></svg>
                 </button>
-                <button>
-                    <img src="/assets/icons/mail/delete_btn.svg" alt="delete-btn" width="20" height="20"></img>
+                <button title="delete">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
                 </button>
-                <button>
-                    <img src="/assets/icons/mail/mark_email_unread.svg" alt="delete-btn" width="20" height="20"></img>
+                <button title="mark-unread">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h404q-4 20-4 40t4 40H160l320 200 146-91q14 13 30.5 22.5T691-572L480-440 160-640v400h640v-324q23-5 43-14t37-22v360q0 33-23.5 56.5T800-160H160Zm0-560v480-480Zm600 80q-50 0-85-35t-35-85q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35Z"/></svg>
                 </button>
             </header>
             <h1>Subject: {subject}</h1>

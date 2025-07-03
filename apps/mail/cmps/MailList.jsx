@@ -13,16 +13,14 @@ export function MailList({ mails, onRemoveMail, onAddMail, onToggleStarred }) {
     }
 
     return (
-        <table className="mail-list container">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>From</th>
-                    <th>Topic</th>
-                    <th>Time</th>
-                </tr>
-            </thead>
-            <tbody>
+        <section className="mail-list">
+            <header className="mail-list-header">
+                <div className="header-star"></div>
+                <div className="header-from">From</div>
+                <div className="header-topic">Topic</div>
+                <div className="header-time">Time</div>
+            </header>
+            <div className="mail-items">
                 {mails.map(mail =>
                     <MailPreview key={mail.id} mail={mail}
                         onClick={() => onPreviewClick(mail.id)}
@@ -44,8 +42,8 @@ export function MailList({ mails, onRemoveMail, onAddMail, onToggleStarred }) {
                         </section>
                     } */
                 )}
-            </tbody>
-        </table>
+            </div>
+        </section>
     )
 
 }

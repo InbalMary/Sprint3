@@ -14,21 +14,21 @@ export function MailPreview({ mail, onClick, onToggleStarred }) {
         onToggleStarred(mail.id)
     }
     return (
-        <tr onClick={onClick} className={`mail-preview ${isRead ? 'read' : 'unread'}`}>
+        <section onClick={onClick} className={`mail-preview ${isRead ? 'read' : 'unread'}`}>
             {/* <pre>{JSON.stringify(mail, null, 2)}</pre> */}
-            <td className="star-cell">
-                <span className={`star ${starred ? 'starred' : ''}`}
+            <div className="star-cell">
+                <p className={`star ${starred ? 'starred' : ''}`}
                     onClick={(ev)=>onToggleStar(ev)}>
                     {starred ? '★' : '☆'}
-                </span>
-            </td>
-            <td className="from-cell">{from.slice(0, from.indexOf('@'))}</td>
-            <td className="subject-cell">
+                </p>
+            </div>
+            <div className="from-cell">{from.slice(0, from.indexOf('@'))}</div>
+            <div className="subject-cell">
                 <span className="subject">{subject}</span>
                 <span> - </span>
                 <span className="body-content">{body.slice(0, 80)}...</span>
-            </td>
-            <td className="time-cell">{utilService.formatTimestamp(sentAt)}</td>
-        </tr>
+            </div>
+            <div className="time-cell">{utilService.formatTimestamp(sentAt)}</div>
+        </section>
     )
 }

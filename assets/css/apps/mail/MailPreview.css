@@ -1,10 +1,15 @@
 .mail-preview {
+    display: grid;
+    grid-template-columns: 50px minmax(80px, 1fr) minmax(200px, 4fr) minmax(60px, 100px);
     background: inherit;
     transition: all 0.15s ease-in-out;
     cursor: pointer;
-    height: 40px;
+    min-height: 40px;
+    min-width: 0;
     font-size: 14px;
     position: relative;
+    align-items: center;
+    border-bottom: 1px solid rgba(100, 121, 143, .12);
 }
 
 .mail-preview:hover {
@@ -24,11 +29,10 @@
 
 .star-cell {
     display: flex;
-    flex-basis: auto;
     align-items: center;
+    justify-content: center;
     padding: 4px;
     margin: 0;
-    text-align: center;
 }
 
 .star {
@@ -46,6 +50,7 @@
     transition: all 0.2s ease;
     color: var(--mail-color);
     opacity: 0.32;
+    margin: 0;
 }
 
 .star:hover {
@@ -60,22 +65,21 @@
 }
 
 .from-cell {
-    max-width: 20%;
+    /* max-width: 20%; */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    vertical-align: middle;
+    /* vertical-align: middle; */
     font-size: 0.875rem;
     padding-inline-end: 0.5em;
 }
 
 .subject-cell {
-    width: 70%;
-    max-width: 200px;
-    vertical-align: middle;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    padding-inline-end: 0.5em;
+    min-width: 0;
 }
 
 .body-content {
@@ -84,12 +88,27 @@
 }
 
 .time-cell {
-    width: 15%;
     max-width: 60px;
-    padding: 8px 8px;
-    text-align: left;
-    vertical-align: middle;
+    padding: 0.5em;
+    text-align: right;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-size: 0.875rem;
+    font-weight: inherit;
+}
+
+@media (max-width: 480px) {
+    .mail-preview {
+        grid-template-columns: 40px 80px 1fr 60px;
+        padding: 2px;
+        gap: 2px;
+        min-height: 32px;
+    }
+
+    .star {
+        width: 24px;
+        height: 24px;
+        font-size: 14px;
+    }
 }
