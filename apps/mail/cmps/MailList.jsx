@@ -1,8 +1,9 @@
 import { MailPreview } from "./MailPreview.jsx";
 
 const { Link, useNavigate, useLocation } = ReactRouterDOM
+const { useState, useEffect } = React
 
-export function MailList({ mails, onRemoveMail, onAddMail, onToggleStarred }) {
+export function MailList({ mails, onRemoveMail, onToggleReadStatus, onToggleStarred, onReplyClick }) {
 
     const navigate = useNavigate()
     // const location = useLocation()
@@ -22,9 +23,13 @@ export function MailList({ mails, onRemoveMail, onAddMail, onToggleStarred }) {
             </header>
             <div className="mail-items">
                 {mails.map(mail =>
+                
                     <MailPreview key={mail.id} mail={mail}
                         onClick={() => onPreviewClick(mail.id)}
-                        onToggleStarred={onToggleStarred} />
+                        onToggleStarred={onToggleStarred}
+                        onToggleReadStatus={onToggleReadStatus} 
+                        onRemoveMail={onRemoveMail}
+                        onReplyClick={onReplyClick} />
                     /* {!location.pathname.includes('add') ?
                         <section className="btns">
                             <button onClick={() => onRemoveMail(mail.id)}>

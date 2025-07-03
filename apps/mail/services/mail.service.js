@@ -102,7 +102,7 @@ function _createMails() {
                 removedAt: null,
                 from: 'john@meeting.com',
                 to: 'user@appsus.com',
-                isStared: false
+                isStared: true
             },
             {
                 id: 'e103',
@@ -126,7 +126,7 @@ function _createMails() {
                 removedAt: null,
                 from: 'support@service.com',
                 to: 'user@appsus.com',
-                isStared: false
+                isStared: true
             },
             {
                 id: 'e105',
@@ -138,7 +138,7 @@ function _createMails() {
                 removedAt: null,
                 from: 'newsletter@updates.com',
                 to: 'user@appsus.com',
-                isStared: false
+                isStared: true
             },
             {
                 id: 'e106',
@@ -198,7 +198,7 @@ function _createMails() {
                 removedAt: null,
                 from: 'webinars@events.com',
                 to: 'user@appsus.com',
-                isStared: false
+                isStared: true
             }
         ]
 

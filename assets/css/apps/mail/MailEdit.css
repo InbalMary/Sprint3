@@ -10,7 +10,7 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    font-family: 'RobotoRegular', 'RobotoFlex', Helvetica, Arial, sans-serif;
+    font-family: 'RobotoFlex', 'RobotoRegular', Helvetica, Arial, sans-serif;
     background-color: var(--mail-inbox-bg);
 }
 
