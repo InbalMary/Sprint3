@@ -1,6 +1,7 @@
 body {
     margin: 0;
     font-family: 'RobotoFlex', sans-serif;
+    color: var(--notes-sidebar-icon-color-active);
 }
 
 h1,

@@ -21,9 +21,9 @@ export function NoteIndex() {
     function loadNotes() {
         noteService.query(filterBy)
             .then(notes => {
-                 console.log('Loaded notes:', notes)
+                console.log('Loaded notes:', notes)
                 setNotes(notes)
-    })
+            })
             .catch(err => console.log('err:', err))
     }
 

@@ -1,0 +1,26 @@
+/* Styles the internal content of the note: title, text, pin icon layout */
+.note-preview {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-wrap: anywhere;
+    padding: 12px 16px 12px 16px;
+}
+
+.note-pin {
+    position: absolute;
+    top: 6px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    color: var(--notes-top-bar-icon-color);
+
+}
+
+.note-preview h3 {
+    font-weight: 500;
+    color: var(--notes-top-bar-icon-color);
+    letter-spacing: .025em;
+}

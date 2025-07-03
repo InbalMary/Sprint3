@@ -96,7 +96,12 @@ function _createNotes() {
                 type: 'NoteTxt',
                 isPinned: false,
                 style: { backgroundColor: '#e6ffe6' },
-                info: { txt: 'Meeting notes: project deadlines...' }
+                info: {
+                    title: 'Reminder',
+                    txt: `Remember to water the plants in the living room.
+                            The lavender needs extra care during summer.
+
+                            Check emails for project updates.` }
             }
         ]
         utilService.saveToStorage(NOTE_KEY, notes)

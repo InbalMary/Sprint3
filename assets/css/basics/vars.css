@@ -25,8 +25,8 @@
     --mail-sidebar-selected-bg: rgb(232, 240, 254);
     --mail-sidebar-selected-color: #001D35;
     --mail-compose-bg: rgb(194, 231, 255);
-    
-    
+
+
 
     /*NOTE APP VARS*/
     /* --- Sidebar Icons --- */
@@ -55,7 +55,7 @@
     /* --- Primary Action --- */
     --notes-primary-color: rgb(26, 115, 232);
     /*used for buttons (Turn On, Save), modal titles, and highlights */
-
+    --notes-border-clr: #e0e0e0;
 
     /*NOTES BG COLOR PICK*/
 
