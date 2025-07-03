@@ -5,7 +5,7 @@ import { MailList } from "../cmps/MailList.jsx"
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { utilService } from "../../../services/util.service.js"
 
-const { Outlet, Link, useSearchParams } = ReactRouterDOM
+const { Outlet, Link, useSearchParams, useNavigate } = ReactRouterDOM
 const { useState, useEffect } = React
 
 export function MailIndex() {
@@ -15,6 +15,7 @@ export function MailIndex() {
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
     const [unreadCount, setUnreadCount] = useState(0)
     const [starredCount, setStarredCount] = useState(0)
+    const navigate = useNavigate()
 
     useEffect(() => {
         loadMails()
@@ -33,13 +34,15 @@ export function MailIndex() {
             .catch(err => console.log('err:', err))
     }
 
-    function onRemoveMail(mailId) {
+    function onRemoveMail(mailId, ev) {
+        ev.stopPropagation()
         mailService.remove(mailId)
             .then(() => {
                 showSuccessMsg('Mail Removed Successfully!')
                 setMails((prevMails) =>
                     prevMails.filter(mail => mail.id !== mailId)
                 )
+                // navigate('/mail')
             })
             .catch(err => {
                 console.log(err)
@@ -61,6 +64,20 @@ export function MailIndex() {
         setStarredCount(starredMails)
     }
 
+    function onToggleReadStatus(mailId, ev) {
+        ev.stopPropagation()
+        const updatedMails = mails.map(mail =>
+            mail.id === mailId ? { ...mail, isRead: !mail.isRead } : mail)
+        setMails(updatedMails)
+
+        const redeStatusMails = updatedMails.filter(mail => mail.isRead).length
+        setUnreadCount(redeStatusMails)
+    }
+
+    function onReplyClick(mailId, ev) {
+        ev.stopPropagation()
+        navigate(`/mail/edit/${mailId}`);
+    }
 
     const [isExpanded, setIsExpanded] = useState(false)
 
@@ -208,6 +225,8 @@ export function MailIndex() {
                 mails={mails}
                 onRemoveMail={onRemoveMail}
                 onToggleStarred={onToggleStarred}
+                onToggleReadStatus={onToggleReadStatus}
+                onReplyClick={onReplyClick}
             />
             <Outlet />
         </section>
