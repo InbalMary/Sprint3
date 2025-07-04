@@ -74,11 +74,6 @@ export function MailEdit() {
         navigate('/mail')
     }
 
-    function onDelete() {
-        clearInterval(idAutoSaveInterval)
-        console.log('Delete')
-    }
-
     function onSendMail() {
         clearInterval(idAutoSaveInterval)
         const updatedMail = { ...mailRef.current, sentAt: Date.now() }
@@ -94,6 +89,7 @@ export function MailEdit() {
     }
 
     function onDeleteMail() {
+        clearInterval(idAutoSaveInterval)
         const mailId = mailRef.current.id
         if (!mailId) showErrorMsg('Mail ID is missing, cannot remove mail.')
         mailService.remove(mailId)
