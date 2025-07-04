@@ -1,6 +1,6 @@
 
 import { mailService } from '../services/mail.service.js'
-// import { MailFilter } from "../cmps/MailFilter.jsx"
+// import { MailHeader } from "../cmps/MailHeader.jsx"
 import { MailList } from "../cmps/MailList.jsx"
 import { MailHeader } from "../cmps/MailHeader.jsx"
 import { MailSidebar } from "../cmps/MailSidebar.jsx"
@@ -76,7 +76,7 @@ export function MailIndex() {
             mail.id === mailId ? { ...mail, isRead: !mail.isRead } : mail)
         setMails(updatedMails)
 
-        const redeStatusMails = updatedMails.filter(mail => mail.isRead).length
+        const redeStatusMails = updatedMails.filter(mail => !mail.isRead).length
         setUnreadCount(redeStatusMails)
     }
 
@@ -99,7 +99,7 @@ export function MailIndex() {
                     unreadCount={unreadCount}
                     starredCount={starredCount}
                 />
-                {/* <MailFilter
+                {/* <MailHeader
                 defaultFilter={filterBy}
                 onSetFilter={onSetFilter}
             />
