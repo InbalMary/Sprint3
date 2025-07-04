@@ -1,0 +1,48 @@
+.mail-header {
+    display: flex;
+    align-items: center;
+    padding: 0.5em 1em;
+    background-color: var(--mail-inbox-bg);
+    gap: 1.5em;
+}
+
+.mail-header .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    width: 80px;
+}
+
+.mail-header .search-bar {
+    display: flex;
+    align-items: center;
+    background-color: var(--mail-sidebar-bg);
+    border-radius:40px;
+    padding: 0.4em 1em;
+    flex: 1;
+    max-width: 600px;
+}
+
+.mail-header .search-bar input {
+    border: none;
+    background: transparent;
+    outline: none;
+    padding: 0.4em;
+    font-size: 14px;
+    flex: 1;
+}
+
+.mail-header .search-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0.5em;
+    color: var(--mail-body);
+    cursor: pointer;
+}
+
+.mail-header .search-icon svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
