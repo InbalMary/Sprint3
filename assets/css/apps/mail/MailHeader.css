@@ -1,4 +1,4 @@
-.mail-filter {
+.mail-header {
     display: flex;
     align-items: center;
     padding-block: 0.5em;
@@ -6,18 +6,18 @@
     gap: 0.5em;
 }
 
-.mail-filter > :first-child {
+.mail-header > :first-child {
     margin-inline-start: 1em;
 }
 
-.mail-filter .logo {
+.mail-header .logo {
     display: flex;
     align-items: center;
     gap: 0.75em;
     width: 80px;
 }
 
-.mail-filter .search-bar {
+.mail-header .search-bar {
     display: flex;
     align-items: center;
     background-color: var(--mail-sidebar-bg);
@@ -27,7 +27,7 @@
     max-width: 500px;
 }
 
-.mail-filter .search-bar input {
+.mail-header .search-bar input {
     border: none;
     background: transparent;
     outline: none;
@@ -36,7 +36,7 @@
     flex: 1;
 }
 
-.mail-filter .search-icon {
+.mail-header .search-icon {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -45,7 +45,7 @@
     cursor: pointer;
 }
 
-.mail-filter .search-icon svg {
+.mail-header .search-icon svg {
     width: 20px;
     height: 20px;
     fill: currentColor;
