@@ -6,6 +6,10 @@
     flex-direction: column;
     margin-block: 1em;
     padding-top: 2rem;
+    width: 100%;
+    border-radius: 1em;
+    margin-inline-end: 0.5em;
+    color: var(--mail-details-txt-color);
 }
 
 .mail-details header {
@@ -22,13 +26,13 @@
 }
 
 
-.mail-details .actions-buttons {
+.mail-details button {
     display: flex;
     gap: 1em;
     flex-direction: row;
 }
 
-.mail-details .actions-buttons svg {
+.mail-details svg {
     fill: var(--mail-body);
 }
 
@@ -36,15 +40,30 @@
     background: transparent;
     border: none;
     cursor: pointer;
+    border-radius: 50%;
+    padding: 0.375em 0.5em;
 }
 
-.mail-details .actions-buttons button:hover {
+.mail-details button:hover {
     background: var(--mail-star-bg);
     transform: scale(1.1);
 }
 
 .mail-details h4 {
+    font-weight: 700;
+    font-size: 0.875em;
+}
+
+.mail-details h3 {
     font-weight: lighter;
+    font-size: 0.75em;
+    color: var(--mail-details-to-color);
+    margin-inline-start: 54px;
+}
+
+.mail-details h1 {
+    font-size: 1.375em;
+    text-align: center;
 }
 
 .mail-details h1,
@@ -56,4 +75,18 @@
     padding: 1em;
     background: var(--mail-body-bg);
     border-radius: 5px;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: justify;
+}
+
+.mail-details .name-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center; 
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: #b54444;
+    margin-inline-end: 1em;
 }

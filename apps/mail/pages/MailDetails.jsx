@@ -33,8 +33,8 @@ export function MailDetails() {
                 </button>
             </header>
             <h1>Subject: {subject}</h1>
-            <h4>From: {from}</h4>
-            <h4>To: {to}</h4>
+            <h4><span className="name-circle">{from.charAt(0)}</span>{from.split('@')[0]} <h3> To: {to}</h3></h4>
+            
             <p>{body}</p>
         </section>
     )
