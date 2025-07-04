@@ -1,0 +1,50 @@
+.new-note-container {
+    position: relative;
+    top: 10px;
+    display: flex;
+    flex-direction: column;
+    font-family: 'RobotoFlex', sans-serif;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .2);
+}
+
+.new-note-txt {
+    position: relative;
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-size: 1rem;
+    color: var(--notes-top-bar-icon-color);
+    cursor: text;
+}
+
+.new-note-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    padding: 10px;
+    color: var(--notes-top-bar-icon-color);
+    cursor: text;
+}
+
+/*new: when the element is empty show data-placeholder txt
+When the user types something, the element is no longer empty, 
+and this pseudo element disappears automatically.
+use::before to simulate placeholder text in contenteditable elements
+*/
+.new-note-title:empty::before,
+.new-note-txt:empty::before {
+    content: attr(data-placeholder);
+    position: absolute;
+    /* place the placeholder text exactly inside the editable element’s box.*/
+}
+
+.new-note-title:focus {
+    outline: none;
+    /*no focus*/
+}
+
+.save {
+    cursor: pointer;
+}

@@ -2,6 +2,7 @@ import { noteService } from '../services/note.service.js'
 // import { NoteFilter } from "../cmps/NoteFilter.jsx"
 import { NoteList } from "../cmps/NoteList.jsx"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
+import { NewNote } from '../cmps/NewNote.jsx'
 // import { getTruthyValues } from "../services/util.service.js"
 
 const { useState, useEffect } = React
@@ -39,6 +40,12 @@ export function NoteIndex() {
             })
     }
 
+    function onAddNote(newNote) {
+        noteService.save(newNote).then(() => {
+            loadNotes()
+        })
+    }
+
     function onSetFilter(filterBy) {
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy }))
     }
@@ -46,14 +53,14 @@ export function NoteIndex() {
     if (!notes) return <div>Loading...</div>
 
     return (
-        <section className="container">Notes app
+        <section className="container">
 
             <section className="note-index">
                 {/* <NoteFilter
                     defaultFilter={filterBy}
                     onSetFilter={onSetFilter}
                 /> */}
-
+                <NewNote onAddNote={onAddNote} />
                 <NoteList
                     notes={notes}
                     onRemoveNote={onRemoveNote}
