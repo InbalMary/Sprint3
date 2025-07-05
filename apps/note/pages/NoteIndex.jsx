@@ -40,10 +40,22 @@ export function NoteIndex() {
             })
     }
 
-    function onAddNote(newNote) {
-        noteService.save(newNote).then(() => {
-            loadNotes()
-        })
+    function onAddNote({ title, txt, style, isPinned }) {
+        const newNote = noteService.getEmptyNote(txt, style.backgroundColor)
+        newNote.info.title = title
+        newNote.info.txt = txt
+        newNote.style = style
+        // newNote.info.bgColor = bgColor
+        newNote.isPinned = isPinned
+
+        noteService.save(newNote)
+            .then(() => {
+                loadNotes()
+            })
+            .catch(err => {
+                console.log(err)
+                showErrorMsg('Problem adding note')
+            })
     }
 
     function onSetFilter(filterBy) {

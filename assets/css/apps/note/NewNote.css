@@ -9,7 +9,7 @@
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     box-shadow: 0 3px 5px rgba(0, 0, 0, .2);
-    overflow: hidden;
+    overflow: visible;
 }
 
 .new-note-txt {
@@ -109,6 +109,44 @@ use::before to simulate placeholder text in contenteditable elements
 }
 
 .new-note-footer {
+    position: relative;
     display: flex;
     justify-content: space-between;
+    /* background-color: rgba(0, 0, 0, 0.1);
+    height: 50px; */
+    overflow: visible;
+
+}
+
+.colors-container {
+    display: flex;
+    gap: 1.5px;
+}
+
+.shade {
+    border: rgb(228, 220, 220) 1px solid;
+    border-radius: 50%;
+    padding: 5px;
+    margin: 5px;
+    min-height: 30px;
+    min-width: 30px;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: .2s border-width;
+
+}
+
+.color-picker-popup {
+    position: absolute;
+    display: flex;
+    top: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
+    padding: 8px 9px 3px;
+    border-radius: 10px 10px 0 0;
+    border: 1px solid #e0e0e0;
+    background: #fff;
+    z-index: 100;
 }
