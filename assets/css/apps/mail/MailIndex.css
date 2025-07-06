@@ -7,7 +7,7 @@
  }
 
  .sidebar-icon-bar {
-     width: 80px;
+     min-width: 100px;
      background-color: var(--mail-main-bg);
      height: 100vh;
      position: sticky;
@@ -112,7 +112,7 @@
  .mail-index .compose {
      background: var(--mail-compose-bg);
      color: var(--mail-sidebar-selected-color);
-     border-radius: 1em;
+     border-radius: 0.5em;
      margin-block-end: 2em;
      transition: box-shadow .08s linear, min-width .15s cubic-bezier(0.4, 0, 0.2, 1);
      font-weight: 500;
@@ -127,9 +127,10 @@
  }
 
  .sidebar-expanded .compose {
-     width: 114.45px;
-     /* padding-inline-end: 24px;
-    margin-inline-start: 12px; */
+     max-width: 8.653125em;
+     height: 3.5em;
+     padding-inline-end: 1.5em;
+    /* margin-inline-start: 12px; */
  }
 
  .sidebar-expanded .sidebar-link .count {
