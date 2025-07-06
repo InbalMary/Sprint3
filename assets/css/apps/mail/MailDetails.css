@@ -54,7 +54,7 @@
     font-size: 0.875em;
 }
 
-.mail-details h3 {
+.mail-details .to {
     font-weight: lighter;
     font-size: 0.75em;
     color: var(--mail-details-to-color);
@@ -87,6 +87,7 @@
     height: 40px;
     width: 40px;
     border-radius: 50%;
-    background-color: #b54444;
+    background-color: #8771d4;
     margin-inline-end: 1em;
+    color: var(--mail-inbox-bg);
 }

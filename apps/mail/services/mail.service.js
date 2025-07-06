@@ -12,6 +12,7 @@ export const mailService = {
     getEmptyMail,
     getDefaultFilter,
     getFilterFromSearchParams,
+    removeMailToTrash
 }
 
 //For debug:
@@ -27,9 +28,44 @@ function query(filterBy = {}) {
         .then(mails => {
             if (filterBy.txt) {
                 const regExp = new RegExp(filterBy.txt, 'i')
-                mails = mails.filter(mail => regExp.test(mail.subject))
+                mails = mails.filter(mail => regExp.test(mail.subject)
+                    || regExp.test(mail.body) || regExp.test(mail.from)
+                    || regExp.test(mail.to))
             }
 
+            if (filterBy.isRead !== '') {
+                mails = mails.filter(mail => mail.isRead === filterBy.isRead)
+            }
+
+            if (filterBy.status) {
+                switch (filterBy.status) {
+                    case 'inbox':
+                        mails = mails.filter(mail =>
+                            mail.to === loggedinUser.email &&
+                            mail.removedAt === null)
+                        break
+                    case 'sent':
+                        mails = mails.filter(mail =>
+                            mail.from === loggedinUser.email &&
+                            mail.removedAt === null)
+                        break
+                    case 'starred':
+                        mails = mails.filter(mail =>
+                            mail.isStared &&
+                            mail.removedAt === null)
+                        break
+                    case 'trash':
+                        mails = mails.filter(mail =>
+                            mail.removedAt !== null)
+                        break
+                    case 'draft':
+                        mails = mails.filter(mail =>
+                            !mail.sentAt && mail.removedAt === null)
+                        break
+                    default:
+                        break
+                }
+            }
             return mails
         })
 }
@@ -68,12 +104,24 @@ function getEmptyMail(to = '', subject = '', body = '') {
 
 function getDefaultFilter() {
     return {
-        status: '',
+        status: 'inbox',
         txt: '',
-        isRead: null,
+        isRead: '',
         isStared: null,
         lables: []
     }
+}
+
+function removeMailToTrash(mailId) {
+    return get(mailId).then(mail => {
+        if (mail.status !== 'trash') {
+            mail.status = 'trash'
+            mail.removedAt = Date.now()
+            return save(mail)
+        } else {
+            return remove(mailId).then(() => null)
+        }
+    })
 }
 
 function _createMails() {
@@ -218,7 +266,8 @@ function getFilterFromSearchParams(searchParams) {
     const defaultFilter = getDefaultFilter()
     const filterBy = {}
     for (const field in defaultFilter) {
-        filterBy[field] = searchParams.get(field) || ''
+        const value = searchParams.get(field)
+        filterBy[field] = (value !== null) ? value : defaultFilter[field]
     }
     return filterBy
 }

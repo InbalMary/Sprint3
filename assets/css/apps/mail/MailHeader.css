@@ -3,18 +3,19 @@
     align-items: center;
     padding-block: 0.5em;
     background-color: var(--mail-main-bg);
-    gap: 0.5em;
+    gap: 0;
 }
 
-.mail-header > :first-child {
+/* .mail-header > :first-child {
     margin-inline-start: 1em;
-}
+} */
 
 .mail-header .logo {
     display: flex;
     align-items: center;
-    gap: 0.75em;
-    width: 80px;
+    gap: 0.5em;
+    width: 100px;
+    padding-inline-start: 1em;
 }
 
 .mail-header .search-bar {
@@ -25,6 +26,8 @@
     padding: 0.4em 1em;
     flex: 1;
     max-width: 500px;
+    margin-inline-end: 1em;
+    
 }
 
 .mail-header .search-bar input {

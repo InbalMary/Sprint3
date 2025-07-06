@@ -1,6 +1,5 @@
 
 import { mailService } from '../services/mail.service.js'
-// import { MailHeader } from "../cmps/MailHeader.jsx"
 import { MailList } from "../cmps/MailList.jsx"
 import { MailHeader } from "../cmps/MailHeader.jsx"
 import { MailSidebar } from "../cmps/MailSidebar.jsx"
@@ -62,15 +61,26 @@ export function MailIndex() {
     }
 
     function onToggleStarred(mailId) {
+        const mail = mails.find(mail => mail.id === mailId)
+        if (!mail) return
         const updatedMails = mails.map(mail =>
             mail.id === mailId ? { ...mail, isStared: !mail.isStared } : mail)
         setMails(updatedMails)
 
         const starredMails = updatedMails.filter(mail => mail.isStared).length
         setStarredCount(starredMails)
+
+        mailService.save({ ...mail, isStared: !mail.isStared })
+            .catch(err => {
+                console.log('Error updating starred status:', err)
+                showErrorMsg('Failed to update starred status')
+                loadMails()
+            })
     }
 
     function onToggleReadStatus(mailId, ev) {
+        const mail = mails.find(mail => mail.id === mailId)
+        if (!mail) return
         ev.stopPropagation()
         const updatedMails = mails.map(mail =>
             mail.id === mailId ? { ...mail, isRead: !mail.isRead } : mail)
@@ -78,6 +88,13 @@ export function MailIndex() {
 
         const redeStatusMails = updatedMails.filter(mail => !mail.isRead).length
         setUnreadCount(redeStatusMails)
+
+        mailService.save({ ...mail, isRead: !mail.isRead })
+            .catch(err => {
+                console.log('Error updating read status:', err)
+                showErrorMsg('Failed to update read status')
+                loadMails()
+            })
     }
 
     function onReplyClick(mailId, ev) {
@@ -93,11 +110,15 @@ export function MailIndex() {
 
     return (
         <Fragment>
-            <MailHeader />
+            <MailHeader
+                defaultFilter={filterBy}
+                onSetFilter={onSetFilter} />
             <section className="mail-index">
                 <MailSidebar
                     unreadCount={unreadCount}
                     starredCount={starredCount}
+                    currentFilter={filterBy}
+                    onSetFilter={onSetFilter}
                 />
                 {/* <MailHeader
                 defaultFilter={filterBy}
