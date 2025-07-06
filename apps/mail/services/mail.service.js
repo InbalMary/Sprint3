@@ -12,7 +12,8 @@ export const mailService = {
     getEmptyMail,
     getDefaultFilter,
     getFilterFromSearchParams,
-    removeMailToTrash
+    removeMailToTrash,
+    formatMailTimestamp
 }
 
 //For debug:
@@ -247,6 +248,135 @@ function _createMails() {
                 from: 'webinars@events.com',
                 to: 'user@appsus.com',
                 isStared: true
+            },
+            {
+                id: 'e111',
+                createdAt: 1681862160000,  // 2023-04-19
+                subject: 'Your Dream Vacation Package - Mediterranean Cruise Adventure Awaits!',
+                body: `Dear Alex,
+
+Greetings from the Wanderlust Travel Agency! I hope this email finds you planning your next amazing adventure.
+
+I'm reaching out with incredible news - we've just secured exclusive access to one of the most sought-after Mediterranean cruise experiences for this summer, and I immediately thought of you given your interest in European travel that you mentioned during our last conversation.
+
+**🚢 EXCLUSIVE MEDITERRANEAN ODYSSEY CRUISE 🚢**
+
+**Cruise Details:**
+• **Ship**: Royal Caribbean's Symphony of the Seas (One of the world's largest cruise ships!)
+• **Duration**: 12 days, 11 nights
+• **Departure**: July 15th, 2023 from Barcelona, Spain
+• **Return**: July 27th, 2023 to Rome, Italy
+• **Cabin**: Balcony Suite with Ocean View (Deck 9)
+
+**Your Incredible Itinerary:**
+🇪🇸 **Day 1-2: Barcelona, Spain**
+- Explore Gaudí's architectural masterpieces
+- Stroll through the Gothic Quarter
+- Experience the vibrant nightlife of Las Ramblas
+
+🇫🇷 **Day 3-4: Nice & Cannes, France**
+- Discover the glamorous French Riviera
+- Optional excursion to Monaco and Monte Carlo
+- Visit the famous Cannes Film Festival location
+
+🇮🇹 **Day 5-6: Rome & Florence, Italy**
+- Guided tour of the Colosseum and Vatican City
+- Day trip to Florence to see Michelangelo's David
+- Authentic Italian cooking class included
+
+🇬🇷 **Day 7-8: Santorini & Mykonos, Greece**
+- Witness the world-famous Santorini sunset
+- Explore the charming windmills of Mykonos
+- Swimming in crystal-clear Aegean waters
+
+🇹🇷 **Day 9-10: Istanbul, Turkey**
+- Visit the magnificent Hagia Sophia and Blue Mosque
+- Explore the Grand Bazaar for unique souvenirs
+- Traditional Turkish bath experience
+
+🇭🇷 **Day 11: Dubrovnik, Croatia**
+- Walk the ancient city walls
+- Game of Thrones filming location tour
+- Kayaking around the stunning coastline
+
+**What's Included in Your Package:**
+✅ All meals (5 restaurants, 24/7 room service)
+✅ All guided shore excursions mentioned above
+✅ Onboard entertainment (Broadway shows, live music, comedy clubs)
+✅ All port taxes and fees
+✅ Complimentary Wi-Fi throughout the cruise
+✅ Spa credit worth $200
+✅ Specialty dining package ($150 value)
+✅ Unlimited beverage package (alcoholic & non-alcoholic)
+✅ Gratuities for all staff
+✅ Travel insurance with medical coverage
+
+**Ship Amenities & Activities:**
+🏊‍♀️ Multiple pools and waterslides
+🎭 Theater with Broadway-style productions
+🍽️ 15+ dining venues including specialty restaurants
+🎰 Casino and gaming lounge
+🧘‍♀️ World-class spa and fitness center
+🛍️ Duty-free shopping promenade
+🎵 Live music venues and dance clubs
+🏀 Sports deck with basketball and mini golf
+🧗‍♀️ Rock climbing wall and surf simulator
+
+**Special Exclusive Offer - Limited Time Only:**
+**Original Price**: $4,299 per person
+**Your Exclusive Price**: $2,899 per person (Save $1,400!)
+**For Couples**: Book for two and save an additional $300 (Total savings: $3,100!)
+
+**Payment Options:**
+• Full payment: Additional 3% discount
+• Monthly payments: 6 months, 0% interest
+• Deposit: Just $500 to secure your spot
+
+**Why Book This Cruise:**
+This isn't just a vacation - it's a once-in-a-lifetime experience that combines the luxury of a floating resort with the cultural richness of 8 different countries. You'll wake up in a new destination almost every day, with no need to pack and unpack or worry about transportation between cities.
+
+Our previous clients have described this cruise as "absolutely life-changing" and "the best vacation we've ever taken." The ship's size means you'll never feel crowded, and there's literally something for everyone - from quiet deck spaces for reading to thrilling entertainment and adventures in every port.
+
+**What Our Clients Say:**
+"This cruise exceeded every expectation. The food was incredible, the staff was amazing, and seeing 8 countries in 12 days was a dream come true!" - Jennifer & Mark, Previous Guests
+
+**Limited Availability:**
+I need to be honest with you - we only have 6 cabins left at this exclusive rate, and they're selling fast. Three were booked just yesterday! Given the incredible value and the peak summer timing, I expect these last few cabins to be gone within the next 72 hours.
+
+**Next Steps:**
+I'd love to hop on a quick 15-minute call to answer any questions you might have and walk you through the booking process. I'm available tomorrow (Wednesday) between 10 AM - 4 PM, or Thursday morning.
+
+Alternatively, if you're ready to secure your spot, I can send you the booking link right now - it takes just 5 minutes to complete, and you'll receive instant confirmation.
+
+**Contact Information:**
+📧 Email: jessica.martinez@wanderlusttravel.com
+📞 Direct Phone: +1-555-CRUISE-1 (555-278-4731)
+📱 WhatsApp: +1-555-278-4731
+🌐 Website: www.wanderlusttravel.com/mediterranean-cruise
+
+I'm also attaching some stunning photos from previous cruises and a detailed deck plan so you can see exactly what awaits you!
+
+Don't let this incredible opportunity sail away - literally! I've seen too many clients regret waiting on deals like this.
+
+Looking forward to helping you create memories that will last a lifetime!
+
+Warm regards,
+
+Jessica Martinez
+Senior Travel Consultant & Mediterranean Cruise Specialist
+Wanderlust Travel Agency
+"Making Your Travel Dreams Come True Since 2010"
+
+P.S. If you book by Friday, I'll throw in a complimentary wine tasting excursion in Santorini (valued at $120 per person) as my personal thank you gift!
+
+---
+This email contains promotional offers valid until the dates specified. Terms and conditions apply. Please contact us for full details.`,
+                isRead: false,
+                sentAt: 1681943160000,  // 2023-04-19
+                removedAt: null,
+                from: 'jessica.martinez@wanderlusttravel.com',
+                to: 'user@appsus.com',
+                isStared: false,
             }
         ]
 
@@ -285,5 +415,26 @@ function _setNextPrevMailId(mail) {
     })
 }
 
+function formatMailTimestamp(timestamp) {
+    const now = new Date()
+    const sentDate = new Date(timestamp)
 
+    const diffMs = now - sentDate
+    const diffMinutes = Math.floor(diffMs / 1000 / 60)
+    const diffHours = Math.floor(diffMinutes / 60)
+
+    const timeOptions = { hour: 'numeric', minute: '2-digit', hour12: true }
+    const timeString = sentDate.toLocaleTimeString('en-US', timeOptions)
+
+    if (diffHours < 24) {
+        if (diffHours >= 1) {
+            return `${timeString} (${diffHours} hour${diffHours > 1 ? 's' : ''} ago)`
+        } else {
+            return `${timeString} (${diffMinutes} minute${diffMinutes !== 1 ? 's' : ''} ago)`
+        }
+    } else {
+        const dateOptions = { month: 'short', day: 'numeric' }
+        return sentDate.toLocaleDateString('en-US', dateOptions)
+    }
+}
 

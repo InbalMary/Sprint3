@@ -53,3 +53,7 @@
     height: 20px;
     fill: currentColor;
 }
+
+.mail-header .search-bar:focus-within {
+    background-color: var(--mail-inbox-bg);
+}
