@@ -112,10 +112,7 @@ use::before to simulate placeholder text in contenteditable elements
     position: relative;
     display: flex;
     justify-content: space-between;
-    /* background-color: rgba(0, 0, 0, 0.1);
-    height: 50px; */
     overflow: visible;
-
 }
 
 .colors-container {
@@ -140,7 +137,7 @@ use::before to simulate placeholder text in contenteditable elements
 .color-picker-popup {
     position: absolute;
     display: flex;
-    top: 90%;
+    top: 100%;
     left: 50%;
     transform: translateX(-50%);
     box-shadow: 0 1px 4px rgba(0, 0, 0, .2);

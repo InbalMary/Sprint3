@@ -8,7 +8,6 @@ import { NewNote } from '../cmps/NewNote.jsx'
 const { useState, useEffect } = React
 const { Link, useSearchParams } = ReactRouterDOM
 
-
 export function NoteIndex() {
     const [notes, setNotes] = useState(null)
     const [searchParams, setSearchParams] = useSearchParams()
@@ -29,6 +28,7 @@ export function NoteIndex() {
     }
 
     function onRemoveNote(noteId) {
+        console.log('Removing note with id:', noteId)
         noteService.remove(noteId)
             .then(() => {
                 showSuccessMsg('Note was removed successfully!')
@@ -58,6 +58,22 @@ export function NoteIndex() {
             })
     }
 
+    function onColorChange(noteId, newColor) {
+        console.log('Changing color of note:', noteId, 'to', newColor)
+        noteService.get(noteId)
+            .then(note => {
+                note.style.backgroundColor = newColor
+                return noteService.save(note)
+            })
+            .then(() => {
+                loadNotes()
+            })
+            .catch(err => {
+                console.log('Error changing color:', err)
+                showErrorMsg('Could not change color')
+            })
+    }
+
     function onSetFilter(filterBy) {
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy }))
     }
@@ -66,7 +82,6 @@ export function NoteIndex() {
 
     return (
         <section className="container">
-
             <section className="note-index">
                 {/* <NoteFilter
                     defaultFilter={filterBy}
@@ -76,6 +91,7 @@ export function NoteIndex() {
                 <NoteList
                     notes={notes}
                     onRemoveNote={onRemoveNote}
+                    onColorChange={onColorChange}
                 />
             </section>
         </section>
