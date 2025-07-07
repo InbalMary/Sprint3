@@ -88,7 +88,7 @@
 }
 
 .time-cell {
-    max-width: 60px;
+    max-width: 100px;
     padding: 0.5em;
     text-align: right;
     white-space: nowrap;
@@ -116,10 +116,10 @@
 .action-buttons {
     display: flex;
     flex-direction: row;
-    gap: 1em;
+    gap: 0.2em;
     position: absolute;
     top: 50%;
-    right: 10px;
+    right: 5px;
     transform: translateY(-50%);
     opacity: 0;
     transition: opacity 0.3s ease;

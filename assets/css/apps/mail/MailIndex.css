@@ -56,7 +56,7 @@
      width: 232px;
      height: 100vh;
      background-color: var(--mail-main-bg);
-     z-index: 2;
+     z-index: 20;
      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
      padding-top: 10px;
 

@@ -115,7 +115,7 @@ export function MailEdit() {
                 onSendMail()
             }}>
                 <section className="header">
-                    <h4>New Message</h4>
+                    <h4>{mailId ? 'Reply ' : 'New '}Message</h4>
                     <button type="button" onClick={onClose} className="close-btn"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" /></svg></button>
                 </section>
 
@@ -141,7 +141,7 @@ export function MailEdit() {
                     />
                 </section>
 
-                <section className='form-row'>
+                <section className='form-row textarea-row'>
                     <label htmlFor="body"></label>
                     <textarea
                         onChange={handleChange}

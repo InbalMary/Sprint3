@@ -1,8 +1,9 @@
 .mail-edit {
     position: fixed;
-    bottom: 1em;
-    right: 1em;
-    width: 500px;
+    top: 113.6px;
+    left: 72px;
+    right: 0;
+    bottom: 0;
     border: 1px solid #ccc;
     border-radius: 0.5em;
     box-shadow: 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12), 0 5px 5px -3px rgba(0, 0, 0, .2);
@@ -85,10 +86,19 @@
     font-size: 0.875em;
 }
 
+.form-row.textarea-row {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
 .mail-edit textarea {
-    height: 150px;
+    flex: 1;
+    /* height: 150px; */
     resize: none;
     font-size: 0.8125em;
+    min-height: 5em;
+    width: 100%;
 }
 
 .mail-edit .actions {
@@ -118,14 +128,14 @@
     display: flex;
     align-items: center;
     gap: 0.5em;
-    margin: 0 1em;
+    padding: 0 1em;
 }
 
 .form-row:not(:last-of-type) {
     border-bottom: 1px solid var(--mail-star-empty);
 }
 
-@media (max-width: 480px) {
+/* @media (max-width: 480px) {
     .mail-edit {
         position: fixed;
         top: 0;
@@ -139,4 +149,4 @@
     .mail-edit form >*:last-child {
         margin-top: auto;
     }
-}
+} */

@@ -72,7 +72,7 @@ function query(filterBy = {}) {
 }
 
 function get(mailId) {
-    return storageService.get(MAIL_KEY, mailId).then(_setNextPrevMailId)
+    return storageService.get(MAIL_KEY, mailId)
 }
 
 function remove(mailId) {
