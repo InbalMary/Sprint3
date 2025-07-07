@@ -18,7 +18,7 @@ export function MailDetails() {
     const { subject, body, isStared, isRead, sentAt, from, to } = mail
 
     return (
-        <section className="mail-details container">
+        <section className="mail-details">
             {/* <pre>{JSON.stringify(mail, null, 2)}</pre> */}
             <header>
                 <button onClick={onBack} title="back">

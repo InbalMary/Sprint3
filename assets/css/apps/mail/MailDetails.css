@@ -3,10 +3,11 @@
     background-color: var(--mail-inbox-bg);
     margin-block: 1em;
     padding-top: 2rem;
-    width: 100%;
+    max-width: calc(100% - 0.5em);
     border-radius: 1em;
     margin-inline-end: 0.5em;
     color: var(--mail-details-txt-color);
+    overflow-x: hidden;
 }
 
 .mail-details header {
@@ -77,6 +78,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    min-width: 0;
 }
 
 .from-name {
@@ -89,6 +91,10 @@
     font-size: 12px;
     letter-spacing: normal;
     line-height: 20px;
+    text-overflow: ellipsis;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .sender-info {
@@ -103,18 +109,16 @@
 .right-actions {
     display: flex;
     align-items: center;
-    gap: 8px;
     flex-shrink: 0;
 }
 
 .left-side {
     display: flex;
     align-items: center;
-    gap: 8px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    flex-shrink: 1; 
+    flex-shrink: 1;
 }
 
 .timestamp {
@@ -132,6 +136,9 @@
     margin-inline-start: 72px;
     padding: 1em 0 1em 0;
     text-align: left;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    max-width: calc(100% - 72px);
 }
 
 .star-button {
