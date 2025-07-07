@@ -1,7 +1,7 @@
 import { noteService } from '../services/note.service.js'
 // import { NoteFilter } from "../cmps/NoteFilter.jsx"
 import { NoteList } from "../cmps/NoteList.jsx"
-import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
+import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { NewNote } from '../cmps/NewNote.jsx'
 // import { getTruthyValues } from "../services/util.service.js"
 

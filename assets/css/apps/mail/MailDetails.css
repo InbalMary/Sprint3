@@ -16,6 +16,7 @@
     justify-content: flex-start;
     align-items: center;
     margin-bottom: 1rem;
+    padding-inline: 0.2em;
 }
 
 .mail-details header button:first-child {
