@@ -1,8 +1,8 @@
 const { Link } = ReactRouterDOM
 const { useState, Fragment } = React
 
-export function MailSidebar({ unreadCount, starredCount, currentFilter, onSetFilter }) {
-    const [isExpanded, setIsExpanded] = useState(false)
+export function MailSidebar({ unreadCount, starredCount, currentFilter, onSetFilter, isExpanded, onToggleSidebar }) {
+    // const [isExpanded, setIsExpanded] = useState(false)
 
     function onFilter(status){
         onSetFilter({ ...currentFilter, status })
@@ -10,9 +10,9 @@ export function MailSidebar({ unreadCount, starredCount, currentFilter, onSetFil
     return (
         <Fragment>
             <nav className="sidebar-icon-bar"
-                onMouseEnter={() => setIsExpanded(true)}
-                onMouseLeave={() => setIsExpanded(false)}
-                onClick={() => setIsExpanded(prev => !prev)}>
+                onMouseEnter={() => onToggleSidebar(true)}
+                onMouseLeave={() => onToggleSidebar(false)}
+                onClick={() => onToggleSidebar('toggle')}>
 
                 <ul className="sidebar-menu">
                     <li className="sidebar-item compose">
@@ -68,8 +68,8 @@ export function MailSidebar({ unreadCount, starredCount, currentFilter, onSetFil
 
             {isExpanded && (
                 <div className={`sidebar-expanded ${isExpanded ? 'open' : ''}`}
-                    onMouseEnter={() => setIsExpanded(true)}
-                    onMouseLeave={() => setIsExpanded(false)}>
+                    onMouseEnter={() => onToggleSidebar(true)}
+                    onMouseLeave={() => onToggleSidebar(false)}>
                     <ul className="sidebar-menu">
                         <li className="sidebar-item compose">
                             <Link className="sidebar-link" to="/mail/edit">

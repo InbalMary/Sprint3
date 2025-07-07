@@ -16,6 +16,8 @@ export function MailIndex() {
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
     const [unreadCount, setUnreadCount] = useState(0)
     const [starredCount, setStarredCount] = useState(0)
+    const [isSidebarExpanded, setIsSidebarExpanded] = useState(false)
+
     const navigate = useNavigate()
     const location = useLocation()
 
@@ -106,19 +108,31 @@ export function MailIndex() {
         navigate(`/mail/${mailId}`)
     }
 
+    function handleToggleSidebar(action) {
+        if (action === 'toggle') {
+            setIsSidebarExpanded(prev => !prev)
+        } else if (typeof action === 'boolean') {
+            setIsSidebarExpanded(action)
+        }
+    }
+
     if (!mails) return <div className="loader">Loading...</div>
 
     return (
         <Fragment>
             <MailHeader
                 defaultFilter={filterBy}
-                onSetFilter={onSetFilter} />
+                onSetFilter={onSetFilter}
+                onToggleSidebar={() => handleToggleSidebar('toggle')}
+            />
             <section className="mail-index">
                 <MailSidebar
                     unreadCount={unreadCount}
                     starredCount={starredCount}
                     currentFilter={filterBy}
                     onSetFilter={onSetFilter}
+                    isExpanded={isSidebarExpanded}
+                    onToggleSidebar={handleToggleSidebar}
                 />
                 {/* <MailHeader
                 defaultFilter={filterBy}

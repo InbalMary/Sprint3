@@ -6,6 +6,30 @@
     gap: 0;
 }
 
+.hamburger-menu {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5em;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+    margin-inline-start: 1em;
+    color: var(--mail-body);
+}
+
+.hamburger-menu:hover {
+    background-color: var(--mail-sidebar-bg);
+}
+
+.hamburger-menu svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
 /* .mail-header > :first-child {
     margin-inline-start: 1em;
 } */
@@ -16,6 +40,14 @@
     gap: 0.5em;
     width: 100px;
     padding-inline-start: 1em;
+    margin-inline-end: 3em;
+}
+
+.mail-header .logo h4 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--mail-body);
 }
 
 .mail-header .search-bar {
@@ -39,6 +71,11 @@
     flex: 1;
 }
 
+.mail-header .search-bar input::placeholder {
+    color: var(--mail-body);
+    opacity: 0.7;
+}
+
 .mail-header .search-icon {
     display: flex;
     align-items: center;
@@ -49,11 +86,10 @@
 }
 
 .mail-header .search-icon svg {
-    width: 20px;
-    height: 20px;
     fill: currentColor;
 }
 
 .mail-header .search-bar:focus-within {
     background-color: var(--mail-inbox-bg);
 }
+

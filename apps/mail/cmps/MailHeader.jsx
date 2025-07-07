@@ -3,9 +3,14 @@ import { MailFilter } from "./MailFilter.jsx";
 const { Link } = ReactRouterDOM
 
 
-export function MailHeader({ defaultFilter, onSetFilter }) {
+export function MailHeader({ defaultFilter, onSetFilter, onToggleSidebar  }) {
     return (
         <header className="mail-header">
+            <button onClick={onToggleSidebar} className="hamburger-menu" aria-label="Main menu">
+                <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#5f6368">
+                    <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
+                </svg>
+            </button>
             <div className="logo">
                 <Link to="/mail">
                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="32" height="32" viewBox="0 0 48 48">
