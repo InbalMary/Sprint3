@@ -106,9 +106,10 @@ export function MailEdit() {
     if (!mail) return <div className="loader">Loading...</div>
 
     const { subject, body, isRead, sentAt, from, to } = mail
+    const isEditMode = mailId !== undefined
 
     return (
-        <section className="mail-edit ">
+        <section className={`mail-edit ${isEditMode ? 'expanded' : ''}`}>
 
             <form onSubmit={(ev) => {
                 ev.preventDefault()

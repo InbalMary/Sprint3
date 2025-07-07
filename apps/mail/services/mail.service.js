@@ -67,6 +67,26 @@ function query(filterBy = {}) {
                         break
                 }
             }
+            if (filterBy.sortBy) {
+                const dir = filterBy.sortDirection === 'asc' ? 1 : -1
+
+                mails = mails.toSorted((m1, m2) => {
+                    let val1 = m1[filterBy.sortBy]
+                    let val2 = m2[filterBy.sortBy]
+
+                    if (filterBy.sortBy === 'sentAt') {
+                        val1 = new Date(val1).getTime()
+                        val2 = new Date(val2).getTime()
+                        return (val1 - val2) * dir
+                    }
+
+                    if (typeof val1 === 'string' && typeof val2 === 'string') {
+                        return val1.localeCompare(val2) * dir
+                    }
+
+                    return (val1 - val2) * dir
+                })
+            }
             return mails
         })
 }

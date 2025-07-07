@@ -1,12 +1,22 @@
 .mail-header {
-    display: flex;
+    /* display: flex;
     align-items: center;
     padding-block: 0.5em;
     background-color: var(--mail-main-bg);
+    gap: 0; */
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+        "hamburger logo search"
+        "filters filters filters";
     gap: 0;
+    padding: 0.5em;
+    background-color: var(--mail-main-bg);
 }
 
 .hamburger-menu {
+    grid-area: hamburger;
     background: none;
     border: none;
     cursor: pointer;
@@ -16,8 +26,9 @@
     align-items: center;
     justify-content: center;
     transition: background-color 0.2s;
-    margin-inline-start: 1em;
+    /* margin-inline-start: 1em; */
     color: var(--mail-body);
+    align-self: center;
 }
 
 .hamburger-menu:hover {
@@ -35,12 +46,14 @@
 } */
 
 .mail-header .logo {
+    grid-area: logo;
     display: flex;
     align-items: center;
     gap: 0.5em;
     width: 100px;
-    padding-inline-start: 1em;
-    margin-inline-end: 3em;
+    padding-inline-start: 0.2em;
+    /* margin-inline-end: 3em; */
+    align-self: center;
 }
 
 .mail-header .logo h4 {
@@ -48,18 +61,29 @@
     font-size: 22px;
     font-weight: 400;
     color: var(--mail-body);
+    white-space: nowrap;
+}
+
+.search-container {
+    grid-area: search;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-inline-end: 1em;
 }
 
 .mail-header .search-bar {
     display: flex;
     align-items: center;
     background-color: var(--mail-sidebar-bg);
-    border-radius:40px;
+    border-radius: 40px;
     padding: 0.4em 1em;
-    flex: 1;
+    /* flex: 1; */
+    width: 100%;
     max-width: 500px;
-    margin-inline-end: 1em;
-    
+    min-width: 200px;
+    /* margin-inline-end: 1em; */
+
 }
 
 .mail-header .search-bar input {
@@ -93,3 +117,64 @@
     background-color: var(--mail-inbox-bg);
 }
 
+.more-filtration {
+    grid-area: filters;
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    padding-top: 0.5em;
+    padding-inline-start: 4em;
+}
+
+.more-filtration select,
+.more-filtration button {
+    padding: 0.4em 0.8em;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    background-color: var(--mail-sidebar-bg);
+    color: var(--mail-body);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.more-filtration button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.more-filtration button:focus,
+.more-filtration select:focus {
+    outline: none;
+    border-color: var(--mail-inbox-bg);
+}
+
+.more-filtration svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+@media (max-width: 480px) {
+    /* .mail-header {
+        grid-template-columns: auto 1fr;
+        grid-template-areas:
+            "hamburger search"
+            "logo logo"
+            "filters filters";
+    }
+
+    .logo {
+        justify-content: center;
+        padding: 0.5em 0;
+    } */
+
+    .search-bar {
+        min-width: 120px;
+    }
+
+    .more-filtration {
+        flex-wrap: wrap;
+        gap: 0.3em;
+    }
+}

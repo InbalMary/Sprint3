@@ -118,16 +118,24 @@ function formatTimestamp(timestamp) {
 
     const diffInMs = now - mailDate
     const oneDayInMs = 24 * 60 * 60 * 1000
+    const oneYearInMs = 365 * oneDayInMs
 
     if (diffInMs <= oneDayInMs) {
         return mailDate.toLocaleTimeString([], {
             hour: '2-digit',
             minute: '2-digit'
-        });
+        })
     }
 
-    return mailDate.toLocaleDateString('en-US', {
-        day: '2-digit',
-        month: 'long',
-    })
+    if (diffInMs <= oneYearInMs) {
+        mailDate.toLocaleDateString('en-US', {
+            day: '2-digit',
+            month: 'long',
+        })
+    }
+    const day = mailDate.getDate()
+    const month = mailDate.getMonth() + 1
+    const year = mailDate.getFullYear().toString().slice(-2)
+
+    return `${day}/${month}/${year}`
 }

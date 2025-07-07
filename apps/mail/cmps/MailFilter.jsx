@@ -28,6 +28,34 @@ export function MailFilter({ defaultFilter, onSetFilter }) {
         setFilterByToEdit(prevFilter => ({ ...prevFilter, [field]: value }))
     }
 
+    const toggleSort = (sortBy) => {
+        let newSortDirection = 'asc';
+
+        if (filterByToEdit.sortBy === sortBy) {
+            newSortDirection = filterByToEdit.sortDirection === 'asc' ? 'desc' : 'asc';
+        }
+
+        const updatedFilter = {
+            ...filterByToEdit,
+            sortBy,
+            sortDirection: newSortDirection
+        }
+
+        setFilterByToEdit(updatedFilter);
+    }
+
+    const clearAllFilters = () => {
+        const clearedFilter = {
+            txt: '',
+            isRead: '',
+            from: '',
+            subject: '',
+            sortBy: null,
+            sortDirection: 'asc'
+        }
+        setFilterByToEdit(clearedFilter);
+    }
+
     return (
         <Fragment>
             <div className="search-bar">
@@ -51,6 +79,37 @@ export function MailFilter({ defaultFilter, onSetFilter }) {
                     <option value="true">Read</option>
                     <option value="false">Unread</option>
                 </select>
+
+                <button
+                    className={`sort-button ${filterByToEdit.sortBy === 'sentAt' ? `active ${filterByToEdit.sortDirection}` : ''}`}
+                    onClick={() => toggleSort('sentAt')}
+                >{filterByToEdit.sortBy === 'sentAt' ? (
+                    filterByToEdit.sortDirection === 'asc' ? (
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M480-528 296-344l-56-56 240-240 240 240-56 56-184-184Z" /></svg>) :
+                        (<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" /></svg>)) : <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M480-528 296-344l-56-56 240-240 240 240-56 56-184-184Z" /></svg>
+                    }Date</button>
+
+                <button
+                    className={`sort-button ${filterByToEdit.sortBy === 'from' ? `active ${filterByToEdit.sortDirection}` : ''}`}
+                    onClick={() => toggleSort('from')}
+                >{filterByToEdit.sortBy === 'from' ? (
+                    filterByToEdit.sortDirection === 'asc' ? (
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M480-528 296-344l-56-56 240-240 240 240-56 56-184-184Z" /></svg>) :
+                        (<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" /></svg>)) : <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M480-528 296-344l-56-56 240-240 240 240-56 56-184-184Z" /></svg>
+                    }From</button>
+
+                <button
+                    className={`sort-button ${filterByToEdit.sortBy === 'subject' ? `active ${filterByToEdit.sortDirection}` : ''}`}
+                    onClick={() => toggleSort('subject')}
+                >{filterByToEdit.sortBy === 'subject' ? (
+                    filterByToEdit.sortDirection === 'asc' ? (
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M480-528 296-344l-56-56 240-240 240 240-56 56-184-184Z" /></svg>) :
+                        (<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" /></svg>)) : <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M480-528 296-344l-56-56 240-240 240 240-56 56-184-184Z" /></svg>
+                    }Subject</button>
+
+                <button className="clear-filters" onClick={clearAllFilters}>
+                    Clean all
+                </button>
             </div>
         </Fragment>
     )
