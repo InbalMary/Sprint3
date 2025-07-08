@@ -1,41 +1,76 @@
 import { ColorInput } from '../cmps/ColorInput.jsx'
 
-const { useState, useRef } = React
+const { useState, useEffect, useRef } = React
 
-export function NewNote({ onAddNote }) {
-    const [isPinned, setIsPinned] = useState(false)
-    const [cmpType, setCmpType] = useState('color') //setCmpType for later use for image/video/text
-    const [noteStyle, setNoteStyle] = useState({ backgroundColor: '#ffffff' })
-    const [isColorInputOpen, setIsColorInputOpen] = useState(false)
-
-    const titleRef = useRef() //creates a ref obj and assigns it to titleRef. it will later refer to the DOM element of title
+export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle }) {
+    const titleRef = useRef()
     const txtRef = useRef()
-    const bgColorRef = useRef()
 
-    function onSetNoteStyle(newStyle) {
+    const [isPinned, setIsPinned] = useState(false)
+    const [noteStyle, setNoteStyle] = useState({ backgroundColor: '#ffffff' })
+    const [isColorInputOpen, setIsColorInputOpen] = useState(false);
+    const [cmpType, setCmpType] = useState('color')
+
+    const isEdit = note && note.id ? true : false //editing or creating
+
+
+    useEffect(() => {
+        if (isEdit) {
+            setIsPinned(note.isPinned)
+            setNoteStyle(note.style || { backgroundColor: '#ffffff' })
+            titleRef.current.innerText = note.info.title || ''
+            txtRef.current.innerText = note.info.txt || ''
+            // Set cursor focus immediately to txt
+            txtRef.current.focus()
+        } else {
+            // Reset for new note
+            setIsPinned(false)
+            setNoteStyle({ backgroundColor: '#ffffff' })
+            if (titleRef.current) titleRef.current.innerText = ''
+            if (txtRef.current) txtRef.current.innerText = ''
+            setIsColorInputOpen(false)
+        }
+    }, [note, isEdit])  // Run effect when note data or edit mode changes
+
+    function handleSetNoteStyle(newStyle) {
         console.log('newStyle:', newStyle)
-        setNoteStyle(prevStyle => ({
-            ...prevStyle, ...newStyle
-        }))
+        setNoteStyle(prevStyle => {
+            const updatedStyle = { ...prevStyle, ...newStyle }
+            if (onSetNoteStyle) onSetNoteStyle(updatedStyle) //notify parent
+            return updatedStyle
+        })
+    }
+
+    function toggleColorInput() {
+        console.log('toggleColorInput called')
+        setIsColorInputOpen(prev => !prev)
     }
 
     function handleSave() {
-        const title = titleRef.current.innerText // get text content from title div
-        const txt = txtRef.current.innerText
-        const bgColor = noteStyle.backgroundColor || 'white'
-        console.log('Saving note:', title, txt, bgColor)
-        onAddNote({
-            title,
-            txt,
-            style: { backgroundColor: noteStyle.backgroundColor },
-            isPinned
-        })
-        //reset:
-        titleRef.current.innerText = ''
-        txtRef.current.innerText = ''
-        setNoteStyle({ backgroundColor: 'white' })
-        setIsPinned(false)
-        toggleColorInput()
+        const title = titleRef.current.innerText || '' // get text content from title div
+        const txt = txtRef.current.innerText || ''
+
+        if (isEdit) {
+            onSave({
+                noteId: note.id,
+                title,
+                txt,
+                style: noteStyle,
+                isPinned
+            }, onClose)
+        } else {
+            onAddNote({
+                title,
+                txt,
+                style: noteStyle,
+                isPinned
+            })
+            //reset:
+            titleRef.current.innerText = ''
+            txtRef.current.innerText = ''
+            setNoteStyle({ backgroundColor: 'white' })
+            setIsPinned(false)
+        }
     }
 
     function DynamicCmp(props) {
@@ -47,22 +82,31 @@ export function NewNote({ onAddNote }) {
         return dynamicCmpMap[props.cmpType]
     } // returns the component to be rendered.
 
-    function toggleColorInput() {
-        console.log('toggleColorInput called')
-        setIsColorInputOpen(prev => !prev)
+    function handleInput(ev) { //if user deletes typed text, placeholder returns
+        const elInput = ev.target
+        if (elInput.textContent.trim() === '') {
+            elInput.classList.add('empty')
+        } else {
+            elInput.classList.remove('empty')
+        }
     }
-
     return (
-        <div className="new-note-container" ref={bgColorRef} style={{ ...noteStyle, position: 'relative' }}>
-            <div ref={titleRef}
-                className="new-note-title"
+        <div className={`note-base ${isEdit ? 'note-editor' : 'new-note-container'}`} style={noteStyle}>
+            <div
+                ref={titleRef}
+                className={`note-editable note-title ${!isEdit && 'empty'}`}
                 contentEditable="true"
-                data-placeholder="Title">
+                data-placeholder="Title"
+                suppressContentEditableWarning={true}
+                onInput={handleInput}>
             </div>
-            <p ref={txtRef}
-                className="new-note-txt"
+            <p
+                ref={txtRef}
+                className={`note-editable note-text ${!isEdit && 'empty'}`}
                 contentEditable="true"
-                data-placeholder="Take a note...">
+                data-placeholder="Take a note..."
+                suppressContentEditableWarning={true}
+                onInput={handleInput}>
             </p>
             <span className="note-pin">
                 {/* <span className={`note-pin ${isPinned ? 'active' : ''}`}> */}
@@ -72,8 +116,8 @@ export function NewNote({ onAddNote }) {
                 </svg>
             </span>  {/*add pin functionality later*/}
 
-            <div className="new-note-footer">
-                <div className="new-note-toolbar">
+            <div className="note-footer">
+                <div className="note-toolbar">
                     <button className="formatting btn">
                         <svg xmlns="http://www.w3.org/2000/svg"
                             height="24px" viewBox="0 -960 960 960" width="24px"
@@ -136,11 +180,14 @@ export function NewNote({ onAddNote }) {
                 </div>
                 {isColorInputOpen && (
                     <div className="color-picker-popup">
-                        <DynamicCmp cmpType={cmpType} onSetNoteStyle={onSetNoteStyle} />
+                        <DynamicCmp cmpType={cmpType} onSetNoteStyle={handleSetNoteStyle} />
+
                     </div>
                 )}
-                <button className="save btn" onClick={handleSave}>Save</button>
+                <button className="save btn" onClick={handleSave}>Close</button>
             </div>
         </div>
+
     )
+
 }

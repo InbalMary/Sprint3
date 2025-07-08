@@ -1,0 +1,174 @@
+/* NoteForm.css - shared styles for note components */
+
+.note-base {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 580px;
+    font-family: 'RobotoFlex', sans-serif;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .2);
+    margin: 20px auto;
+    overflow: visible;
+    border: 1px solid #e0e0e0;
+    padding-top: 4px;
+}
+
+/* Shared editable behavior */
+.note-editable {
+    position: relative;
+    color: var(--notes-top-bar-icon-color);
+    background-color: inherit;
+    cursor: text;
+    line-height: 1.38;
+    margin: 0;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.new-note-container {
+    width: 100%;
+    max-width: 580px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.new-note-container .note-pin {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Title-specific */
+.note-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    padding: 16px 16px 0;
+    min-height: 32px;
+}
+
+/* Text-specific */
+.note-text {
+    font-size: 1rem;
+    padding: 12px 16px;
+    margin-top: 0;
+    min-height: 26px;
+    overflow-wrap: break-word;
+}
+
+.note-footer {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    overflow: visible;
+    margin-top: 5px;
+    padding: 0 8px;
+    flex-shrink: 0;
+    /* Prevent footer from shrinking */
+}
+
+.note-toolbar {
+    display: flex;
+    flex-direction: row;
+    padding: 5px 0;
+    gap: 8px;
+}
+
+.note-toolbar button {
+    display: flex;
+    flex: 1 0 auto;
+    width: 34px;
+    height: 34px;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    cursor: pointer;
+    color: var(--notes-sidebar-icon-color-active);
+    opacity: 0.8;
+    padding: 0;
+    transition: background-color 0.2s ease;
+}
+
+.note-toolbar button svg {
+    width: 18px;
+    height: 18px;
+}
+
+.note-toolbar button:hover {
+    background-color: var(--notes-sidebar-icon-bg-hover);
+}
+
+.colors-container {
+    display: flex;
+    gap: 1.5px;
+}
+
+.shade {
+    border: rgb(228, 220, 220) 1px solid;
+    border-radius: 50%;
+    padding: 5px;
+    margin: 5px;
+    min-height: 30px;
+    min-width: 30px;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: .2s border-width;
+
+}
+
+.color-picker-popup {
+    position: absolute;
+    display: flex;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
+    padding: 8px 9px 3px;
+    border-radius: 10px 10px 0 0;
+    border: 1px solid #e0e0e0;
+    background: #fff;
+    z-index: 1001;
+}
+
+.save {
+    position: relative;
+    align-self: flex-end;
+    width: auto;
+    border: 1px solid transparent;
+    background-color: transparent;
+    font-family: 'RobotoFlex', sans-serif;
+    font-weight: 500;
+    font-size: .875rem;
+    letter-spacing: .03em;
+    color: rgba(0, 0, 0, 0.87);
+    padding: 8px 24px;
+    height: 36px;
+    line-height: 1.25rem;
+    margin: 0px 15px 5px 0px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.save:hover {
+    background-color: var(--notes-sidebar-icon-bg-hover);
+}
+
+.note-title.empty::before,
+.note-text.empty::before {
+    content: attr(data-placeholder);
+    position: absolute;
+    /* place the placeholder text exactly inside the editable element’s box.*/
+    top: 16px;
+    left: 16px;
+}
+
+.note-title:focus {
+    outline: none;
+}

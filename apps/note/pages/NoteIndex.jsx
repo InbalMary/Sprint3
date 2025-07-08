@@ -1,8 +1,8 @@
 import { noteService } from '../services/note.service.js'
 // import { NoteFilter } from "../cmps/NoteFilter.jsx"
 import { NoteList } from "../cmps/NoteList.jsx"
-import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
-import { NewNote } from '../cmps/NewNote.jsx'
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
+import { NoteForm } from '../cmps/NoteForm.jsx'
 // import { getTruthyValues } from "../services/util.service.js"
 
 const { useState, useEffect } = React
@@ -12,6 +12,7 @@ export function NoteIndex() {
     const [notes, setNotes] = useState(null)
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterBy, setFilterBy] = useState(noteService.getFilterFromSearchParams(searchParams))//if it's in url it's seen in the input and filtered results (one way data binding)
+    const [editedNoteId, setEditedNoteId] = useState(null) //track which note is being edited
 
     useEffect(() => {
         loadNotes()
@@ -45,7 +46,6 @@ export function NoteIndex() {
         newNote.info.title = title
         newNote.info.txt = txt
         newNote.style = style
-        // newNote.info.bgColor = bgColor
         newNote.isPinned = isPinned
 
         noteService.save(newNote)
@@ -55,6 +55,28 @@ export function NoteIndex() {
             .catch(err => {
                 console.log(err)
                 showErrorMsg('Problem adding note')
+            })
+    }
+
+    function onEditNote({ noteId, title, txt, style, isPinned }, onClose) {
+        noteService.get(noteId)
+            .then(noteToEdit => {
+                noteToEdit.info.title = title
+                noteToEdit.info.txt = txt
+                noteToEdit.style = style
+                noteToEdit.isPinned = isPinned
+
+                return noteService.save(noteToEdit)
+            })
+            .then(() => {
+                console.log('setting editedNoteId to null')
+                setEditedNoteId(null)
+                loadNotes()
+                if (onClose) onClose()
+            })
+            .catch(err => {
+                console.log(err)
+                showErrorMsg('Problem editing note')
             })
     }
 
@@ -87,12 +109,35 @@ export function NoteIndex() {
                     defaultFilter={filterBy}
                     onSetFilter={onSetFilter}
                 /> */}
-                <NewNote onAddNote={onAddNote} />
+                <NoteForm onAddNote={onAddNote} />
                 <NoteList
                     notes={notes}
                     onRemoveNote={onRemoveNote}
                     onColorChange={onColorChange}
+                    editedNoteId={editedNoteId}
+                    setEditedNoteId={setEditedNoteId}
+                    onEditNote={onEditNote}
                 />
+                {editedNoteId && (
+                    <div className="editor-overlay" onClick={() => setEditedNoteId(null)}>
+                        <div onClick={ev => ev.stopPropagation()}
+                            style={{
+                                width: '100%',
+                                maxWidth: '580px',
+                                display: 'flex',
+                                flexDirection: 'column'
+                            }}>
+                            <NoteForm
+                                note={notes.find(note => note.id === editedNoteId)}
+                                onSave={onEditNote}
+                                onClose={() => setEditedNoteId(null)}
+                                onSetNoteStyle={(style) => {
+                                    onColorChange(editedNoteId, style.backgroundColor)
+                                }}
+                            />
+                        </div>
+                    </div>
+                )}
             </section>
         </section>
     )
