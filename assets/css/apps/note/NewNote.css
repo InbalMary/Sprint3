@@ -28,6 +28,7 @@
     font-size: 1.25rem;
     font-weight: 500;
     padding: 16px 16px 0px;
+    margin-bottom: 2px;
     color: var(--notes-top-bar-icon-color);
     cursor: text;
 }
@@ -113,6 +114,7 @@ use::before to simulate placeholder text in contenteditable elements
     display: flex;
     justify-content: space-between;
     overflow: visible;
+    margin-top: 5px;
 }
 
 .colors-container {

@@ -5,7 +5,7 @@ import { ColorInput } from "./ColorInput.jsx";
 const { Link } = ReactRouterDOM
 const { useState } = React
 
-export function NoteList({ notes, onRemoveNote, onColorChange }) {
+export function NoteList({ notes, onRemoveNote, onColorChange, onEditNote, editedNoteId, setEditedNoteId }) {
     const [openColorPickerId, setOpenColorPickerId] = useState(null)
     if (!notes.length) return <div>No Notes To Show...</div>
 
@@ -16,19 +16,32 @@ export function NoteList({ notes, onRemoveNote, onColorChange }) {
             setOpenColorPickerId(noteId)
         }
     }
-
+    //add later stop propagation
     return (
         <div className="note-grid">
             {notes.map(note =>
                 <article key={note.id} className={`note-card ${openColorPickerId === note.id ? 'color-picker-open' : ''}`}
-                    style={note.style}>
+                    style={note.style}
+                    onClick={() => setEditedNoteId(note.id)}
+                >
                     <div className="note-card-inner">
-                        <NotePreview note={note} />
+                        <NotePreview
+                            note={note}
+                            onEditNote={onEditNote}
+                            isEditing={editedNoteId === note.id}
+                            onSelectNote={() => setEditedNoteId(note.id)}
+                        />
                         {/*render NotePreview cmp, passing curr note obj as a prop for display*/}
 
                         <NoteActions
-                            onRemove={() => onRemoveNote(note.id)}
-                            toggleColorPicker={() => toggleColorPicker(note.id)}
+                            onRemove={(ev) => {
+                                ev.stopPropagation()
+                                onRemoveNote(note.id)
+                            }}
+                            toggleColorPicker={(ev) => {
+                                ev.stopPropagation()
+                                toggleColorPicker(note.id)
+                            }}
                             isColorInputOpen={openColorPickerId === note.id}
                         />
                     </div>
@@ -39,7 +52,6 @@ export function NoteList({ notes, onRemoveNote, onColorChange }) {
                             />
                         </div>
                     )}
-
                 </article>
             )}
         </div>

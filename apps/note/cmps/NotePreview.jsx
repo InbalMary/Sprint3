@@ -1,6 +1,15 @@
 
-export function NotePreview({ note }) {
+import { NoteEditor } from './NoteEditor.jsx'
+const { useState, Fragment } = React
+
+export function NotePreview({ note, onEditNote }) {
     const { info, style, isPinned, type } = note
+    const [isEditing, setIsEditing] = useState(false)
+
+    function handleSave(noteData) {
+        onEditNote(noteData)
+        setIsEditing(false)
+    }
 
     return (
         <article className="note-preview" style={style}>
@@ -11,8 +20,19 @@ export function NotePreview({ note }) {
                 </svg>
             </span>
 
-            <h3>{info.title || 'Title'}</h3>
-            <p>{info.txt || 'Take a note...'}</p>
+            {isEditing ? (
+                <NoteEditor
+                    note={note}
+                    onSave={handleSave}
+                    onClose={() => setIsEditing(false)}
+                />
+            ) : (
+                <Fragment>
+                    <h3>{info.title || 'Title'}</h3>
+                    <p>{info.txt || 'Take a note...'}</p>
+                </Fragment>
+            )}
         </article>
     )
 }
+

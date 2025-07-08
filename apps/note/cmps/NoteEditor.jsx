@@ -1,45 +1,39 @@
 import { ColorInput } from '../cmps/ColorInput.jsx'
-import { noteService } from '../services/note.service.js'
-import { NoteEditor } from './NoteEditor.jsx'
 
-const { useState, useRef } = React
-
-export function NewNote({ onAddNote }) {
-    const [isPinned, setIsPinned] = useState(false)
-    const [cmpType, setCmpType] = useState('color') //setCmpType for later use for image/video/text
-    const [noteStyle, setNoteStyle] = useState({ backgroundColor: '#ffffff' })
-    const [isColorInputOpen, setIsColorInputOpen] = useState(false)
-
-    const titleRef = useRef() //creates a ref obj and assigns it to titleRef. it will later refer to the DOM element of title
+const { useState, useEffect, useRef } = React
+export function NoteEditor({ note, onSave, onClose, onSetNoteStyle }) {
+    const titleRef = useRef()
     const txtRef = useRef()
-    const bgColorRef = useRef()
+    const [isPinned, setIsPinned] = useState(false)
+    const [noteStyle, setNoteStyle] = useState({ backgroundColor: '#ffffff' })
+    const [isColorInputOpen, setIsColorInputOpen] = useState(false);
+    const [cmpType, setCmpType] = useState('color')
 
-    function onSetNoteStyle(newStyle) {
-        console.log('newStyle:', newStyle)
-        setNoteStyle(prevStyle => ({
-            ...prevStyle, ...newStyle
-        }))
-    }
+    useEffect(() => {
+        if (note) {
+            setIsPinned(note.isPinned)
+            setNoteStyle(note.style || { backgroundColor: '#ffffff' })
+            titleRef.current.innerText = note.info.title || ''
+            txtRef.current.innerText = note.info.txt || ''
+            // Set cursor focus immediately to txt
+            txtRef.current.focus()
+        }
+    }, [note])
 
     function handleSave() {
         const title = titleRef.current.innerText // get text content from title div
         const txt = txtRef.current.innerText
-        const bgColor = noteStyle.backgroundColor || 'white'
-        console.log('Saving note:', title, txt, bgColor)
-        onAddNote({
+        onSave({
+            noteId: note ? note.id : null,
             title,
             txt,
-            style: { backgroundColor: noteStyle.backgroundColor },
+            style: noteStyle,
             isPinned
+        }, () => {
+            onClose()
         })
-        //reset:
-        titleRef.current.innerText = ''
-        txtRef.current.innerText = ''
-        setNoteStyle({ backgroundColor: 'white' })
-        setIsPinned(false)
-        toggleColorInput()
-    }
 
+    }
     function DynamicCmp(props) {
         const dynamicCmpMap = {
             color: <ColorInput {...props} />
@@ -55,16 +49,20 @@ export function NewNote({ onAddNote }) {
     }
 
     return (
-        <div className="new-note-container" ref={bgColorRef} style={{ ...noteStyle, position: 'relative' }}>
-            <div ref={titleRef}
-                className="new-note-title"
+        <div className="note-editor" style={noteStyle}>
+            <div
+                ref={titleRef}
+                className="edit-note-title"
                 contentEditable="true"
-                data-placeholder="Title">
+                data-placeholder="Title"
+                suppressContentEditableWarning={true}>
             </div>
-            <p ref={txtRef}
-                className="new-note-txt"
+            <p
+                ref={txtRef}
+                className="edit-note-txt"
                 contentEditable="true"
-                data-placeholder="Take a note...">
+                data-placeholder="Take a note..."
+                suppressContentEditableWarning={true}>
             </p>
             <span className="note-pin">
                 {/* <span className={`note-pin ${isPinned ? 'active' : ''}`}> */}
@@ -145,4 +143,5 @@ export function NewNote({ onAddNote }) {
             </div>
         </div>
     )
+
 }

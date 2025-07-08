@@ -1,0 +1,74 @@
+.editor-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 260px;
+    z-index: 1000;
+}
+
+
+
+.note-editor {
+    position: relative;
+    background: #fff;
+    padding: 0.5rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    width: 90%;
+}
+
+.note-editor .note-pin {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    opacity: 1;
+    cursor: pointer;
+    pointer-events: auto;
+    color: var(--notes-top-bar-icon-color);
+    border-radius: 50%;
+    background-color: transparent;
+    transition: opacity 0.2s ease;
+}
+
+.note-editor .note-pin:hover {
+    background-color: var(--notes-sidebar-icon-bg-hover);
+}
+
+.edit-note-title:focus,
+.edit-note-txt:focus {
+    outline: none;
+}
+
+.edit-note-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    padding: 16px 16px 0;
+    color: var(--notes-top-bar-icon-color);
+    cursor: text;
+    position: relative;
+    margin: 0;
+    line-height: 1.38;
+}
+
+.edit-note-txt {
+    padding: 12px 16px;
+    margin-top: 0;
+    /* Remove extra gap */
+    font-size: 1rem;
+    color: var(--notes-top-bar-icon-color);
+    cursor: text;
+    line-height: 1.38;
+    position: relative;
+}
