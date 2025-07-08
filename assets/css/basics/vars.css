@@ -33,7 +33,11 @@
     --mail-details-txt-color: rgb(31, 31, 31);
     --mail-details-to-color: rgb(94, 94, 94);
 
-
+    /* vars for user-msg */
+    --msg-bg: #323232;
+    --msg-success-bg: rgb(232, 245, 232);
+    --msg-error-bg: rgb(244, 67, 54);
+    --msg-color: rgb(255, 255, 255);
 
     /*NOTE APP VARS*/
     /* --- Sidebar Icons --- */

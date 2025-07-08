@@ -50,7 +50,7 @@ export function MailIndex() {
         if (mail.removedAt !== null) {
             mailService.remove(mailId)
                 .then(() => {
-                    showSuccessMsg('Mail Removed Permanently!')
+                    showSuccessMsg('Conversation deleted forever.')
                     setMails((prevMails) =>
                         prevMails.filter(mail => mail.id !== mailId))
                 })
@@ -62,7 +62,7 @@ export function MailIndex() {
             const updatedMail = { ...mail, removedAt: Date.now() }
             mailService.save(updatedMail)
                 .then(() => {
-                    showSuccessMsg('Mail Moved to Trash!')
+                    showSuccessMsg('Conversation moved to Trash.')
                     setMails((prevMails) =>
                         prevMails.map(mail =>
                             mail.id === mailId ? updatedMail : mail))
@@ -133,10 +133,10 @@ export function MailIndex() {
         }
     }
 
-    function onSaveEmailAsNote(mailId, ev) {
+    function onSaveMailAsNote(mailId, ev) {
         ev.stopPropagation()
         const mail = mails.find(mail => mail.id === mailId)
-        console.log('mail from onSaveEmailAsNote', mail)
+        console.log('mail from onSaveMailAsNote', mail)
         if (!mail) return
         const noteData = noteService.getEmptyNote()
         const { body, subject } = mail
@@ -186,7 +186,7 @@ export function MailIndex() {
                         onToggleReadStatus={onToggleReadStatus}
                         onReplyClick={onReplyClick}
                         onMailClick={onMailClick}
-                        onSaveEmailAsNote={onSaveEmailAsNote}
+                        onSaveMailAsNote={onSaveMailAsNote}
                     />
                 )}
 
@@ -197,7 +197,7 @@ export function MailIndex() {
                     onToggleReadStatus,
                     onReplyClick,
                     onMailClick,
-                    onSaveEmailAsNote
+                    onSaveMailAsNote
                 }} />
             </section>
         </Fragment>

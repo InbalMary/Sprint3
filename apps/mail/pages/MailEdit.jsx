@@ -82,8 +82,7 @@ export function MailEdit() {
         }
         console.log(updatedMail)
         mailService.save(updatedMail).then(() => {
-            const msg = mailId ? 'Mail Updated' : 'Mail created'
-            showSuccessMsg(msg)
+            showSuccessMsg('Message sent')
             navigate('/mail')
         })
     }
@@ -96,7 +95,7 @@ export function MailEdit() {
         if (currentMail.removedAt !== null) {
             mailService.remove(mailId)
                 .then(() => {
-                    showSuccessMsg('Mail Removed Permanently!')
+                    showSuccessMsg('Conversation deleted forever.')
                     navigate('/mail')
                 })
                 .catch(err => {
@@ -107,7 +106,7 @@ export function MailEdit() {
             const updatedMail = { ...currentMail, removedAt: Date.now() }
             mailService.save(updatedMail)
                 .then(() => {
-                    showSuccessMsg('Mail Moved to Trash!')
+                    showSuccessMsg('Conversation moved to Trash.')
                     navigate('/mail')
                 })
                 .catch(err => {
@@ -138,7 +137,7 @@ export function MailEdit() {
                     <label htmlFor="to">To</label>
                     <input
                         onChange={handleChange}
-                        value={to}
+                        value={from}
                         name="to"
                         id="to"
                         type="email"

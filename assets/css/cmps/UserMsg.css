@@ -1,25 +1,57 @@
 .user-msg {
     position: fixed;
     bottom: -100px;
-    right: .5em;
-    padding: .5em;
-    background-color: #111;
+    right: 1em;
+    padding: .75em 1em;
+    background-color: var(--msg-bg);
+    color: var(--msg-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    font-family: 'RobotoFlex', 'RobotoRegular', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: left;
+    line-height: 16px;
+    min-width: auto;
+    max-width: 90vw;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    opacity: 0;
+    transition: bottom 0.3s ease-out, opacity 0.3s ease-out;
+
 }
 
 .user-msg.open {
-    bottom: .8em;
-    transition: bottom .5s;
+    bottom: 1em;
+    opacity: 1;
 }
 
-.user-msg.success {
-    background-color: var(--color2);
-}
-
+.user-msg.success,
 .user-msg.error {
-    background-color: var(--color3);
+    background-color: var(--msg-bg);
+    color: var(--msg-color);
 }
 
-.user-msg button{
-   float: right;
-   margin-inline-start: 4px;
+.user-msg button {
+    flex-shrink: 0;
+    margin-inline-end: 8px;
+    background: none;
+    border: none;
+    color: var(--msg-color);
+    cursor: pointer;
+    font-size: 18px;
+    padding: 4px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.user-msg button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.user-msg button:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.3);
+    outline-offset: 2px;
 }
