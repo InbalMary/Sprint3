@@ -412,7 +412,15 @@ function getFilterFromSearchParams(searchParams) {
     const filterBy = {}
     for (const field in defaultFilter) {
         const value = searchParams.get(field)
-        filterBy[field] = (value !== null) ? value : defaultFilter[field]
+        if (value !== null) {
+            if (value === 'true') {
+                filterBy[field] = true;
+            } else if (value === 'false') {
+                filterBy[field] = false;
+            }
+        } else {
+            filterBy[field] = defaultFilter[field]
+        }
     }
     return filterBy
 }

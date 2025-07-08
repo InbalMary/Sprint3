@@ -1,7 +1,7 @@
 import { MailPreview } from "./MailPreview.jsx";
 
 
-export function MailList({ mails, onRemoveMail, onToggleReadStatus, onToggleStarred, onReplyClick, onMailClick }) {
+export function MailList({ mails, onRemoveMail, onToggleReadStatus, onToggleStarred, onReplyClick, onMailClick, onSaveEmailAsNote }) {
 
     return (
         <section className="mail-list">
@@ -19,7 +19,8 @@ export function MailList({ mails, onRemoveMail, onToggleReadStatus, onToggleStar
                         onToggleStarred={onToggleStarred}
                         onToggleReadStatus={onToggleReadStatus}
                         onRemoveMail={onRemoveMail}
-                        onReplyClick={onReplyClick} />
+                        onReplyClick={onReplyClick}
+                        onSaveEmailAsNote={onSaveEmailAsNote} />
                 )}
             </div>
         </section>

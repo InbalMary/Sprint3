@@ -5,6 +5,7 @@ import { MailHeader } from "../cmps/MailHeader.jsx"
 import { MailSidebar } from "../cmps/MailSidebar.jsx"
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { utilService } from "../../../services/util.service.js"
+import { noteService } from '../../note/services/note.service.js'
 
 const { Outlet, Link, useSearchParams, useNavigate, useLocation } = ReactRouterDOM
 const { useState, useEffect, Fragment } = React
@@ -132,6 +133,23 @@ export function MailIndex() {
         }
     }
 
+    function onSaveEmailAsNote(mailId, ev) {
+        ev.stopPropagation()
+        const mail = mails.find(mail => mail.id === mailId)
+        console.log('mail from onSaveEmailAsNote', mail)
+        if (!mail) return
+        const noteData = noteService.getEmptyNote()
+        const { body, subject } = mail
+        noteData.info = {
+            txt: body,
+            title: subject
+        }
+        noteService.save(noteData)
+            .then(() => {
+                    showSuccessMsg('Mail saved as note!')
+                })
+    }
+
     if (!mails) return <div className="loader">Loading...</div>
 
     return (
@@ -168,6 +186,7 @@ export function MailIndex() {
                         onToggleReadStatus={onToggleReadStatus}
                         onReplyClick={onReplyClick}
                         onMailClick={onMailClick}
+                        onSaveEmailAsNote={onSaveEmailAsNote}
                     />
                 )}
 
@@ -177,7 +196,8 @@ export function MailIndex() {
                     onToggleStarred,
                     onToggleReadStatus,
                     onReplyClick,
-                    onMailClick
+                    onMailClick,
+                    onSaveEmailAsNote
                 }} />
             </section>
         </Fragment>
