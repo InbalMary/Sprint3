@@ -30,7 +30,7 @@ export function MailEdit() {
             } else {
                 const updatedMail = { ...currentMail, updatedAt: Date.now() }
                 mailService.save(updatedMail)
-                    // .then(()=> showSuccessMsg('Mail auto-saved'))
+                // .then(()=> showSuccessMsg('Mail auto-saved'))
             }
         }, 5000)
         setIdAutoSaveInterval(interval)
@@ -92,15 +92,29 @@ export function MailEdit() {
         clearInterval(idAutoSaveInterval)
         const mailId = mailRef.current.id
         if (!mailId) showErrorMsg('Mail ID is missing, cannot remove mail.')
-        mailService.remove(mailId)
-            .then(() => {
-                showSuccessMsg('Mail Removed Successfully!')
-                navigate('/mail')
-            })
-            .catch(err => {
-                console.log(err)
-                showErrorMsg('Problem removing mail')
-            })
+        const currentMail = mailRef.current
+        if (currentMail.removedAt !== null) {
+            mailService.remove(mailId)
+                .then(() => {
+                    showSuccessMsg('Mail Removed Permanently!')
+                    navigate('/mail')
+                })
+                .catch(err => {
+                    console.log(err)
+                    showErrorMsg('Problem removing mail permanently')
+                })
+        } else {
+            const updatedMail = { ...currentMail, removedAt: Date.now() }
+            mailService.save(updatedMail)
+                .then(() => {
+                    showSuccessMsg('Mail Moved to Trash!')
+                    navigate('/mail')
+                })
+                .catch(err => {
+                    console.log(err)
+                    showErrorMsg('Problem moving mail to trash')
+                })
+        }
     }
 
     if (!mail) return <div className="loader">Loading...</div>

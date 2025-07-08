@@ -43,18 +43,34 @@ export function MailIndex() {
 
     function onRemoveMail(mailId, ev) {
         ev.stopPropagation()
-        mailService.remove(mailId)
-            .then(() => {
-                showSuccessMsg('Mail Removed Successfully!')
-                setMails((prevMails) =>
-                    prevMails.filter(mail => mail.id !== mailId)
-                )
-                // navigate('/mail')
-            })
-            .catch(err => {
-                console.log(err)
-                showErrorMsg('Problem removing mail')
-            })
+        const mail = mails.find(mail => mail.id === mailId)
+        if (!mail) return
+
+        if (mail.removedAt !== null) {
+            mailService.remove(mailId)
+                .then(() => {
+                    showSuccessMsg('Mail Removed Permanently!')
+                    setMails((prevMails) =>
+                        prevMails.filter(mail => mail.id !== mailId))
+                })
+                .catch(err => {
+                    console.log(err)
+                    showErrorMsg('Problem removing mail permanently')
+                })
+        } else {
+            const updatedMail = { ...mail, removedAt: Date.now() }
+            mailService.save(updatedMail)
+                .then(() => {
+                    showSuccessMsg('Mail Moved to Trash!')
+                    setMails((prevMails) =>
+                        prevMails.map(mail =>
+                            mail.id === mailId ? updatedMail : mail))
+                })
+                .catch(err => {
+                    console.log(err)
+                    showErrorMsg('Problem moving mail to trash')
+                })
+        }
     }
 
     function onSetFilter(filterBy) {

@@ -48,7 +48,9 @@ function query(filterBy = {}) {
                     case 'sent':
                         mails = mails.filter(mail =>
                             mail.from === loggedinUser.email &&
-                            mail.removedAt === null)
+                            mail.removedAt === null &&
+                            mail.sentAt !== null &&
+                            mail.sentAt !== '')
                         break
                     case 'starred':
                         mails = mails.filter(mail =>
@@ -61,7 +63,7 @@ function query(filterBy = {}) {
                         break
                     case 'draft':
                         mails = mails.filter(mail =>
-                            !mail.sentAt && mail.removedAt === null)
+                            (!mail.sentAt || mail.sentAt === null || mail.sentAt === '') && mail.removedAt === null)
                         break
                     default:
                         break
@@ -167,7 +169,7 @@ function _createMails() {
                 "subject": "Important: Project Alpha Meeting Tomorrow - Action Items Inside",
                 "body": "Hi Team,\n\nI hope everyone is having a productive week! \n\nThis is a friendly reminder about our critical Project Alpha meeting scheduled for tomorrow at 2:00 PM in Conference Room B (also available via Zoom for remote participants).\n\n**Meeting Agenda:**\n• **Project Status Review** (30 minutes)\n  - Current milestone achievements\n  - Budget allocation and spending review\n  - Timeline adjustments needed\n\n• **New Feature Presentations** (45 minutes)\n  - Sarah's UI/UX improvements\n  - Mike's backend optimization results\n  - Lisa's user feedback analysis\n\n• **Next Quarter Planning** (30 minutes)\n  - Resource allocation\n  - Priority setting for Q4\n  - Risk assessment and mitigation\n\n**Please Prepare:**\n📋 **Required Reports:**\n• Weekly progress summary from your department\n• Budget variance analysis (if applicable)\n• Resource requirement forecasts\n• Any blockers or challenges you're facing\n\n📊 **Materials Needed:**\n• Laptop for presentations\n• Updated project timelines\n• Client feedback summaries\n• Performance metrics from last sprint\n\n**Important Notes:**\n• Coffee and pastries will be provided\n• Meeting will be recorded for those who can't attend\n• Please review the shared project documents beforehand\n• Come prepared with 2-3 strategic questions\n\nLooking forward to our productive discussion and planning session!\n\nBest regards,\nJohn Mitchell\nProject Manager\nPhone: +1 555-987-6543\nEmail: john@meeting.com",
                 "isRead": true,
-                "sentAt": 1745889494000 ,
+                "sentAt": 1745889494000,
                 "removedAt": null,
                 "from": "john@meeting.com",
                 "to": "user@appsus.com",
@@ -203,7 +205,7 @@ function _createMails() {
                 "subject": "📧 עדכון חודשי מרתק - חדשות, מוצרים חדשים ומבצעים בלעדיים!",
                 "body": "שלום יקר!\n\nמה השלום? אנחנו מקווים שהחודש מתחיל עבורך בצורה מעולה!\n\nהגיע הזמן לעדכון החודשי שלנו, והפעם יש לנו הרבה חדשות מרגשות לשתף איתך.\n\n**🎯 החדשות הגדולות של החודש:**\n\n**עדכונים טכנולוגיים:**\n• **מערכת חדשה לניהול לקוחות** - ממשק משתמש מחודש לחלוטין\n• **אפליקציה ניידת מעודכנת** - מהירות כפולה וממשק נקי יותר\n• **בינה מלאכותית משוכללת** - המלצות אישיות מתקדמות\n• **אבטחת סייבר מחוזקת** - הגנה ברמה צבאית על הנתונים שלך\n\n**🚀 מוצרים חדשים שיצאו לשוק:**\n\n**סדרת המוצרים הפרמיום:**\n• **חבילת העסק המתקדמת** - כלים מקצועיים לעסקים קטנים\n• **תוכנית ההכשרה המקצועית** - קורסים מעשיים עם מומחים\n• **שירות הייעוץ האישי** - ליווי אישי עם מומחים בתחום\n• **פלטפורמת השיתוף החברתי** - רשת מקצועית בלעדית\n\n**💰 מבצעים בלעדיים ללקוחות נבחרים:**\n\n**הצעות מיוחדות החודש:**\n• **הנחה של 40%** על כל המוצרים החדשים\n• **חודש ניסיון חינם** לשירות הפרמיום\n• **הדרכה אישית בחינם** עם רכישת חבילה שנתית\n• **עדכונים לכל החיים** - ללא עלות נוספת\n\n**📈 הישגים וסטטיסטיקות:**\n• **מעל 10,000 לקוחות חדשים** החודש\n• **דירוג 4.9 מתוך 5** בסקרי שביעות רצון\n• **זמן מענה ממוצע** - פחות מ-2 שעות\n• **שיעור פתרון בקריאה ראשונה** - 95%\n\n**🎉 אירועים קרובים:**\n• **וובינר מיוחד** - \"מגמות טכנולוגיות לעתיד\"\n• **יום פתוח** במשרדים החדשים שלנו\n• **כנס לקוחות שנתי** - הרשמה נפתחת בקרוב\n• **סדנאות מעשיות** במגוון נושאים\n\n**💡 טיפים חמים לחודש:**\n• הגדר התראות אישיות לעדכונים חשובים\n• נצל את הכלים החדשים לניתוח נתונים\n• הצטרף לקבוצות הדיון שלנו ברשתות החברתיות\n• עקב אחר הבלוג שלנו לתכנים מעניינים\n\nאל תחמיץ את כל ההזדמנות הזו לקבל את המקסימום מהשירותים שלנו!\n\nתודה שאתה חלק מהמשפחה שלנו!\n\nבברכה,\nצוות העדכונים\nNewsletter Updates\nטלפון: 03-1234567\nאימייל: newsletter@updates.com",
                 "isRead": false,
-                "sentAt": 1709202000000 ,
+                "sentAt": 1709202000000,
                 "removedAt": null,
                 "from": "newsletter@updates.com",
                 "to": "user@appsus.com",
@@ -227,7 +229,7 @@ function _createMails() {
                 "subject": "🌟 VIP Customer Special: Exclusive 60% Off Premium Products - Limited Time!",
                 "body": "Dear VIP Customer,\n\nCongratulations! You've been selected as one of our most valued customers for an exclusive, limited-time offer that's not available to the general public.\n\nBased on your purchase history and loyalty, we're excited to present you with our biggest discount of the year - exclusively for you!\n\n**💎 YOUR VIP STATUS BENEFITS:**\n\n**Why You're Special:**\n• **Top 5% customer** based on purchase volume\n• **Loyalty member** for over 2 years\n• **Highest satisfaction ratings** in our surveys\n• **Active community participant** in our forums\n• **Early adopter** of new products and features\n\n**🎁 EXCLUSIVE VIP OFFER:**\n\n**Premium Product Collection:**\n• **Professional Series Laptops** - Now 60% off\n• **Designer Accessories Line** - Starting at $99\n• **Smart Home Automation Kits** - Complete systems\n• **Wireless Audio Equipment** - Studio quality\n• **Fitness & Wellness Products** - Premium brands\n\n**Additional VIP Perks:**\n• **Free premium shipping** on all orders\n• **Extended warranty** - 3 years instead of 1\n• **Personal shopping assistant** available\n• **Early access** to new product launches\n• **VIP customer support** - dedicated hotline\n\n**🔥 FLASH SALE HIGHLIGHTS:**\n\n**Limited Inventory Items:**\n• **MacBook Pro 16\"** - Was $2,499, Now $999\n• **Sony WH-1000XM4 Headphones** - Was $349, Now $139\n• **iPad Pro 12.9\"** - Was $1,099, Now $449\n• **Smart Watch Collection** - Up to 70% off\n• **Gaming Setup Bundle** - Complete package $599\n\n**⏰ URGENT: Only 48 Hours Left!**\n\nThis exclusive offer expires on [Date] at 11:59 PM. Due to limited inventory, some items may sell out before the deadline.\n\n**VIP Access Code:** VIPEXCLUSIVE60\n\n**How to Shop:**\n1. Visit our VIP section at www.deals.com/vip\n2. Browse exclusive products not available elsewhere\n3. Use your VIP code at checkout\n4. Enjoy free priority shipping\n\n**Questions?** \nContact your dedicated VIP support team at +1 555-VIP-HELP\n\nDon't miss this incredible opportunity!\n\nYour VIP Account Manager,\nSarah Johnson\nVIP Customer Relations\nOffers & Deals\nEmail: offers@deals.com",
                 "isRead": false,
-                "sentAt": 1711370400000 ,
+                "sentAt": 1711370400000,
                 "removedAt": null,
                 "from": "offers@deals.com",
                 "to": "user@appsus.com",
@@ -239,7 +241,7 @@ function _createMails() {
                 "subject": "Welcome! Please Verify Your Email to Complete Registration",
                 "body": "Hello and Welcome!\n\nThank you for signing up with us! We're excited to have you join our community of users who are passionate about [service/product category].\n\nTo complete your registration and start enjoying all the benefits of your new account, we need you to verify your email address.\n\n**🎉 WELCOME TO OUR COMMUNITY:**\n\n**What You'll Get Access To:**\n• **Personalized dashboard** with tailored content\n• **Exclusive member resources** and downloads\n• **Community forums** to connect with other users\n• **Regular updates** on new features and products\n• **Special member-only offers** and discounts\n• **Priority customer support** for all your needs\n\n**📧 EMAIL VERIFICATION REQUIRED:**\n\n**Why We Need Verification:**\n• **Account security** - Protect your personal information\n• **Important updates** - Ensure you receive critical notifications\n• **Password recovery** - Secure way to reset your password\n• **Exclusive content** - Access to member-only materials\n\n**How to Verify:**\n1. Click the \"Verify Email\" button below\n2. You'll be redirected to our secure confirmation page\n3. Your account will be activated automatically\n4. Start exploring all the features immediately\n\n**🔐 SECURITY INFORMATION:**\n\n**Your Account Details:**\n• **Email:** user@appsus.com\n• **Registration Date:** [Current Date]\n• **Account Type:** Free Member\n• **Verification Status:** Pending\n\n**Important Notes:**\n• This verification link expires in 24 hours\n• If you didn't create this account, please ignore this email\n• Your information is protected with enterprise-grade security\n• We never share your email with third parties\n\n**⏰ VERIFICATION LINK:**\n\n[VERIFY YOUR EMAIL ADDRESS]\n\n**Need Help?**\nIf you're having trouble with verification or have questions about your account, our support team is ready to help!\n\n**Support Options:**\n• **Email:** support@verify.com\n• **Help Center:** www.verify.com/help\n• **Live Chat:** Available 24/7 on our website\n• **Phone:** +1 555-VERIFY-1\n\n**What's Next?**\nOnce verified, you'll receive a welcome email with tips on getting started and making the most of your account.\n\nWelcome aboard!\n\nThe Verification Team\nAccount Services\nEmail: no-reply@verify.com",
                 "isRead": false,
-                "sentAt": 1720351200000  ,
+                "sentAt": 1720351200000,
                 "removedAt": null,
                 "from": "no-reply@verify.com",
                 "to": "user@appsus.com",
@@ -275,7 +277,7 @@ function _createMails() {
                 "subject": "Your Dream Vacation Package - Mediterranean Cruise Adventure Awaits!",
                 "body": "Dear Alex,\n\nGreetings from the Wanderlust Travel Agency! I hope this email finds you planning your next amazing adventure.\n\nI'm reaching out with incredible news - we've just secured exclusive access to one of the most sought-after Mediterranean cruise experiences for this summer, and I immediately thought of you given your interest in European travel that you mentioned during our last conversation.\n\n**🚢 EXCLUSIVE MEDITERRANEAN ODYSSEY CRUISE 🚢**\n\n**Cruise Details:**\n• **Ship**: Royal Caribbean's Symphony of the Seas (One of the world's largest cruise ships!)\n• **Duration**: 12 days, 11 nights\n• **Departure**: July 15th, 2023 from Barcelona, Spain\n• **Return**: July 27th, 2023 to Rome, Italy\n• **Cabin**: Balcony Suite with Ocean View (Deck 9)\n\n**Your Incredible Itinerary:**\n🇪🇸 **Day 1-2: Barcelona, Spain**\n- Explore Gaudí's architectural masterpieces\n- Stroll through the Gothic Quarter\n- Experience the vibrant nightlife of Las Ramblas\n\n🇫🇷 **Day 3-4: Nice & Cannes, France**\n- Discover the glamorous French Riviera\n- Optional excursion to Monaco and Monte Carlo\n- Visit the famous Cannes Film Festival location\n\n🇮🇹 **Day 5-6: Rome & Florence, Italy**\n- Guided tour of the Colosseum and Vatican City\n- Day trip to Florence to see Michelangelo's David\n- Authentic Italian cooking class included\n\n🇬🇷 **Day 7-8: Santorini & Mykonos, Greece**\n- Witness the world-famous Santorini sunset\n- Explore the charming windmills of Mykonos\n- Swimming in crystal-clear Aegean waters\n\n🇹🇷 **Day 9-10: Istanbul, Turkey**\n- Visit the magnificent Hagia Sophia and Blue Mosque\n- Explore the Grand Bazaar for unique souvenirs\n- Traditional Turkish bath experience\n\n🇭🇷 **Day 11: Dubrovnik, Croatia**\n- Walk the ancient city walls\n- Game of Thrones filming location tour\n\n**Limited-time booking offer:**\nThis is an exclusive deal, and we have limited cabins available. Book your dream vacation by [insert link] and make unforgettable memories!\n\nLooking forward to hearing from you!\n\nBest regards,\nJessica Martinez\nWanderlust Travel Agency\nPhone: +1 555-123-4567\nEmail: jessica@wanderlust.com",
                 "isRead": true,
-                "sentAt": 1741363475000 ,
+                "sentAt": 1741363475000,
                 "removedAt": null,
                 "from": "jessica@wanderlust.com",
                 "to": "user@appsus.com",
@@ -299,7 +301,7 @@ function _createMails() {
                 "subject": "🎪 Exclusive Live Event - Amazing Digital Experience Awaits You! Thursday at 7:00 PM",
                 "body": "Hello Dear Friend!\n\nWe're excited to invite you to our exclusive live event - an amazing digital experience you won't want to miss! 🚀\n\n📅 When: Next Thursday at 7:00 PM\n🎮 Where: Exclusive digital platform\n⏰ Duration: 90 minutes of fascinating content\n\nWhat awaits you at the event:\n🆕 Launch of innovative products for the first time\n💰 Exclusive discounts for participants only (up to 60%!)\n🎁 Raffle for a grand prize worth $1,200\n💡 Exciting insights about future projects\n🤝 Opportunity to meet the leading team\n👥 Network with other participants\n\nThe event will be broadcast live with real-time Q&A opportunities. You can win exclusive prizes and be the first to discover our exciting news.\n\nRegistration required - limited spots!\n\nWe look forward to seeing you there! 🌟\n\nBest regards,\nThe Events Team",
                 "isRead": true,
-                "sentAt": 1717762800000  ,
+                "sentAt": 1717762800000,
                 "removedAt": null,
                 "from": "events@company.com",
                 "to": "user@appsus.com",
@@ -335,7 +337,7 @@ function _createMails() {
                 "subject": "🔔 Reminder: Exclusive Webinar Tomorrow! Innovative Tech Trends - 5:00 PM",
                 "body": "Hello Friend!\n\nJust a friendly reminder that our exclusive webinar is happening tomorrow at 5:00 PM! 🚀\n\n🎯 Webinar Topic: \"Innovative Technology Trends 2024\"\n📅 When: Tomorrow, 5:00-6:30 PM\n🎙️ Who: Leading industry experts\n💻 Where: Exclusive digital platform\n\n🌟 What awaits you:\n• Fresh insights on AI and machine learning\n• Future trends in software development\n• Business opportunities in technology\n• Q&A session with experts\n• Networking with professionals\n• Exclusive learning materials\n\n👥 Featured speakers:\n• Dr. Sarah Johnson - AI Expert\n• Mike Chen - Chief Engineer at Tech Company\n• Lisa Rodriguez - Technology Consultant\n\nThe webinar will be recorded and available to participants who can't attend live.\n\nIf you haven't registered yet, now's the time! Limited spots available.\n\nSee you tomorrow! 👋\n\nBest regards,\nThe Webinar Team",
                 "isRead": false,
-                "sentAt": 1692213600000 ,
+                "sentAt": 1692213600000,
                 "removedAt": null,
                 "from": "webinars@events.com",
                 "to": "user@appsus.com",
@@ -347,7 +349,7 @@ function _createMails() {
                 "subject": "🎉 Congratulations on Your New Job! Exclusive Career Development Package Awaits You",
                 "body": "Huge congratulations on your new position! 🥳\n\nWe're thrilled to see your success and hope this new chapter brings you exciting challenges and amazing development opportunities.\n\n🎁 As a token of appreciation for your hard work, we're offering you an exclusive career development package:\n\n📋 What the package includes:\n• Personal consultation for writing winning resumes\n• Interview preparation with experts\n• Professional networking workshops\n• Personal mentoring for 3 months\n• Access to job opportunities platform\n• Digital tools for career management\n\n💡 Additional content:\n• Tips for improving professional presence\n• Strategies for workplace advancement\n• Personal branding building\n• Leadership skills development\n• Salary negotiation techniques\n\n🎯 The package is personally tailored to your field and career aspirations.\n\nGood luck in your new role! We're here to support you every step of the way.\n\nContact us for more details about the special package.\n\nBest wishes and great success! 🌟\n\nThe Career Team",
                 "isRead": true,
-                "sentAt": 1747129863000 ,
+                "sentAt": 1747129863000,
                 "removedAt": null,
                 "from": "careers@company.com",
                 "to": "user@appsus.com",
