@@ -5,12 +5,12 @@ export function MailList({ mails, onRemoveMail, onToggleReadStatus, onToggleStar
 
     return (
         <section className="mail-list">
-            <header className="mail-list-header">
+            {/* <header className="mail-list-header">
                 <div className="header-star"></div>
                 <div className="header-from">From</div>
                 <div className="header-topic">Topic</div>
                 <div className="header-time">Time</div>
-            </header>
+            </header> */}
             <div className="mail-items">
                 {mails.map(mail =>
 

@@ -1,11 +1,13 @@
-const { Link } = ReactRouterDOM
+const { Link, useNavigate } = ReactRouterDOM
 const { useState, Fragment } = React
 
 export function MailSidebar({ unreadCount, starredCount, currentFilter, onSetFilter, isExpanded, onToggleSidebar }) {
     // const [isExpanded, setIsExpanded] = useState(false)
+    const navigate = useNavigate()
 
     function onFilter(status){
         onSetFilter({ ...currentFilter, status })
+        navigate('/mail')
     }
     return (
         <Fragment>

@@ -128,9 +128,9 @@ function formatTimestamp(timestamp) {
     }
 
     if (diffInMs <= oneYearInMs) {
-        mailDate.toLocaleDateString('en-US', {
+        return mailDate.toLocaleDateString('en-US', {
             day: '2-digit',
-            month: 'long',
+            month: 'short',
         })
     }
     const day = mailDate.getDate()
