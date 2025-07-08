@@ -1,39 +1,78 @@
 import { ColorInput } from '../cmps/ColorInput.jsx'
 
 const { useState, useEffect, useRef } = React
-export function NoteEditor({ note, onSave, onClose, onSetNoteStyle }) {
+
+export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle }) {
     const titleRef = useRef()
     const txtRef = useRef()
+
     const [isPinned, setIsPinned] = useState(false)
     const [noteStyle, setNoteStyle] = useState({ backgroundColor: '#ffffff' })
     const [isColorInputOpen, setIsColorInputOpen] = useState(false);
     const [cmpType, setCmpType] = useState('color')
 
+    const isEdit = note && note.id ? true : false //editing or creating
+
+
     useEffect(() => {
-        if (note) {
+        if (isEdit) {
             setIsPinned(note.isPinned)
             setNoteStyle(note.style || { backgroundColor: '#ffffff' })
             titleRef.current.innerText = note.info.title || ''
             txtRef.current.innerText = note.info.txt || ''
             // Set cursor focus immediately to txt
             txtRef.current.focus()
+        } else {
+            // Reset for new note
+            setIsPinned(false)
+            setNoteStyle({ backgroundColor: '#ffffff' })
+            if (titleRef.current) titleRef.current.innerText = ''
+            if (txtRef.current) txtRef.current.innerText = ''
+            setIsColorInputOpen(false)
         }
-    }, [note])
+    }, [note, isEdit])  // Run effect when note data or edit mode changes
+
+    function handleSetNoteStyle(newStyle) {
+        console.log('newStyle:', newStyle)
+        setNoteStyle(prevStyle => {
+            const updatedStyle = { ...prevStyle, ...newStyle }
+            if (onSetNoteStyle) onSetNoteStyle(updatedStyle) //notify parent
+            return updatedStyle
+        })
+    }
+
+    function toggleColorInput() {
+        console.log('toggleColorInput called')
+        setIsColorInputOpen(prev => !prev)
+    }
 
     function handleSave() {
-        const title = titleRef.current.innerText // get text content from title div
-        const txt = txtRef.current.innerText
-        onSave({
-            noteId: note ? note.id : null,
-            title,
-            txt,
-            style: noteStyle,
-            isPinned
-        }, () => {
-            onClose()
-        })
+        const title = titleRef.current.innerText || '' // get text content from title div
+        const txt = txtRef.current.innerText || ''
 
+        if (isEdit) {
+            onSave({
+                noteId: note.id,
+                title,
+                txt,
+                style: noteStyle,
+                isPinned
+            }, onClose)
+        } else {
+            onAddNote({
+                title,
+                txt,
+                style: noteStyle,
+                isPinned
+            })
+            //reset:
+            titleRef.current.innerText = ''
+            txtRef.current.innerText = ''
+            setNoteStyle({ backgroundColor: 'white' })
+            setIsPinned(false)
+        }
     }
+
     function DynamicCmp(props) {
         const dynamicCmpMap = {
             color: <ColorInput {...props} />
@@ -43,26 +82,31 @@ export function NoteEditor({ note, onSave, onClose, onSetNoteStyle }) {
         return dynamicCmpMap[props.cmpType]
     } // returns the component to be rendered.
 
-    function toggleColorInput() {
-        console.log('toggleColorInput called')
-        setIsColorInputOpen(prev => !prev)
+    function handleInput(ev) { //if user deletes typed text, placeholder returns
+        const elInput = ev.target
+        if (elInput.textContent.trim() === '') {
+            elInput.classList.add('empty')
+        } else {
+            elInput.classList.remove('empty')
+        }
     }
-
     return (
-        <div className="note-editor" style={noteStyle}>
+        <div className={`note-base ${isEdit ? 'note-editor' : 'new-note-container'}`} style={noteStyle}>
             <div
                 ref={titleRef}
-                className="edit-note-title"
+                className={`note-editable note-title ${!isEdit && 'empty'}`}
                 contentEditable="true"
                 data-placeholder="Title"
-                suppressContentEditableWarning={true}>
+                suppressContentEditableWarning={true}
+                onInput={handleInput}>
             </div>
             <p
                 ref={txtRef}
-                className="edit-note-txt"
+                className={`note-editable note-text ${!isEdit && 'empty'}`}
                 contentEditable="true"
                 data-placeholder="Take a note..."
-                suppressContentEditableWarning={true}>
+                suppressContentEditableWarning={true}
+                onInput={handleInput}>
             </p>
             <span className="note-pin">
                 {/* <span className={`note-pin ${isPinned ? 'active' : ''}`}> */}
@@ -72,8 +116,8 @@ export function NoteEditor({ note, onSave, onClose, onSetNoteStyle }) {
                 </svg>
             </span>  {/*add pin functionality later*/}
 
-            <div className="new-note-footer">
-                <div className="new-note-toolbar">
+            <div className="note-footer">
+                <div className="note-toolbar">
                     <button className="formatting btn">
                         <svg xmlns="http://www.w3.org/2000/svg"
                             height="24px" viewBox="0 -960 960 960" width="24px"
@@ -136,12 +180,14 @@ export function NoteEditor({ note, onSave, onClose, onSetNoteStyle }) {
                 </div>
                 {isColorInputOpen && (
                     <div className="color-picker-popup">
-                        <DynamicCmp cmpType={cmpType} onSetNoteStyle={onSetNoteStyle} />
+                        <DynamicCmp cmpType={cmpType} onSetNoteStyle={handleSetNoteStyle} />
+
                     </div>
                 )}
                 <button className="save btn" onClick={handleSave}>Close</button>
             </div>
         </div>
+
     )
 
 }

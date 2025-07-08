@@ -2,8 +2,7 @@ import { noteService } from '../services/note.service.js'
 // import { NoteFilter } from "../cmps/NoteFilter.jsx"
 import { NoteList } from "../cmps/NoteList.jsx"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
-import { NewNote } from '../cmps/NewNote.jsx'
-import { NoteEditor } from '../cmps/NoteEditor.jsx'
+import { NoteForm } from '../cmps/NoteForm.jsx'
 // import { getTruthyValues } from "../services/util.service.js"
 
 const { useState, useEffect } = React
@@ -59,7 +58,7 @@ export function NoteIndex() {
             })
     }
 
-    function onEditNote({ noteId, title, txt, style, isPinned }) {
+    function onEditNote({ noteId, title, txt, style, isPinned }, onClose) {
         noteService.get(noteId)
             .then(noteToEdit => {
                 noteToEdit.info.title = title
@@ -73,6 +72,7 @@ export function NoteIndex() {
                 console.log('setting editedNoteId to null')
                 setEditedNoteId(null)
                 loadNotes()
+                if (onClose) onClose()
             })
             .catch(err => {
                 console.log(err)
@@ -101,7 +101,7 @@ export function NoteIndex() {
     }
 
     if (!notes) return <div>Loading...</div>
-    console.log('rendering NoteIndex, editedNoteId:', editedNoteId)
+
     return (
         <section className="container">
             <section className="note-index">
@@ -109,7 +109,7 @@ export function NoteIndex() {
                     defaultFilter={filterBy}
                     onSetFilter={onSetFilter}
                 /> */}
-                <NewNote onAddNote={onAddNote} />
+                <NoteForm onAddNote={onAddNote} />
                 <NoteList
                     notes={notes}
                     onRemoveNote={onRemoveNote}
@@ -119,15 +119,23 @@ export function NoteIndex() {
                     onEditNote={onEditNote}
                 />
                 {editedNoteId && (
-                    <div className="editor-overlay">
-                        <NoteEditor
-                            note={notes.find(note => note.id === editedNoteId)}
-                            onSave={onEditNote}
-                            onClose={() => setEditedNoteId(null)}
-                            onSetNoteStyle={(style) => {
-                                onColorChange(editedNoteId, style.backgroundColor)
-                            }}
-                        />
+                    <div className="editor-overlay" onClick={() => setEditedNoteId(null)}>
+                        <div onClick={ev => ev.stopPropagation()}
+                            style={{
+                                width: '100%',
+                                maxWidth: '580px',
+                                display: 'flex',
+                                flexDirection: 'column'
+                            }}>
+                            <NoteForm
+                                note={notes.find(note => note.id === editedNoteId)}
+                                onSave={onEditNote}
+                                onClose={() => setEditedNoteId(null)}
+                                onSetNoteStyle={(style) => {
+                                    onColorChange(editedNoteId, style.backgroundColor)
+                                }}
+                            />
+                        </div>
                     </div>
                 )}
             </section>
