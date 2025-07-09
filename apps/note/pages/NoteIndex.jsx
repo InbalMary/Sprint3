@@ -95,6 +95,7 @@ export function NoteIndex() {
                 showErrorMsg('Could not change color')
             })
     }
+
     function togglePin(noteId) {
         setNotes(prevNotes => {
             const updatedNotes = prevNotes.map(note =>
@@ -104,7 +105,6 @@ export function NoteIndex() {
             return updatedNotes
 
         })
-
     }
 
     function onSetFilter(filterBy) {
@@ -113,23 +113,46 @@ export function NoteIndex() {
 
     if (!notes) return <div>Loading...</div>
 
+    const pinnedNotes = notes.filter(note => note.isPinned)
+    const otherNotes = notes.filter(note => !note.isPinned)
+
     return (
         <section className="container">
             <section className="note-index">
+                <NoteForm onAddNote={onAddNote} />
+                <div style={{ marginTop: pinnedNotes.length > 0 ? '0' : '2rem' }}></div>
+                {pinnedNotes.length > 0 && (
+                    <div className="pinned-notes-section">
+                        <h6>Pinned</h6>
+                        <NoteList notes={pinnedNotes}
+                            onRemoveNote={onRemoveNote}
+                            onColorChange={onColorChange}
+                            editedNoteId={editedNoteId}
+                            setEditedNoteId={setEditedNoteId}
+                            onEditNote={onEditNote}
+                            onTogglePin={togglePin}
+                        />
+                    </div>
+                )}
+                {otherNotes.length > 0 && (
+                    <div className="other-notes-section" >
+                        {pinnedNotes.length > 0 && <h6>Others</h6>}
+                        <NoteList notes={otherNotes}
+                            onRemoveNote={onRemoveNote}
+                            onColorChange={onColorChange}
+                            editedNoteId={editedNoteId}
+                            setEditedNoteId={setEditedNoteId}
+                            onEditNote={onEditNote}
+                            onTogglePin={togglePin}
+                        />
+                    </div>
+                )}
+
                 {/* <NoteFilter
                     defaultFilter={filterBy}
                     onSetFilter={onSetFilter}
                 /> */}
-                <NoteForm onAddNote={onAddNote} />
-                <NoteList
-                    notes={notes}
-                    onRemoveNote={onRemoveNote}
-                    onColorChange={onColorChange}
-                    editedNoteId={editedNoteId}
-                    setEditedNoteId={setEditedNoteId}
-                    onEditNote={onEditNote}
-                    onTogglePin={togglePin}
-                />
+
                 {editedNoteId && (
                     <div className="editor-overlay" onClick={() => setEditedNoteId(null)}>
                         <div onClick={ev => ev.stopPropagation()}
