@@ -146,9 +146,50 @@ export function MailIndex() {
         }
         noteService.save(noteData)
             .then(() => {
-                    showSuccessMsg('Mail saved as note!')
-                })
+                showSuccessMsg('Mail saved as note!')
+            })
     }
+
+    function handleChange({ target }) {
+    const field = target.name
+    let value = target.value
+
+    if (value === 'true') value = true
+    else if (value === 'false') value = false
+
+    switch (target.type) {
+        case 'number':
+        case 'range':
+            value = +value
+            break;
+
+        case 'checkbox':
+            value = target.checked
+            break
+    }
+    setFilterBy(prevFilter => ({ ...prevFilter, [field]: value }))
+}
+
+
+function toggleSort(sortBy) {
+    let newSortDirection = 'asc';
+    if (filterBy.sortBy === sortBy) {
+        newSortDirection = filterBy.sortDirection === 'asc' ? 'desc' : 'asc';
+    }
+    setFilterBy(prev => ({ ...prev, sortBy, sortDirection: newSortDirection }))
+}
+
+function clearAllFilters() {
+    setFilterBy({
+        txt: '',
+        isRead: '',
+        from: '',
+        subject: '',
+        sortBy: null,
+        sortDirection: 'asc'
+    })
+}
+
 
     if (!mails) return <div className="loader">Loading...</div>
 
@@ -178,6 +219,10 @@ export function MailIndex() {
                         onReplyClick={onReplyClick}
                         onMailClick={onMailClick}
                         onSaveMailAsNote={onSaveMailAsNote}
+                        filterByToEdit={filterBy}
+                        handleChange={handleChange}
+                        toggleSort={toggleSort}
+                        clearAllFilters={clearAllFilters}
                     />
                 )}
 

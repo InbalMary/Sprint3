@@ -1,16 +1,19 @@
 import { MailPreview } from "./MailPreview.jsx";
+import { MailSortingHeader } from './MailSortingHeader.jsx'
 
 
-export function MailList({ mails, onRemoveMail, onToggleReadStatus, onToggleStarred, onReplyClick, onMailClick, onSaveMailAsNote }) {
+export function MailList({ mails, onRemoveMail, onToggleReadStatus, onToggleStarred, onReplyClick, onMailClick, onSaveMailAsNote, filterByToEdit, handleChange, toggleSort, clearAllFilters }) {
 
     return (
         <section className="mail-list">
-            {/* <header className="mail-list-header">
-                <div className="header-star"></div>
-                <div className="header-from">From</div>
-                <div className="header-topic">Topic</div>
-                <div className="header-time">Time</div>
-            </header> */}
+            <header className="mail-list-header">
+                <MailSortingHeader
+                    filterByToEdit={filterByToEdit}
+                    handleChange={handleChange}
+                    toggleSort={toggleSort}
+                    clearAllFilters={clearAllFilters}
+                />
+            </header>
             <div className="mail-items">
                 {mails.map(mail =>
 

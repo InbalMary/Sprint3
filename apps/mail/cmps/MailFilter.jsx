@@ -1,5 +1,4 @@
 const { useState, useEffect, Fragment } = React
-import { MailSortingHeader } from './MailSortingHeader.jsx'
 
 export function MailFilter({ defaultFilter, onSetFilter }) {
     const [filterByToEdit, setFilterByToEdit] = useState({ ...defaultFilter })
@@ -29,34 +28,6 @@ export function MailFilter({ defaultFilter, onSetFilter }) {
         setFilterByToEdit(prevFilter => ({ ...prevFilter, [field]: value }))
     }
 
-    const toggleSort = (sortBy) => {
-        let newSortDirection = 'asc';
-
-        if (filterByToEdit.sortBy === sortBy) {
-            newSortDirection = filterByToEdit.sortDirection === 'asc' ? 'desc' : 'asc';
-        }
-
-        const updatedFilter = {
-            ...filterByToEdit,
-            sortBy,
-            sortDirection: newSortDirection
-        }
-
-        setFilterByToEdit(updatedFilter);
-    }
-
-    const clearAllFilters = () => {
-        const clearedFilter = {
-            txt: '',
-            isRead: '',
-            from: '',
-            subject: '',
-            sortBy: null,
-            sortDirection: 'asc'
-        }
-        setFilterByToEdit(clearedFilter);
-    }
-
     return (
         <Fragment>
             <div className="search-bar">
@@ -73,12 +44,6 @@ export function MailFilter({ defaultFilter, onSetFilter }) {
                     </svg>
                 </span>
             </div>
-            <MailSortingHeader
-                filterByToEdit={filterByToEdit}
-                handleChange={handleChange}
-                toggleSort={toggleSort}
-                clearAllFilters={clearAllFilters}
-            />
             
         </Fragment>
     )
