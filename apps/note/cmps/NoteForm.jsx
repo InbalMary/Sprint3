@@ -5,11 +5,13 @@ const { useState, useEffect, useRef } = React
 export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle }) {
     const titleRef = useRef()
     const txtRef = useRef()
+    const newFormRef = useRef(null)
 
     const [isPinned, setIsPinned] = useState(false)
     const [noteStyle, setNoteStyle] = useState({ backgroundColor: '#ffffff' })
     const [isColorInputOpen, setIsColorInputOpen] = useState(false);
     const [cmpType, setCmpType] = useState('color')
+    const [isExpanded, setIsExpanded] = useState(false)
 
     const isEdit = note && note.id ? true : false //editing or creating
 
@@ -31,6 +33,28 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle }) {
             setIsColorInputOpen(false)
         }
     }, [note, isEdit])  // Run effect when note data or edit mode changes
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            // Collapse new note form when clicking outside of it. check if expanded form was rendered
+            if (newFormRef.current && !newFormRef.current.contains(event.target)) {
+                if (!isEdit && isExpanded) {
+                    setIsExpanded(false)
+                }
+            }
+        }
+        document.addEventListener('click', handleClickOutside)
+        return () => {
+            document.removeEventListener('click', handleClickOutside)
+        }
+    }, [isEdit, isExpanded]
+    )
+
+    useEffect(() => {
+        if (!isEdit && isExpanded) {
+            txtRef.current.focus()
+        }
+    }, [isEdit, isExpanded])
 
     function handleSetNoteStyle(newStyle) {
         console.log('newStyle:', newStyle)
@@ -90,8 +114,42 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle }) {
             elInput.classList.remove('empty')
         }
     }
+
+    function handleExpand() {
+        setIsExpanded(true)
+    }
+    // show collapsed line if new note and not expanded
+    if (!isEdit && !isExpanded) {
+        return <div className="note-container collapsed-note" onClick={handleExpand}
+        >Take a note...
+            <div className="note-toolbar">
+                <button className="new-list btn">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        height="24px" viewBox="0 -960 960 960"
+                        width="24px" fill="currentColor">
+                        <path d="m424-312 282-282-56-56-226 226-114-114-56 56 170 170ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z" />
+                    </svg>
+                </button>
+                <button className="draw-note btn">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        height="24px" viewBox="0 -960 960 960"
+                        width="24px" fill="currentColor">
+                        <path d="M240-120q-45 0-89-22t-71-58q26 0 53-20.5t27-59.5q0-50 35-85t85-35q50 0 85 35t35 85q0 66-47 113t-113 47Zm0-80q33 0 56.5-23.5T320-280q0-17-11.5-28.5T280-320q-17 0-28.5 11.5T240-280q0 23-5.5 42T220-202q5 2 10 2h10Zm230-160L360-470l358-358q11-11 27.5-11.5T774-828l54 54q12 12 12 28t-12 28L470-360Zm-190 80Z" /></svg>
+                </button>
+                <button className="img-note btn">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        height="24px" viewBox="0 -960 960 960"
+                        width="24px" fill="currentColor">
+                        <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm40-80h480L570-480 450-320l-90-120-120 160Zm-40 80v-560 560Z" />
+                    </svg>
+                </button>
+            </div>
+
+        </div>
+    }
+    // Full note form — either editing or new note expanded
     return (
-        <div className={`note-base ${isEdit ? 'note-editor' : 'new-note-container'}`} style={noteStyle}>
+        <div ref={newFormRef} className={`note-container note-base ${isEdit ? 'note-editor' : 'new-note-container'}`} style={noteStyle}>
             <div
                 ref={titleRef}
                 className={`note-editable note-title ${!isEdit && 'empty'}`}
