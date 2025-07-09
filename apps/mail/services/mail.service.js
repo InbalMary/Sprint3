@@ -417,6 +417,8 @@ function getFilterFromSearchParams(searchParams) {
                 filterBy[field] = true;
             } else if (value === 'false') {
                 filterBy[field] = false;
+            } else {
+                filterBy[field] = value
             }
         } else {
             filterBy[field] = defaultFilter[field]

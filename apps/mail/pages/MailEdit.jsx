@@ -137,7 +137,7 @@ export function MailEdit() {
                     <label htmlFor="to">To</label>
                     <input
                         onChange={handleChange}
-                        value={from}
+                        value={mailId ? from : to}
                         name="to"
                         id="to"
                         type="email"

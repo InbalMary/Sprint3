@@ -159,7 +159,7 @@ export function MailIndex() {
                 onSetFilter={onSetFilter}
                 onToggleSidebar={() => handleToggleSidebar('toggle')}
             />
-            <section className="mail-index">
+            <section className={`mail-index ${isSidebarExpanded ? 'sidebar-open' : ''}`}>
                 <MailSidebar
                     unreadCount={unreadCount}
                     starredCount={starredCount}
@@ -168,15 +168,6 @@ export function MailIndex() {
                     isExpanded={isSidebarExpanded}
                     onToggleSidebar={handleToggleSidebar}
                 />
-                {/* <MailHeader
-                defaultFilter={filterBy}
-                onSetFilter={onSetFilter}
-            />
-            <section className="btn-container">
-                <Link className="btn" to="/mail/edit">Add Mail</Link>
-                <Link className="btn" to="/mail/add">Add Google Mail</Link>
-                <Link className="btn" to="/mail/chart">Categories chart</Link>
-            </section> */}
 
                 {!isDetailsView && (
                     <MailList
