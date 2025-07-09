@@ -1,19 +1,31 @@
 /* NoteForm.css - shared styles for note components */
-
-.note-base {
+.note-container {
     position: relative;
     display: flex;
-    flex-direction: column;
     width: 100%;
     max-width: 580px;
+    margin: 20px auto;
     font-family: 'RobotoFlex', sans-serif;
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 3px 5px rgba(0, 0, 0, .2);
-    margin: 20px auto;
-    overflow: visible;
     border: 1px solid #e0e0e0;
+    overflow: visible;
+    color: var(--notes-top-bar-icon-color);
+    cursor: text;
+}
+
+.note-base {
+    flex-direction: column;
     padding-top: 4px;
+}
+
+.collapsed-note {
+    align-items: center;
+    justify-content: space-between;
+    min-height: 26px;
+    padding: 2px 16px;
+    overflow-wrap: break-word;
 }
 
 /* Shared editable behavior */
@@ -27,6 +39,12 @@
     outline: none;
     width: 100%;
     box-sizing: border-box;
+}
+
+.collapsed-note .note-toolbar button svg {
+    height: 25px;
+    width: 25px;
+    color: var(--notes-top-bar-icon-color);
 }
 
 .new-note-container {
@@ -67,8 +85,6 @@
     overflow: visible;
     margin-top: 5px;
     padding: 0 8px;
-    flex-shrink: 0;
-    /* Prevent footer from shrinking */
 }
 
 .note-toolbar {

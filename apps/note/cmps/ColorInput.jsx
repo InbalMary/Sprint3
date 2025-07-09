@@ -20,7 +20,8 @@ export function ColorInput({ onSetNoteStyle }) { //pass the update function from
     }
 
     return (
-        <section className="color-input">
+        <section className="color-input"
+            onClick={ev => ev.stopPropagation()}>
             <div className="colors-container">
                 {colors.map(color => (
                     <div
