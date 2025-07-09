@@ -95,6 +95,17 @@ export function NoteIndex() {
                 showErrorMsg('Could not change color')
             })
     }
+    function togglePin(noteId) {
+        setNotes(prevNotes => {
+            const updatedNotes = prevNotes.map(note =>
+                note.id === noteId ? { ...note, isPinned: !note.isPinned } : note
+            )
+            // console.log('After togglePin:', updatedNotes)
+            return updatedNotes
+
+        })
+
+    }
 
     function onSetFilter(filterBy) {
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy }))
@@ -117,6 +128,7 @@ export function NoteIndex() {
                     editedNoteId={editedNoteId}
                     setEditedNoteId={setEditedNoteId}
                     onEditNote={onEditNote}
+                    onTogglePin={togglePin}
                 />
                 {editedNoteId && (
                     <div className="editor-overlay" onClick={() => setEditedNoteId(null)}>

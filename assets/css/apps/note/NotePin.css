@@ -1,0 +1,32 @@
+.note-pin {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    opacity: 1;
+    pointer-events: auto;
+    cursor: pointer;
+    color: var(--notes-top-bar-icon-color);
+    border-radius: 50%;
+    background-color: transparent;
+    transition: opacity 0.2s ease;
+    border: none;
+}
+
+.note-editor .note-pin,
+.new-note-container .note-pin {
+    width: 40px;
+    height: 40px;
+}
+
+.note-pin:hover {
+    background-color: var(--notes-sidebar-icon-bg-hover);
+}
+
+.note-pin.active {
+    color: var(--notes-sidebar-icon-color-active);
+}
