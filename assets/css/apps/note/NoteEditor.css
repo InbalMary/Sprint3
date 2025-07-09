@@ -26,25 +26,3 @@
     max-width: 580px;
     min-width: 500px;
 }
-
-.note-editor .note-pin {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    opacity: 1;
-    cursor: pointer;
-    pointer-events: auto;
-    color: var(--notes-top-bar-icon-color);
-    border-radius: 50%;
-    background-color: transparent;
-    transition: opacity 0.2s ease;
-}
-
-.note-editor .note-pin:hover {
-    background-color: var(--notes-sidebar-icon-bg-hover);
-}

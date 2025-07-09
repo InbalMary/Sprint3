@@ -1,1 +1,13 @@
  /* note index */
+
+ .pinned-notes-section h6,
+ .other-notes-section h6 {
+     font-family: 'RobotoFlex', sans-serif;
+     color: var(--notes-sidebar-icon-color-default);
+     font-weight: 500;
+     text-transform: uppercase;
+     line-height: 1rem;
+     font-size: .6875rem;
+     letter-spacing: .0727272727em;
+     margin: 16px 8px;
+ }

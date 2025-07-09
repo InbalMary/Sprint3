@@ -1,17 +1,18 @@
 import { ColorInput } from '../cmps/ColorInput.jsx'
+import { NotePin } from './NotePin.jsx'
 
 const { useState, useEffect, useRef } = React
 
-export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle }) {
+export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onTogglePin }) {
     const titleRef = useRef()
     const txtRef = useRef()
     const newFormRef = useRef(null)
 
-    const [isPinned, setIsPinned] = useState(false)
     const [noteStyle, setNoteStyle] = useState({ backgroundColor: '#ffffff' })
     const [isColorInputOpen, setIsColorInputOpen] = useState(false);
     const [cmpType, setCmpType] = useState('color')
     const [isExpanded, setIsExpanded] = useState(false)
+    const [isPinned, setIsPinned] = useState(false);
 
     const isEdit = note && note.id ? true : false //editing or creating
 
@@ -70,6 +71,20 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle }) {
         setIsColorInputOpen(prev => !prev)
     }
 
+    function togglePin() {
+        console.log('Pin toggled!')
+        if (isEdit) {
+            // Inform parent to toggle pin state in the global notes list
+            if (onTogglePin) {
+                onTogglePin(note.id)
+                setIsPinned(prev => !prev)
+            }
+        } else {
+            // For new note, toggle local pin state
+            setIsPinned(prev => !prev)
+        }
+    }
+
     function handleSave() {
         const title = titleRef.current.innerText || '' // get text content from title div
         const txt = txtRef.current.innerText || ''
@@ -94,6 +109,10 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle }) {
             txtRef.current.innerText = ''
             setNoteStyle({ backgroundColor: 'white' })
             setIsPinned(false)
+            setIsColorInputOpen(false)
+            // Add empty class back to show placeholders
+            if (titleRef.current) titleRef.current.classList.add('empty')
+            if (txtRef.current) txtRef.current.classList.add('empty')
         }
     }
 
@@ -118,6 +137,7 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle }) {
     function handleExpand() {
         setIsExpanded(true)
     }
+
     // show collapsed line if new note and not expanded
     if (!isEdit && !isExpanded) {
         return <div className="note-container collapsed-note" onClick={handleExpand}
@@ -152,7 +172,7 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle }) {
         <div ref={newFormRef} className={`note-container note-base ${isEdit ? 'note-editor' : 'new-note-container'}`} style={noteStyle}>
             <div
                 ref={titleRef}
-                className={`note-editable note-title ${!isEdit && 'empty'}`}
+                className={`note-editable note-title ${!isEdit ? 'empty' : ''}`}
                 contentEditable="true"
                 data-placeholder="Title"
                 suppressContentEditableWarning={true}
@@ -160,19 +180,14 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle }) {
             </div>
             <p
                 ref={txtRef}
-                className={`note-editable note-text ${!isEdit && 'empty'}`}
+                className={`note-editable note-text ${!isEdit ? 'empty' : ''}`}
                 contentEditable="true"
                 data-placeholder="Take a note..."
                 suppressContentEditableWarning={true}
                 onInput={handleInput}>
             </p>
-            <span className="note-pin">
-                {/* <span className={`note-pin ${isPinned ? 'active' : ''}`}> */}
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px"
-                    viewBox="0 -960 960 960" width="24px" fill="currentColor">
-                    <path d="m640-480 80 80v80H520v240l-40 40-40-40v-240H240v-80l80-80v-280h-40v-80h400v80h-40v280Zm-286 80h252l-46-46v-314H400v314l-46 46Zm126 0Z" />
-                </svg>
-            </span>  {/*add pin functionality later*/}
+
+            <NotePin isPinned={isPinned} onTogglePin={togglePin} />
 
             <div className="note-footer">
                 <div className="note-toolbar">

@@ -5,8 +5,8 @@
  .note-grid {
      column-width: 220px;
      column-gap: 10px;
-     padding: 10px;
-     margin-top: 30px;
+     /* padding: 10px;
+     margin-top: 30px; */
      width: 100%;
  }
 
