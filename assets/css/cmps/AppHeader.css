@@ -1,16 +1,61 @@
 .app-header {
+    position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20000;
+  width: 100vw;
     display: flex;
     justify-content: space-between;
-    padding: 1em;
-    background: var(--bg1);
+    padding: 0 1em;
+    font-family: 'RobotoFlex', 'RobotoRegular', Helvetica, Arial, sans-serif;
+
+    --s: 200px;
+    /* control the size*/
+    --c1: #f2f6fc;
+    --c2: #dadce0;
+    --c3: #d4e4ed;
+
+    background:
+        repeating-conic-gradient(from 30deg, #0000 0 120deg, var(--c3) 0 50%) calc(var(--s)/2) calc(var(--s)*tan(30deg)/2),
+        repeating-conic-gradient(from 30deg, var(--c1) 0 60deg, var(--c2) 0 120deg, var(--c3) 0 50%);
+    background-size: var(--s) calc(var(--s)*tan(30deg));
+
+}
+
+.app-header nav {
+    display: flex;
+    align-items: center;
 }
 
 nav a {
     margin: .5em;
+    color: var(--mail-body);
+    font-weight: 600;
+    transition: transform 0.3s ease, color 0.3s ease;
+    display: inline-block;
+}
+
+nav a:hover {
+    transform: scale(1.1);
+    color: var(--notes-primary-color);
 }
 
 nav a.active {
-    color: var(--color1);
-    font-weight: bold;
+    color: var(--notes-primary-color);
+    font-weight: 900;
     text-decoration: overline;
+}
+
+.app-header h3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    color: var(--mail-body);
+}
+
+.app-header h3 svg {
+    height: 46px;
+    fill: var(--mail-body);
+    ;
 }

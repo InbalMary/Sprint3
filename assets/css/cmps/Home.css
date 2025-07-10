@@ -1,14 +1,66 @@
  /* home */
 
-.home {
-    background-color: var(--bg2);
-}
+ .home {
+    font-family: 'RobotoFlex', 'RobotoRegular', Helvetica, Arial, sans-serif;
+     --s: 105px;
+     /* control the size*/
+     --c1: #f2f6fc;
+     --c2: #dadce0;
+     --c3: #d4e4ed;
 
-.home .box-container {
-    padding: 1em 0;
-}
+     background:
+         conic-gradient(from 75deg, var(--c1) 15deg, var(--c2) 0 30deg, #0000 0 180deg,
+             var(--c2) 0 195deg, var(--c1) 0 210deg, #0000 0) calc(var(--s)/2) calc(.5*var(--s)/tan(30deg)),
+         conic-gradient(var(--c1) 30deg, var(--c3) 0 75deg, var(--c1) 0 90deg, var(--c2) 0 105deg,
+             var(--c3) 0 150deg, var(--c2) 0 180deg, var(--c3) 0 210deg, var(--c1) 0 256deg,
+             var(--c2) 0 270deg, var(--c1) 0 286deg, var(--c2) 0 331deg, var(--c3) 0);
+     background-size: var(--s) calc(var(--s)/tan(30deg));
+     background-repeat: repeat;
 
-.home .box1 {
+     width: 100%;
+     min-height: calc(100vh - 60px) ;
+ }
+
+ .home .box-container {
+     position: relative;
+     padding: 1em 0;
+ }
+
+ .links-container {
+     position: absolute;
+     bottom: 10px;
+     right: 20px;
+     display: flex;
+     justify-content: space-between;
+     gap: 1.5em;
+ }
+
+ .link {
+     display: flex;
+     align-items: center;
+     flex-direction: column;
+     text-decoration: none;
+     color: var(--mail-body);
+     font-size: 1em;
+     font-weight: bold;
+ }
+
+ .link svg {
+     margin-block-end: 8px;
+     width: 36px;
+     height: 36px;
+     fill: var(--mail-body);
+ }
+
+ .link svg:hover,
+ .link:hover {
+     color: var(--notes-primary-color);
+ }
+
+ .about {
+    padding: 1em;
+ }
+ /* .home .box1 {
     background-color: var(--color1);
     min-height: 10em;
 }
@@ -30,4 +82,4 @@
         width: 30vw;
     }
     
-}
+} */

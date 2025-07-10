@@ -8,6 +8,8 @@
     margin-inline-end: 0.5em;
     color: var(--mail-details-txt-color);
     overflow-x: hidden;
+    margin-block-start: 102.8px;
+
 }
 
 .mail-details header {
