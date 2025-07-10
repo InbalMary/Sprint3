@@ -1,5 +1,5 @@
 import { noteService } from '../services/note.service.js'
-// import { NoteFilter } from "../cmps/NoteFilter.jsx"
+import { NoteFilter } from "../cmps/NoteFilter.jsx"
 import { NoteList } from "../cmps/NoteList.jsx"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 import { NoteForm } from '../cmps/NoteForm.jsx'
@@ -119,6 +119,11 @@ export function NoteIndex() {
     return (
         <section className="container">
             <section className="note-index">
+                {/*TODO: move filter input to app-header in future layout*/}
+                <NoteFilter
+                    defaultFilter={filterBy}
+                    onSetFilter={onSetFilter}
+                />
                 <NoteForm onAddNote={onAddNote} />
                 <div style={{ marginTop: pinnedNotes.length > 0 ? '0' : '2rem' }}></div>
                 {pinnedNotes.length > 0 && (
@@ -147,12 +152,6 @@ export function NoteIndex() {
                         />
                     </div>
                 )}
-
-                {/* <NoteFilter
-                    defaultFilter={filterBy}
-                    onSetFilter={onSetFilter}
-                /> */}
-
                 {editedNoteId && (
                     <div className="editor-overlay" onClick={() => setEditedNoteId(null)}>
                         <div onClick={ev => ev.stopPropagation()}
