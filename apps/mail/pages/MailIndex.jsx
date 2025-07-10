@@ -151,44 +151,52 @@ export function MailIndex() {
     }
 
     function handleChange({ target }) {
-    const field = target.name
-    let value = target.value
+        const field = target.name
+        let value = target.value
 
-    if (value === 'true') value = true
-    else if (value === 'false') value = false
+        if (value === 'true') value = true
+        else if (value === 'false') value = false
 
-    switch (target.type) {
-        case 'number':
-        case 'range':
-            value = +value
-            break;
+        switch (target.type) {
+            case 'number':
+            case 'range':
+                value = +value
+                break;
 
-        case 'checkbox':
-            value = target.checked
-            break
+            case 'checkbox':
+                value = target.checked
+                break
+        }
+        setFilterBy(prevFilter => ({ ...prevFilter, [field]: value }))
     }
-    setFilterBy(prevFilter => ({ ...prevFilter, [field]: value }))
-}
 
 
-function toggleSort(sortBy) {
-    let newSortDirection = 'asc';
-    if (filterBy.sortBy === sortBy) {
-        newSortDirection = filterBy.sortDirection === 'asc' ? 'desc' : 'asc';
+    function toggleSort(sortBy) {
+        let newSortDirection = 'asc';
+        if (filterBy.sortBy === sortBy) {
+            newSortDirection = filterBy.sortDirection === 'asc' ? 'desc' : 'asc';
+        }
+        setFilterBy(prev => ({ ...prev, sortBy, sortDirection: newSortDirection }))
     }
-    setFilterBy(prev => ({ ...prev, sortBy, sortDirection: newSortDirection }))
-}
 
-function clearAllFilters() {
-    setFilterBy({
-        txt: '',
-        isRead: '',
-        from: '',
-        subject: '',
-        sortBy: null,
-        sortDirection: 'asc'
-    })
-}
+    function clearAllFilters() {
+        setFilterBy({
+            txt: '',
+            isRead: '',
+            from: '',
+            subject: '',
+            sortBy: null,
+            sortDirection: 'asc'
+        })
+    }
+
+    function onUpdateMailLabels(mailId, labelName, action) {
+        mailService.updateLabels(mailId, labelName, action)
+            .then(updatedMail => {
+                setMails(prevMails => prevMails.map(mail =>
+                    mail.id === mailId ? updatedMail : mail))
+            })
+    }
 
 
     if (!mails) return <div className="loader">Loading...</div>
@@ -223,6 +231,7 @@ function clearAllFilters() {
                         handleChange={handleChange}
                         toggleSort={toggleSort}
                         clearAllFilters={clearAllFilters}
+                        onUpdateMailLabels={onUpdateMailLabels}
                     />
                 )}
 
@@ -233,7 +242,8 @@ function clearAllFilters() {
                     onToggleReadStatus,
                     onReplyClick,
                     onMailClick,
-                    onSaveMailAsNote
+                    onSaveMailAsNote,
+                    onUpdateMailLabels
                 }} />
             </section>
         </Fragment>

@@ -13,7 +13,8 @@ export const mailService = {
     getDefaultFilter,
     getFilterFromSearchParams,
     removeMailToTrash,
-    formatMailTimestamp
+    formatMailTimestamp,
+    updateLabels
 }
 
 //For debug:
@@ -121,7 +122,8 @@ function getEmptyMail(to = '', subject = '', body = '') {
         removedAt: null,
         from: loggedinUser.email,
         to: "",
-        isStared: false
+        isStared: false,
+        labels: []
     }
 }
 
@@ -131,7 +133,7 @@ function getDefaultFilter() {
         txt: '',
         isRead: '',
         isStared: null,
-        lables: []
+        labels: []
     }
 }
 
@@ -147,6 +149,21 @@ function removeMailToTrash(mailId) {
     })
 }
 
+function updateLabels(mailId, labelName, action) {
+    return get(mailId)
+        .then(mail => {
+            let labels = mail.labels || []
+            if (action === 'add' && !labels.includes(labelName)) {
+                labels.push(labelName)
+            } else if (action === 'remove') {
+                labels = labels.filter(lable => lable !== labelName)
+            }
+            mail.labels = labels
+            return save(mail)
+        })
+}
+
+
 function _createMails() {
     let mails = utilService.loadFromStorage(MAIL_KEY)
     if (!mails || !mails.length) {
@@ -161,7 +178,8 @@ function _createMails() {
                 "removedAt": null,
                 "from": "momo@momo.com",
                 "to": "user@appsus.com",
-                "isStared": false
+                "isStared": false,
+                "labels": []
             },
             {
                 "id": "e102",
@@ -173,7 +191,8 @@ function _createMails() {
                 "removedAt": null,
                 "from": "john@meeting.com",
                 "to": "user@appsus.com",
-                "isStared": true
+                "isStared": true,
+                "labels": []
             },
             {
                 "id": "e103",
@@ -185,7 +204,8 @@ function _createMails() {
                 "removedAt": null,
                 "from": "sale@shop.com",
                 "to": "user@appsus.com",
-                "isStared": false
+                "isStared": false,
+                "labels": []
             },
             {
                 "id": "e104",
@@ -197,7 +217,8 @@ function _createMails() {
                 "removedAt": null,
                 "from": "support@service.com",
                 "to": "user@appsus.com",
-                "isStared": true
+                "isStared": true,
+                "labels": []
             },
             {
                 "id": "e105",
@@ -209,7 +230,8 @@ function _createMails() {
                 "removedAt": null,
                 "from": "newsletter@updates.com",
                 "to": "user@appsus.com",
-                "isStared": true
+                "isStared": true,
+                "labels": []
             },
             {
                 "id": "e106",
@@ -221,7 +243,8 @@ function _createMails() {
                 "removedAt": null,
                 "from": "admin@account.com",
                 "to": "user@appsus.com",
-                "isStared": false
+                "isStared": false,
+                "labels": []
             },
             {
                 "id": "e107",
@@ -233,7 +256,8 @@ function _createMails() {
                 "removedAt": null,
                 "from": "offers@deals.com",
                 "to": "user@appsus.com",
-                "isStared": false
+                "isStared": false,
+                "labels": []
             },
             {
                 "id": "e108",
@@ -245,7 +269,8 @@ function _createMails() {
                 "removedAt": null,
                 "from": "no-reply@verify.com",
                 "to": "user@appsus.com",
-                "isStared": false
+                "isStared": false,
+                "labels": []
             },
             {
                 "id": "e109",
@@ -257,7 +282,8 @@ function _createMails() {
                 "removedAt": null,
                 "from": "hr@company.com",
                 "to": "user@appsus.com",
-                "isStared": false
+                "isStared": false,
+                "labels": []
             },
             {
                 "id": "e110",
@@ -269,7 +295,8 @@ function _createMails() {
                 "removedAt": null,
                 "from": "webinars@events.com",
                 "to": "user@appsus.com",
-                "isStared": true
+                "isStared": true,
+                "labels": []
             },
             {
                 "id": "e111",
@@ -281,7 +308,8 @@ function _createMails() {
                 "removedAt": null,
                 "from": "jessica@wanderlust.com",
                 "to": "user@appsus.com",
-                "isStared": true
+                "isStared": true,
+                "labels": []
             },
             {
                 "id": "e112",
@@ -293,7 +321,8 @@ function _createMails() {
                 "removedAt": null,
                 "from": "sale@shopping.com",
                 "to": "user@appsus.com",
-                "isStared": false
+                "isStared": false,
+                "labels": []
             },
             {
                 "id": "e113",
@@ -305,7 +334,8 @@ function _createMails() {
                 "removedAt": null,
                 "from": "events@company.com",
                 "to": "user@appsus.com",
-                "isStared": true
+                "isStared": true,
+                "labels": []
             },
             {
                 "id": "e114",
@@ -317,7 +347,8 @@ function _createMails() {
                 "removedAt": null,
                 "from": "feedback@company.com",
                 "to": "user@appsus.com",
-                "isStared": false
+                "isStared": false,
+                "labels": []
             },
             {
                 "id": "e115",
@@ -329,7 +360,8 @@ function _createMails() {
                 "removedAt": null,
                 "from": "courses@learning.com",
                 "to": "user@appsus.com",
-                "isStared": true
+                "isStared": true,
+                "labels": []
             },
             {
                 "id": "e116",
@@ -341,7 +373,8 @@ function _createMails() {
                 "removedAt": null,
                 "from": "webinars@events.com",
                 "to": "user@appsus.com",
-                "isStared": false
+                "isStared": false,
+                "labels": []
             },
             {
                 "id": "e117",
@@ -353,7 +386,8 @@ function _createMails() {
                 "removedAt": null,
                 "from": "careers@company.com",
                 "to": "user@appsus.com",
-                "isStared": false
+                "isStared": false,
+                "labels": []
             },
             {
                 "id": "e118",
@@ -365,7 +399,8 @@ function _createMails() {
                 "removedAt": null,
                 "from": "gifts@company.com",
                 "to": "user@appsus.com",
-                "isStared": true
+                "isStared": true,
+                "labels": []
             },
             {
                 "id": "e119",
@@ -377,7 +412,8 @@ function _createMails() {
                 "removedAt": null,
                 "from": "shop@company.com",
                 "to": "user@appsus.com",
-                "isStared": false
+                "isStared": false,
+                "labels": []
             },
             {
                 "id": "e120",
@@ -389,7 +425,8 @@ function _createMails() {
                 "removedAt": null,
                 "from": "support@company.com",
                 "to": "user@appsus.com",
-                "isStared": false
+                "isStared": false,
+                "labels": []
             }
 
 

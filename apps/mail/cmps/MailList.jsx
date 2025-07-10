@@ -2,7 +2,7 @@ import { MailPreview } from "./MailPreview.jsx";
 import { MailSortingHeader } from './MailSortingHeader.jsx'
 
 
-export function MailList({ mails, onRemoveMail, onToggleReadStatus, onToggleStarred, onReplyClick, onMailClick, onSaveMailAsNote, filterByToEdit, handleChange, toggleSort, clearAllFilters }) {
+export function MailList({ mails, onRemoveMail, onToggleReadStatus, onToggleStarred, onReplyClick, onMailClick, onSaveMailAsNote, filterByToEdit, handleChange, toggleSort, clearAllFilters, onUpdateMailLabels }) {
 
     return (
         <section className="mail-list">
@@ -23,7 +23,8 @@ export function MailList({ mails, onRemoveMail, onToggleReadStatus, onToggleStar
                         onToggleReadStatus={onToggleReadStatus}
                         onRemoveMail={onRemoveMail}
                         onReplyClick={onReplyClick}
-                        onSaveMailAsNote={onSaveMailAsNote} />
+                        onSaveMailAsNote={onSaveMailAsNote}
+                        onUpdateMailLabels={onUpdateMailLabels} />
                 )}
             </div>
         </section>

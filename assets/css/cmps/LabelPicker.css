@@ -1,0 +1,61 @@
+.label-picker-container {
+    position: relative;
+    display: inline-block;
+    font-family: 'RobotoFlex', 'RobotoRegular', Helvetica, Arial, sans-serif;
+}
+
+.label-picker-container .label-picker-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0; 
+    background: var(--mail-inbox-bg);
+    border: 1px solid var(--mail-border);
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
+    min-width: 140px;
+    gap: 4px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.2s ease-in-out;
+}
+
+.label-picker-container .cat-name {
+    display: inline-block;
+    padding: 4px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.label-picker-container .label-picker-option {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.label-picker-container .label-picker-option:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.label-picker-container input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.label-picker-button svg {
+    fill: var(--mail-body);
+    font-weight: 900;
+    stroke: var(--mail-body);
+    stroke-width: 70;
+}
+
+@media (max-width: 600px) {
+    .label-picker-container .label-picker-dropdown {
+        right: auto;
+        left: 0;
+    }
+}

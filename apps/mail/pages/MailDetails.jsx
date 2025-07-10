@@ -1,4 +1,5 @@
 import { mailService } from '../services/mail.service.js'
+import { LabelPicker } from '../../../cmps/LabelPicker.jsx'
 
 const { useOutletContext, useParams, useNavigate, Link } = ReactRouterDOM
 
@@ -6,7 +7,7 @@ export function MailDetails() {
     const { mailId } = useParams()
     const navigate = useNavigate()
 
-    const { mails, onToggleStarred, onRemoveMail, onToggleReadStatus, onReplyClick, onSaveMailAsNote } = useOutletContext()
+    const { mails, onToggleStarred, onRemoveMail, onToggleReadStatus, onReplyClick, onSaveMailAsNote, onUpdateMailLabels } = useOutletContext()
 
     const mail = mails && mails.find(m => m.id === mailId)
     if (!mail) return <div>Mail not found</div>
@@ -49,6 +50,10 @@ export function MailDetails() {
                             <button className='star-button' onClick={(ev) => onToggleStarred(mailId, ev)} title="starred">
                                 {isStared ? '★' : '☆'}
                             </button>
+                            <LabelPicker
+                                selectedLabels={mail.labels}
+                                onUpdateLabels={(labelName, action) => onUpdateMailLabels(mail.id, labelName, action)}
+                            />
                         </div>
                     </div>
                     <div className="to"> to {to.split('@')[0]}</div>
