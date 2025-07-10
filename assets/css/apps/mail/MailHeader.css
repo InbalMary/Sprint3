@@ -155,20 +155,12 @@
     fill: currentColor;
 }
 
+.more-filtration > :first-child,
+.more-filtration > :last-child {
+    height: 20px;
+}
+
 @media (max-width: 480px) {
-    /* .mail-header {
-        grid-template-columns: auto 1fr;
-        grid-template-areas:
-            "hamburger search"
-            "logo logo"
-            "filters filters";
-    }
-
-    .logo {
-        justify-content: center;
-        padding: 0.5em 0;
-    } */
-
     .more-filtration select,
     .more-filtration button {
         padding: 0.2em 0.4em;
@@ -180,6 +172,6 @@
 
     .more-filtration {
         flex-wrap: wrap;
-        gap: 0.3em;
+        gap: 0.2em;
     }
 }
