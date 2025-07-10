@@ -11,3 +11,9 @@
      letter-spacing: .0727272727em;
      margin: 16px 8px;
  }
+
+ .note-index {
+     padding: 0 30px;
+     max-width: 1200px;
+     margin: 0 auto;
+ }

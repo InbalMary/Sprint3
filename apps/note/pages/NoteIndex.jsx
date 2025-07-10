@@ -58,7 +58,14 @@ export function NoteIndex() {
             })
     }
 
-    function onEditNote({ noteId, title, txt, style, isPinned }, onClose) {
+    function onEditNote(note, onClose) {
+        if (!note || !note.info) {
+            console.warn('Invalid note passed to onEditNote:', note)
+            return
+        }
+        const { id: noteId, info, style, isPinned } = note
+        const { title, txt } = info
+
         noteService.get(noteId)
             .then(noteToEdit => {
                 noteToEdit.info.title = title
@@ -69,7 +76,6 @@ export function NoteIndex() {
                 return noteService.save(noteToEdit)
             })
             .then(() => {
-                console.log('setting editedNoteId to null')
                 setEditedNoteId(null)
                 loadNotes()
                 if (onClose) onClose()
@@ -97,14 +103,18 @@ export function NoteIndex() {
     }
 
     function togglePin(noteId) {
-        setNotes(prevNotes => {
-            const updatedNotes = prevNotes.map(note =>
-                note.id === noteId ? { ...note, isPinned: !note.isPinned } : note
-            )
-            // console.log('After togglePin:', updatedNotes)
-            return updatedNotes
-
-        })
+        noteService.get(noteId)
+            .then(note => {
+                note.isPinned = !note.isPinned
+                return noteService.save(note)
+            })
+            .then(() => {
+                loadNotes()
+            })
+            .catch(err => {
+                console.log('Error toggling pin:', err)
+                showErrorMsg('Could not toggle pin')
+            })
     }
 
     function onSetFilter(filterBy) {

@@ -1,6 +1,4 @@
 import { NotePreview } from "../cmps/NotePreview.jsx";
-import { NoteActions } from "./NoteActions.jsx";
-import { ColorInput } from "./ColorInput.jsx";
 
 const { Link } = ReactRouterDOM
 const { useState } = React
@@ -41,26 +39,14 @@ export function NoteList({ notes, onRemoveNote, onColorChange, onTogglePin, onEd
                             isEditing={editedNoteId === note.id}
                             onSelectNote={() => setEditedNoteId(note.id)}
                             onTogglePin={() => onTogglePin(note.id)}
-                        />
-                        <NoteActions
-                            onRemove={(ev) => {
-                                ev.stopPropagation()
-                                onRemoveNote(note.id)
-                            }}
+                            onRemoveNote={(id) => onRemoveNote(id)}
                             toggleColorPicker={(ev) => {
-                                ev.stopPropagation()
-                                toggleColorPicker(note.id)
+
+                                toggleColorPicker(note.id);
                             }}
                             isColorInputOpen={openColorPickerId === note.id}
                         />
                     </div>
-                    {openColorPickerId === note.id && (
-                        <div className="color-picker-popup">
-                            <ColorInput
-                                onSetNoteStyle={(style) => onColorChange(note.id, style.backgroundColor)}
-                            />
-                        </div>
-                    )}
                 </article>
             )}
         </div>

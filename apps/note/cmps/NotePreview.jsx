@@ -1,17 +1,42 @@
 
-import { NoteEditor } from './NoteEditor.jsx'
-const { useState, Fragment } = React
+import { NoteForm } from './NoteForm.jsx'
+import { ColorInput } from './ColorInput.jsx'
+import { NoteActions } from './NoteActions.jsx'
 
-export function NotePreview({ note, onEditNote, onTogglePin }) {
+const { useState, useEffect, useRef, Fragment } = React
+
+export function NotePreview({ note, onEditNote, onTogglePin, onRemoveNote }) {
     const { info, style, isPinned, type } = note
     const [isEditing, setIsEditing] = useState(false)
+    const [isColorInputOpen, setIsColorInputOpen] = useState(false)
+    const colorInputRef = useRef(null)
+
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (isColorInputOpen && colorInputRef.current && !colorInputRef.current.contains(event.target)) {
+                setIsColorInputOpen(false)
+            }
+        }
+        document.addEventListener('click', handleClickOutside)
+        return () => {
+            document.removeEventListener('click', handleClickOutside)
+        }
+    }, [isColorInputOpen]
+    )
 
     function handleSave(noteData) {
         onEditNote(noteData)
         setIsEditing(false)
     }
 
+    function handleSetNoteStyle(newStyle) {
+        onEditNote({ ...note, style: { ...note.style, ...newStyle } })
+        // setIsColorInputOpen(false)
+    }
+
     return (
+
         <article className="note-preview" style={style}>
             <span className={`note-pin ${isPinned ? 'active' : ''}`}
                 onClick={(ev) => {
@@ -26,15 +51,33 @@ export function NotePreview({ note, onEditNote, onTogglePin }) {
             </span>
 
             {isEditing ? (
-                <NoteEditor
+                <NoteForm
                     note={note}
                     onSave={handleSave}
                     onClose={() => setIsEditing(false)}
+                    onTogglePin={onTogglePin}
                 />
             ) : (
                 <Fragment>
                     <h3>{info.title || 'Title'}</h3>
                     <p>{info.txt || 'Take a note...'}</p>
+                    <NoteActions
+                        onRemove={(ev) => {
+                            ev.stopPropagation()
+                            onRemoveNote(note.id)
+                        }}
+                        toggleColorPicker={(ev) => {
+                            ev.stopPropagation()
+                            setIsColorInputOpen(prev => !prev)
+                            console.log('colorpicker toggled');
+                        }}
+                    />
+                    {isColorInputOpen && (
+
+                        <div ref={colorInputRef} className="color-picker-popup" onClick={ev => ev.stopPropagation()}>
+                            <ColorInput onSetNoteStyle={handleSetNoteStyle} />
+                        </div>
+                    )}
                 </Fragment>
             )}
         </article>
