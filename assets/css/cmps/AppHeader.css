@@ -1,4 +1,9 @@
 .app-header {
+    position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20000;
+  width: 100vw;
     display: flex;
     justify-content: space-between;
     padding: 0 1em;
@@ -30,7 +35,7 @@ nav a {
     display: inline-block;
 }
 
-nav a:hover{
+nav a:hover {
     transform: scale(1.1);
     color: var(--notes-primary-color);
 }

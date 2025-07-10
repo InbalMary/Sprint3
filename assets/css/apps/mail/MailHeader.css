@@ -4,6 +4,12 @@
     padding-block: 0.5em;
     background-color: var(--mail-main-bg);
     gap: 0; */
+    height: 56.8px;
+    width: 100vw;
+    position: fixed;
+  top: 46px;
+  left: 0;
+  z-index: 200000;
     display: grid;
     grid-template-columns: auto auto 1fr;
     grid-template-rows: auto auto;
