@@ -30,13 +30,25 @@ export function MailIndex() {
         setSearchParams(utilService.getTruthyValues(filterBy))
     }, [filterBy])
 
+    useEffect(() => {
+        loadCounts()
+    }, [])
+
     function loadMails() {
         mailService.query(filterBy)
             .then((mails) => {
                 setMails(mails)
-                const unreadMails = mails.filter(mail => !mail.isRead).length
+            })
+            .catch(err => console.log('err:', err))
+    }
+
+    function loadCounts() {
+        mailService.query()
+            .then((allMails) => {
+                console.log('All mails in loadCounts:', allMails)
+                const unreadMails = allMails.filter(mail => !mail.isRead).length
                 setUnreadCount(unreadMails)
-                const starredMails = mails.filter(mail => mail.isStared).length
+                const starredMails = allMails.filter(mail => mail.isStared).length
                 setStarredCount(starredMails)
             })
             .catch(err => console.log('err:', err))
@@ -53,6 +65,7 @@ export function MailIndex() {
                     showSuccessMsg('Conversation deleted forever.')
                     setMails((prevMails) =>
                         prevMails.filter(mail => mail.id !== mailId))
+                    loadCounts()
                 })
                 .catch(err => {
                     console.log(err)
@@ -66,6 +79,7 @@ export function MailIndex() {
                     setMails((prevMails) =>
                         prevMails.map(mail =>
                             mail.id === mailId ? updatedMail : mail))
+                    loadCounts()
                 })
                 .catch(err => {
                     console.log(err)
@@ -86,10 +100,10 @@ export function MailIndex() {
             mail.id === mailId ? { ...mail, isStared: !mail.isStared } : mail)
         setMails(updatedMails)
 
-        const starredMails = updatedMails.filter(mail => mail.isStared).length
-        setStarredCount(starredMails)
-
         mailService.save({ ...mail, isStared: !mail.isStared })
+            .then(() => {
+                loadCounts()
+            })
             .catch(err => {
                 console.log('Error updating starred status:', err)
                 showErrorMsg('Failed to update starred status')
@@ -105,10 +119,10 @@ export function MailIndex() {
             mail.id === mailId ? { ...mail, isRead: !mail.isRead } : mail)
         setMails(updatedMails)
 
-        const redeStatusMails = updatedMails.filter(mail => !mail.isRead).length
-        setUnreadCount(redeStatusMails)
-
         mailService.save({ ...mail, isRead: !mail.isRead })
+            .then(() => {
+                loadCounts()
+            })
             .catch(err => {
                 console.log('Error updating read status:', err)
                 showErrorMsg('Failed to update read status')
@@ -180,13 +194,15 @@ export function MailIndex() {
     }
 
     function clearAllFilters() {
+        const status = searchParams.get('status') || ''
         setFilterBy({
             txt: '',
             isRead: '',
             from: '',
             subject: '',
             sortBy: null,
-            sortDirection: 'asc'
+            sortDirection: 'asc',
+            status
         })
     }
 
