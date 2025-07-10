@@ -2,13 +2,13 @@ const { useState } = React
 
 export function LabelPicker({ selectedLabels, onUpdateLabels }) {
     const categories = [
-        { cat: 'Critical', color: 'brown' },
-        { cat: 'Family', color: 'blueviolet' },
-        { cat: 'Work', color: 'green' },
-        { cat: 'Friends', color: 'yellowgreen' },
-        { cat: 'Spam', color: 'orange' },
-        { cat: 'Memories', color: 'pink' },
-        { cat: 'Romantic', color: 'turquoise' }
+        { cat: 'Critical', color: '#F9C5BD' },
+        { cat: 'Family', color: '#C5D6F3' },
+        { cat: 'Work', color: '#B39DDB' },
+        { cat: 'Friends', color: '#4285F4' },
+        { cat: 'Spam', color: '#00ACC1' },
+        { cat: 'Memories', color: '#F48FB1' },
+        { cat: 'Romantic', color: '#dcdc8c' }
     ]
 
     // const [selected, setSelected] = useState([])
