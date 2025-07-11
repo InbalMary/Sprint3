@@ -81,7 +81,12 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
 
     function toggleColorInput() {
         console.log('toggleColorInput called')
-        setIsColorInputOpen(prev => !prev)
+        setCmpType('color')
+        setIsColorInputOpen(prev => {
+            console.log('previous isColorInputOpen:', prev)
+            return !prev
+        })
+        // setIsColorInputOpen(prev => !prev)
     }
 
     function togglePin() {
@@ -222,7 +227,10 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
                             <path d="M80 0v-160h800V0H80Zm140-280 210-560h100l210 560h-96l-50-144H368l-52 144h-96Zm176-224h168l-82-232h-4l-82 232Z" />
                         </svg>
                     </button> */}
-                    <button className="background btn" title="Background options" onClick={toggleColorInput}>
+                    <button className="background btn" title="Background options" onClick={(ev) => {
+                        ev.stopPropagation()
+                        toggleColorInput()
+                    }}>
                         <svg xmlns="http://www.w3.org/2000/svg"
                             height="24px" viewBox="0 -960 960 960"
                             width="24px" fill="currentColor">

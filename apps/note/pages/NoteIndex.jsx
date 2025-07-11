@@ -64,6 +64,7 @@ export function NoteIndex() {
             })
     }
 
+    //TODO: fix deleting ALL NOTES onclick
     function onEmptyBin() {
         noteService.query().then(allNotes => {
             const binnedNotes = allNotes.filter(note => note.isBinned)
