@@ -5,7 +5,7 @@
     flex-direction: column;
     gap: 10px;
     overflow-wrap: anywhere;
-    padding: 12px 16px;
+    border-radius: 8px;
 }
 
 .note-preview .note-pin {
@@ -35,6 +35,12 @@
     font-weight: 500;
     color: var(--notes-top-bar-icon-color);
     letter-spacing: .025em;
+    padding: 16px 16px 0px;
+}
+
+.note-preview p {
+    padding: 12px 16px;
+    margin: 0;
 }
 
 .note-pin svg {
