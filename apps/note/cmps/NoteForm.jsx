@@ -286,7 +286,7 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
                     </button> */}
                 </div>
                 {isColorInputOpen && (
-                    <div ref={colorInputRef} className="color-picker-popup">
+                    <div ref={colorInputRef} className="color-picker-popup" onClick={ev => ev.stopPropagation()}>
                         <DynamicCmp cmpType={cmpType} onSetNoteStyle={handleSetNoteStyle} />
 
                     </div>

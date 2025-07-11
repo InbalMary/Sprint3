@@ -14,9 +14,10 @@ export const noteService = {
     save,
     getEmptyNote,
     getDefaultFilter,
-    getFilterFromSearchParams
+    getFilterFromSearchParams,
+    binNote,
+    archiveNote,
 }
-
 
 function query(filterBy = {}) {
     return storageService.query(NOTE_KEY)
@@ -59,6 +60,8 @@ function getEmptyNote(txt = '', backgroundColor = 'white') {
         createdAt: Date.now(),
         type: 'NoteTxt',
         isPinned: false,
+        isBinned: false,
+        isArchived: false,
         style: {
             backgroundColor
         },
@@ -72,6 +75,23 @@ function getDefaultFilter() {
     return { txt: '', type: '' }
 }
 
+function binNote(noteId) {
+    return get(noteId)
+        .then(note => {
+            note.isBinned = true
+            note.isArchived = false
+            return save(note)
+        })
+}
+
+function archiveNote(noteId) {
+    return get(noteId)
+        .then(note => {
+            note.isArchived = true
+            note.isBinned = false
+            return save(note)
+        })
+}
 
 function _createNotes() {
     let notes = utilService.loadFromStorage(NOTE_KEY)
@@ -82,6 +102,8 @@ function _createNotes() {
                 createdAt: Date.now() - 1000000,
                 type: 'NoteTxt',
                 isPinned: true,
+                isBinned: false,
+                isArchived: false,
                 style: { backgroundColor: '#f0f8ff' },
                 info: { txt: 'Welcome to your Notes app!' }
             },
@@ -90,6 +112,8 @@ function _createNotes() {
                 createdAt: Date.now() - 500000,
                 type: 'NoteTxt',
                 isPinned: false,
+                isBinned: false,
+                isArchived: false,
                 style: { backgroundColor: '#fffae6' },
                 info: { txt: 'Don\'t\ forget to check your tasks.' }
             },
@@ -98,6 +122,8 @@ function _createNotes() {
                 createdAt: Date.now() - 300000,
                 type: 'NoteTxt',
                 isPinned: false,
+                isBinned: false,
+                isArchived: false,
                 style: { backgroundColor: '#e6ffe6' },
                 info: {
                     title: 'Reminder',

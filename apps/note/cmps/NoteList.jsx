@@ -1,9 +1,8 @@
 import { NotePreview } from "../cmps/NotePreview.jsx";
 
-const { Link } = ReactRouterDOM
 const { useState } = React
 
-export function NoteList({ notes, onRemoveNote, onColorChange, onTogglePin, onEditNote, editedNoteId, setEditedNoteId }) {
+export function NoteList({ notes, onRemoveNote, onBinNote, onArchiveNote, onColorChange, onTogglePin, onEditNote, editedNoteId, setEditedNoteId, isInBin }) {
     const [openColorPickerId, setOpenColorPickerId] = useState(null)
     if (!notes.length) return <div>No Notes To Show...</div>
 
@@ -24,7 +23,7 @@ export function NoteList({ notes, onRemoveNote, onColorChange, onTogglePin, onEd
             setOpenColorPickerId(noteId)
         }
     }
-    //add later stop propagation
+
     return (
         <div className="note-grid">
             {sortedNotes.map(note =>
@@ -40,8 +39,11 @@ export function NoteList({ notes, onRemoveNote, onColorChange, onTogglePin, onEd
                             onSelectNote={() => setEditedNoteId(note.id)}
                             onTogglePin={() => onTogglePin(note.id)}
                             onRemoveNote={(id) => onRemoveNote(id)}
+                            onBinNote={onBinNote}
+                            isInBin={isInBin}
+                            onArchiveNote={() => onArchiveNote(note.id)}
+                            onColorChange={(newColor) => onColorChange(note.id, newColor)}
                             toggleColorPicker={(ev) => {
-
                                 toggleColorPicker(note.id);
                             }}
                             isColorInputOpen={openColorPickerId === note.id}

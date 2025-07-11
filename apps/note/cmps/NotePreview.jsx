@@ -5,7 +5,7 @@ import { NoteActions } from './NoteActions.jsx'
 
 const { useState, useEffect, useRef, Fragment } = React
 
-export function NotePreview({ note, onEditNote, onTogglePin, onRemoveNote }) {
+export function NotePreview({ note, onEditNote, onTogglePin, onBinNote, onRemoveNote, onArchiveNote, isInBin }) {
     const { info, style, isPinned, type } = note
     const [isEditing, setIsEditing] = useState(false)
     const [isColorInputOpen, setIsColorInputOpen] = useState(false)
@@ -62,9 +62,18 @@ export function NotePreview({ note, onEditNote, onTogglePin, onRemoveNote }) {
                     <h3>{info.title || 'Title'}</h3>
                     <p>{info.txt || 'Take a note...'}</p>
                     <NoteActions
-                        onRemove={(ev) => {
+                        onBin={(ev) => {
                             ev.stopPropagation()
-                            onRemoveNote(note.id)
+                            if (isInBin) {
+                                onRemoveNote(note.id)
+                            } else {
+                                onBinNote(note.id)
+                            }
+
+                        }}
+                        onArchive={(ev) => {
+                            ev.stopPropagation()
+                            onArchiveNote(note.id)
                         }}
                         toggleColorPicker={(ev) => {
                             ev.stopPropagation()

@@ -1,9 +1,9 @@
 
 const { useState } = React
 
-export function NoteSidebar() {
+export function NoteSidebar({ clickedBtn, setClickedBtn }) {
     const [isExpanded, setIsExpanded] = useState(false)
-    const [clickedBtn, setClickedBtn] = useState('bulb')
+    // const [clickedBtn, setClickedBtn] = useState('bulb')
 
     const handleClick = (btnName) => {
         if (clickedBtn === btnName) {

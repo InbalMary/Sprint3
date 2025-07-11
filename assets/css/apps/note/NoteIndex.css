@@ -17,3 +17,26 @@
      max-width: 1200px;
      margin: 0 auto;
  }
+
+ .empty-bin {
+     position: relative;
+     align-self: flex-end;
+     width: auto;
+     border: 1px solid transparent;
+     background-color: transparent;
+     font-family: 'RobotoFlex', sans-serif;
+     font-weight: 500;
+     font-size: .875rem;
+     letter-spacing: .03em;
+     color: var(--notes-primary-color);
+     padding: 8px 24px;
+     height: 36px;
+     line-height: 1.25rem;
+     margin: 0px 15px 15px 0px;
+     cursor: pointer;
+     border-radius: 4px;
+ }
+
+ .empty-bin:hover {
+     background-color: var(--notes-sidebar-icon-bg-hover);
+ }
