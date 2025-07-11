@@ -4,7 +4,8 @@ import { NoteList } from "../cmps/NoteList.jsx"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 import { NoteForm } from '../cmps/NoteForm.jsx'
 import { NoteHeader } from '../cmps/NoteHeader.jsx'
-// import { getTruthyValues } from "../services/util.service.js"
+import { NoteSidebar } from '../cmps/NoteSidebar.jsx'
+
 
 const { useState, useEffect } = React
 const { Link, useSearchParams } = ReactRouterDOM
@@ -17,7 +18,6 @@ export function NoteIndex() {
 
     useEffect(() => {
         loadNotes()
-        // setSearchParams(getTruthyValues(filterBy)) //two-way data binding. whatever is typed in input filer is copied to the url
     }, [filterBy])
 
     function loadNotes() {
@@ -130,13 +130,13 @@ export function NoteIndex() {
     return (
         <section className="container">
             <section className="note-index">
-                {/*TODO: move filter input to app-header in future layout*/}
                 <NoteHeader>
                     <NoteFilter
                         defaultFilter={filterBy}
                         onSetFilter={onSetFilter}
                     />
                 </NoteHeader>
+                <NoteSidebar />
                 <NoteForm onAddNote={onAddNote} />
                 <div style={{ marginTop: pinnedNotes.length > 0 ? '0' : '2rem' }}></div>
                 {pinnedNotes.length > 0 && (

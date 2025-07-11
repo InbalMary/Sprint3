@@ -1,0 +1,97 @@
+.sidebar {
+    position: fixed;
+    top: 110px;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 60px;
+    /* collapsed width */
+    background-color: #fff;
+    transition: width 0.3s ease;
+    overflow: hidden;
+    z-index: 1000;
+
+}
+
+.sidebar.expanded {
+    width: 200px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar ul {
+    list-style: none;
+    margin: 0;
+    padding: 10px 0;
+    flex-grow: 1;
+}
+
+.sidebar li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 6px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.sidebar li button {
+    all: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    width: 48px;
+    height: 48px;
+    transition: background-color 0.2s ease;
+}
+
+.sidebar.expanded li button {
+    width: 100%;
+    border-radius: 0 24px 24px 0;
+    padding: 1px 5px;
+    justify-content: flex-start;
+    gap: 12px;
+}
+
+.sidebar li button svg {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    color: var(--notes-sidebar-icon-color-default);
+}
+
+.sidebar li button span {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.sidebar.expanded li button span {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.sidebar li button:hover {
+    background-color: var(--notes-sidebar-icon-bg-hover);
+}
+
+/* .sidebar li button.notes-bulb, */
+.sidebar li button.notes-bulb:hover {
+    background-color: var(--notes-sidebar-icon-bg-bulb);
+}
+
+.sidebar li button.selected {
+    background-color: var(--notes-sidebar-icon-bg-bulb);
+}
+
+.sidebar li button.notes-bulb.selected {
+    color: var(--notes-sidebar-icon-color-active);
+}
+
+.sidebar li button.selected svg,
+.sidebar li button.selected span {
+    color: var(--notes-sidebar-icon-color-active);
+}

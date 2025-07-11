@@ -41,7 +41,7 @@
 
     /*NOTE APP VARS*/
     /* --- Sidebar Icons --- */
-    --notes-sidebar-icon-bg-active: rgb(254, 239, 195);
+    --notes-sidebar-icon-bg-bulb: rgb(254, 239, 195);
     /* clicked bg */
     --notes-sidebar-icon-bg-hover: rgb(241, 243, 244);
     /* hover bg */
@@ -49,6 +49,7 @@
     /* clicked + body font color */
     --notes-sidebar-icon-color-default: rgb(95, 99, 104);
     /* unclicked */
+
 
     /* --- Top Bar Icons --- */
     --notes-top-bar-icon-hover-bg: rgba(95, 99, 104, 0.157);
