@@ -56,12 +56,8 @@
     --notes-top-bar-icon-color: #5f6368;
     /* default icon color, hamburger, logo Keep */
 
-    /* --- Logo --- */
-    --notes-logo-bg: #FBBC04;
-
-    /* --- Dropdown Menu --- */
+    /* --- Dropdown Menu font color --- */
     --dropdown-settings-menu: rgb(60, 64, 67);
-    /*font color*/
 
     /* --- Primary Action --- */
     --notes-primary-color: rgb(26, 115, 232);

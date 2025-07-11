@@ -3,6 +3,7 @@ import { NoteFilter } from "../cmps/NoteFilter.jsx"
 import { NoteList } from "../cmps/NoteList.jsx"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 import { NoteForm } from '../cmps/NoteForm.jsx'
+import { NoteHeader } from '../cmps/NoteHeader.jsx'
 // import { getTruthyValues } from "../services/util.service.js"
 
 const { useState, useEffect } = React
@@ -130,10 +131,12 @@ export function NoteIndex() {
         <section className="container">
             <section className="note-index">
                 {/*TODO: move filter input to app-header in future layout*/}
-                <NoteFilter
-                    defaultFilter={filterBy}
-                    onSetFilter={onSetFilter}
-                />
+                <NoteHeader>
+                    <NoteFilter
+                        defaultFilter={filterBy}
+                        onSetFilter={onSetFilter}
+                    />
+                </NoteHeader>
                 <NoteForm onAddNote={onAddNote} />
                 <div style={{ marginTop: pinnedNotes.length > 0 ? '0' : '2rem' }}></div>
                 {pinnedNotes.length > 0 && (

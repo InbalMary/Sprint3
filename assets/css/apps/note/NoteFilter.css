@@ -1,14 +1,21 @@
 .note-filter-container {
+    position: relative;
     background: #f1f3f4;
     border: 1px solid transparent;
     border-radius: 8px;
-    max-width: 580px;
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
+    max-width: none;
     white-space: nowrap;
+    margin-left: 20px;
+    flex: 1 1 500px;
+    min-width: 200px;
+    max-width: 600px;
+}
 
+@media (max-width: 480px) {
+    .note-filter-container {
+        flex: 1 1 120px;
+        /* grow, shrink, base 500px */
+    }
 }
 
 #txt.note-input-filter {
@@ -19,14 +26,16 @@
     height: 46px;
     outline: none;
     box-sizing: border-box;
+    width: 100%;
 }
 
 .search-form {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 2px 15px;
-
+    padding-left: 15px;
+    margin: 0;
+    width: 100%;
 }
 
 .search-form svg {
