@@ -1,10 +1,14 @@
-const { useState, useEffect, Fragment } = React
+import { utilService } from "../../../services/util.service.js"
+
+const { useState, useEffect, Fragment, useRef } = React
 
 export function MailFilter({ defaultFilter, onSetFilter }) {
     const [filterByToEdit, setFilterByToEdit] = useState({ ...defaultFilter })
+    const onSetFilterByDebounce = useRef(utilService.debounce(onSetFilter, 500)).current
 
     useEffect(() => {
-        onSetFilter(filterByToEdit)
+        // console.log('filterByToEdit', filterByToEdit)
+        onSetFilterByDebounce(filterByToEdit)
     }, [filterByToEdit])
 
     function handleChange({ target }) {
