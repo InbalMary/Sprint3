@@ -32,7 +32,6 @@ export function NotePreview({ note, onEditNote, onTogglePin, onBinNote, onRemove
 
     function handleSetNoteStyle(newStyle) {
         onEditNote({ ...note, style: { ...note.style, ...newStyle } })
-        // setIsColorInputOpen(false)
     }
 
     return (
@@ -84,7 +83,6 @@ export function NotePreview({ note, onEditNote, onTogglePin, onBinNote, onRemove
                         }}
                     />
                     {isColorInputOpen && (
-
                         <div ref={colorInputRef} className="color-picker-popup" onClick={ev => ev.stopPropagation()}>
                             <ColorInput onSetNoteStyle={handleSetNoteStyle} />
                         </div>

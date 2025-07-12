@@ -1,3 +1,4 @@
+//Actions in preview mode
 
 export function NoteActions({ onBin, onArchive, toggleColorPicker }) {
     return (

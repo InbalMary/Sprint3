@@ -63,6 +63,7 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
         }
     }, [isEdit, isExpanded])
 
+    //TODO: Add title cursor when editing video or img
     // useEffect(() => {
     //     if (isEdit && (note.type === 'NoteImg' || note.type === 'NoteVideo') && titleRef.current) {
     //         if (titleRef.current.innerText.trim() === '') {
@@ -90,14 +91,11 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
             return updatedStyle
         })
     }
-    //TODO: remove log after fixed
+
     function toggleColorInput() {
         console.log('toggleColorInput called')
         setCmpType('color')
-        setIsColorInputOpen(prev => {
-            console.log('previous isColorInputOpen:', prev)
-            return !prev
-        })
+        setIsColorInputOpen(prev => !prev)
     }
 
     function togglePin() {
@@ -131,7 +129,7 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
     }
 
     function handleSave() {
-        const title = titleRef.current.innerText || '' // get text content from title div
+        const title = titleRef.current.innerText || ''
         let contentHTML = txtRef.current.innerHTML || ''
         if (cmpType === 'list') {
             const listText = txtRef.current.innerText || ''
