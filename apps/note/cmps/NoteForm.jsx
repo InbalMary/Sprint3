@@ -1,11 +1,10 @@
 import { ColorInput } from '../cmps/ColorInput.jsx'
 import { NotePin } from './NotePin.jsx'
-import { UrlInput } from './UrlInput.jsx'
 import { utilService } from '../../../services/util.service.js'
 
 const { useState, useEffect, useRef } = React
 
-export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onTogglePin }) {
+export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onTogglePin, onArchiveNote }) {
     const titleRef = useRef()
     const txtRef = useRef()
     const newFormRef = useRef(null)
@@ -178,11 +177,12 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
         setCmpType('text') //reset
     }
 
+    //TODO: check if Redundant
     function DynamicCmp(props) {
         const dynamicCmpMap = {
             color: <ColorInput {...props} />,
-            image: <UrlInput cmpType="image" onAddUrl={props.onAddUrlToNote} />,
-            video: <UrlInput cmpType="video" onAddUrl={props.onAddUrlToNote} />
+            image: null,
+            video: null
         }
         return dynamicCmpMap[props.cmpType]
     } // returns the component to be rendered.
@@ -216,6 +216,23 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
 
     function handleExpand() {
         setIsExpanded(true)
+    }
+
+    function handleArchive() {
+        if (isEdit) {
+            onArchiveNote(note.id)
+            onClose()
+        } else {
+            onAddNote({
+                title: titleRef.current.innerText,
+                txt: txtRef.current.innerHTML,
+                style: noteStyle,
+                isPinned,
+                type: getNoteType(cmpType),
+                isArchived: true
+            })
+            setIsExpanded(false)
+        }
     }
 
     // show collapsed line if new note and not expanded
@@ -332,7 +349,18 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
                             width="24px" fill="currentColor">
                             <path d="M720-400v-120H600v-80h120v-120h80v120h120v80H800v120h-80Zm-360-80q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Zm80-80h480v-32q0-11-5.5-20T580-306q-54-27-109-40.5T360-360q-56 0-111 13.5T140-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T440-640q0-33-23.5-56.5T360-720q-33 0-56.5 23.5T280-640q0 33 23.5 56.5T360-560Zm0-80Zm0 400Z" /></svg>
                     </button> */}
-                    <button className="img-note btn" title="Add image" onClick={() => setCmpType('image')}>
+                    <button
+                        className="img-note btn"
+                        title="Add image"
+                        onClick={() => {
+                            setCmpType('image')
+                            if (txtRef.current) {
+                                txtRef.current.innerText = ''
+                                txtRef.current.classList.add('empty')
+                                txtRef.current.focus()
+
+                            }
+                        }}>
                         <svg xmlns="http://www.w3.org/2000/svg"
                             height="24px" viewBox="0 -960 960 960"
                             width="24px" fill="currentColor">
@@ -340,14 +368,24 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
                         </svg>
                     </button>
 
-                    <button className="video-note btn" title="Add video" onClick={() => setCmpType('video')}>
+                    <button
+                        className="video-note btn"
+                        title="Add video"
+                        onClick={() => {
+                            setCmpType('video')
+                            if (txtRef.current) {
+                                txtRef.current.innerText = ''
+                                txtRef.current.classList.add('empty')
+                                txtRef.current.focus()
+                            }
+                        }}>
                         <svg xmlns="http://www.w3.org/2000/svg"
                             height="24px" viewBox="0 -960 960 960"
                             width="24px" fill="currentColor">
                             <path d="M616-242q-27 1-51.5 1.5t-43.5.5h-41q-71 0-133-2-53-2-104.5-5.5T168-257q-26-7-45-26t-26-45q-6-23-9.5-56T82-447q-2-36-2-73t2-73q2-30 5.5-63t9.5-56q7-26 26-45t45-26q23-6 74.5-9.5T347-798q62-2 133-2t133 2q53 2 104.5 5.5T792-783q26 7 45 26t26 45q6 23 9.5 56t5.5 63q2 36 2 73v17q-19-8-39-12.5t-41-4.5q-83 0-141.5 58.5T600-320q0 21 4 40.5t12 37.5ZM400-400l208-120-208-120v240Zm360 200v-80h-80v-80h80v-80h80v80h80v80h-80v80h-80Z" />
                         </svg>
                     </button>
-                    <button className="archive-note btn" title="Archive">
+                    <button className="archive-note btn" title="Archive" onClick={handleArchive}>
                         <svg xmlns="http://www.w3.org/2000/svg"
                             height="24px" viewBox="0 -960 960 960"
                             width="24px" fill="currentColor">

@@ -16,6 +16,8 @@ export function NoteIndex() {
     const [filterBy, setFilterBy] = useState(noteService.getFilterFromSearchParams(searchParams))//if it's in url it's seen in the input and filtered results (one way data binding)
     const [editedNoteId, setEditedNoteId] = useState(null) //track which note is being edited
     const [clickedBtn, setClickedBtn] = useState('bulb')
+    const [cmpType, setCmpType] = useState('text')
+
 
     useEffect(() => {
         loadNotes()
@@ -116,17 +118,20 @@ export function NoteIndex() {
             })
     }
 
-    function onAddNote({ title, txt, style, isPinned, type = 'NoteTxt' }) {
+    function onAddNote({ title, txt, style, isPinned, type = 'NoteTxt', isArchived = false }) {
         console.log('Adding note type:', type)
         const newNote = noteService.getEmptyNote(type, txt, style.backgroundColor)
         newNote.info.title = title
         newNote.info.txt = txt
         newNote.style = style
         newNote.isPinned = isPinned
+        newNote.isArchived = isArchived
 
         noteService.save(newNote)
             .then(() => {
                 loadNotes()
+                if (isArchived) showSuccessMsg('Note archived!')
+                else showSuccessMsg('Note added!')
             })
             .catch(err => {
                 console.log(err)
@@ -299,6 +304,9 @@ export function NoteIndex() {
                                 onSetNoteStyle={(style) => {
                                     onColorChange(editedNoteId, style.backgroundColor)
                                 }}
+                                onArchiveNote={onArchiveNote}
+                                cmpType={cmpType}
+                                setCmpType={setCmpType}
                             />
                         </div>
                     </div>
