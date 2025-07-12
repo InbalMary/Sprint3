@@ -4,6 +4,7 @@
      background-color: var(--mail-main-bg);
      display: flex;
      position: relative;
+     min-height: 100vh;
  }
 
  .sidebar-icon-bar {
@@ -17,7 +18,10 @@
      flex-direction: column;
      align-items: center;
      padding: 10px 0;
-     margin-block-start: 102.8px;
+
+     position: fixed;
+     top: 102.8px;
+     left: 0;
  }
 
  .sidebar-icon-bar .sidebar-menu {
@@ -52,6 +56,7 @@
  }
 
  .sidebar-expanded {
+     position: fixed;
      top: 0;
      left: 0;
      width: auto;
@@ -188,7 +193,11 @@
      margin-left: auto;
  }
 
- @media (min-width: 480px) {
+ .mail-index.sidebar-open .sidebar-icon-bar {
+     display: none;
+ }
+
+ /* @media (min-width: 480px) {
      .sidebar-expanded {
          position: relative;
          left: 0;
@@ -211,4 +220,4 @@
      .sidebar-expanded.open {
          transform: translateX(0);
      }
- }
+ } */
