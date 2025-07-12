@@ -77,6 +77,7 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
         let placeholderText
         if (cmpType === 'image') placeholderText = 'Paste image URL'
         else if (cmpType === 'video') placeholderText = 'Paste video URL'
+        else if (cmpType === 'list') placeholderText = 'Enter comma separated list'
         else if (cmpType === 'text') placeholderText = 'Take a note...'
         else placeholderText = 'Take a note...'
         setTextPlaceholder(placeholderText)
@@ -118,7 +119,8 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
         text: 'NoteTxt',
         image: 'NoteImg',
         video: 'NoteVideo',
-        color: 'NoteTxt'
+        color: 'NoteTxt',
+        list: 'NoteList'
     }
 
     function getNoteType(cmpType = 'text') {
@@ -131,14 +133,18 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
 
     function handleSave() {
         const title = titleRef.current.innerText || '' // get text content from title div
-        const txt = txtRef.current.innerHTML || ''
-
+        let contentHTML = txtRef.current.innerHTML || ''
+        if (cmpType === 'list') {
+            const listText = txtRef.current.innerText || ''
+            const items = listText.split(',').map(item => item.trim()).filter(item => item)
+            contentHTML = `<ul>${items.map(item => `<li>${item}</li>`).join('')}</ul>`
+        }
         if (isEdit) {
             onSave({
                 id: note.id,
                 info: {
                     title,
-                    txt
+                    txt: contentHTML,
                 },
                 style: noteStyle,
                 isPinned,
@@ -147,7 +153,7 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
         } else {
             onAddNote({
                 title,
-                txt,
+                txt: contentHTML,
                 style: noteStyle,
                 isPinned,
                 type: getNoteType(cmpType),
@@ -167,7 +173,7 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
 
     function handleAddUrlToNote(url) {
         if (!txtRef.current) return
-        const htmlSnippet = utilService.formatUrlToHtml(cmpType, url)
+        const htmlSnippet = formatUrlToHtml(cmpType, url)
         txtRef.current.innerHTML += htmlSnippet
         setCmpType('text') //reset
     }
@@ -217,7 +223,14 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
         return <div className="note-container collapsed-note" onClick={handleExpand}
         >Take a note...
             <div className="note-toolbar">
-                <button className="new-list btn" title="New list">
+                <button className="new-list btn"
+                    onClick={(ev) => {
+                        console.log('List button clicked')
+                        ev.stopPropagation()
+                        setCmpType('list')
+                        setIsExpanded(true)
+                    }}
+                    title="New list">
                     <svg xmlns="http://www.w3.org/2000/svg"
                         height="24px" viewBox="0 -960 960 960"
                         width="24px" fill="currentColor">
@@ -262,7 +275,7 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
                 </button>
             </div>
 
-        </div>
+        </div >
     }
     // Full note form — either editing or new note expanded
     return (
