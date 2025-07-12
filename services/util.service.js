@@ -11,7 +11,8 @@ export const utilService = {
     animateCSS,
     debounce,
     getTruthyValues,
-    formatTimestamp
+    formatTimestamp,
+    formatUrlToHtml,
 }
 
 function saveToStorage(key, val) {
@@ -139,3 +140,42 @@ function formatTimestamp(timestamp) {
 
     return `${day}/${month}/${year}`
 }
+
+
+function formatUrlToHtml(cmpType, url) {
+    if (!url) return ''
+
+    if (cmpType === 'image') {
+        return `<img src="${url}" style="max-width: 100%;" />`
+    }
+
+    if (cmpType === 'video') {
+        let videoId = null
+        if (url.includes('youtube.com/watch?v=')) {
+            videoId = new URL(url).searchParams.get('v')
+        } else if (url.includes('youtu.be/')) {
+            videoId = url.split('youtu.be/')[1]
+        }
+        if (videoId) {
+            const embedUrl = `https://www.youtube.com/embed/${videoId}`
+            return `<iframe src="${embedUrl}" frameborder="0" allowfullscreen style="width: 100%; height: 200px;"></iframe>`
+        }
+        // fallback to raw iframe for other video URLs
+        return `<iframe src="${url}" frameborder="0" allowfullscreen style="width: 100%; height: 200px;"></iframe>`
+    }
+
+    // fallback, just return the raw url as a link
+    return `<a href="${url}" target="_blank">${url}</a>`
+}
+
+//SIMPLER VERSION
+// export function formatUrlToHtml(cmpType, url) {
+//   if (cmpType === 'image') {
+//     return `<img src="${url}" style="max-width: 100%;"/>`
+//   }
+//   if (cmpType === 'video') {
+//     return `<iframe src="${url}" frameborder="0" allowfullscreen style="width: 100%; height: 200px;"></iframe>`
+//   }
+//   return url
+// }
+

@@ -8,7 +8,7 @@ import { NoteSidebar } from '../cmps/NoteSidebar.jsx'
 
 
 const { useState, useEffect } = React
-const { Link, useSearchParams } = ReactRouterDOM
+const { useSearchParams } = ReactRouterDOM
 
 export function NoteIndex() {
     const [notes, setNotes] = useState(null)
@@ -92,7 +92,6 @@ export function NoteIndex() {
         })
     }
 
-
     function onBinNote(noteId) {
         noteService.binNote(noteId)
             .then(() => {
@@ -117,8 +116,8 @@ export function NoteIndex() {
             })
     }
 
-    function onAddNote({ title, txt, style, isPinned }) {
-        const newNote = noteService.getEmptyNote(txt, style.backgroundColor)
+    function onAddNote({ title, txt, style, isPinned, type = 'NoteTxt' }) {
+        const newNote = noteService.getEmptyNote(type, txt, style.backgroundColor)
         newNote.info.title = title
         newNote.info.txt = txt
         newNote.style = style
@@ -198,6 +197,7 @@ export function NoteIndex() {
     }
 
     if (!notes) return <div>Loading...</div>
+    console.log('notesToShow:', notesToShow)
     return (
         <section className="container">
             <section className="note-index">

@@ -23,7 +23,6 @@ export function NoteList({ notes, onRemoveNote, onBinNote, onArchiveNote, onColo
             setOpenColorPickerId(noteId)
         }
     }
-
     return (
         <div className="note-grid">
             {sortedNotes.map(note =>
@@ -44,6 +43,7 @@ export function NoteList({ notes, onRemoveNote, onBinNote, onArchiveNote, onColo
                             onArchiveNote={() => onArchiveNote(note.id)}
                             onColorChange={(newColor) => onColorChange(note.id, newColor)}
                             toggleColorPicker={(ev) => {
+                                ev.stopPropagation()
                                 toggleColorPicker(note.id);
                             }}
                             isColorInputOpen={openColorPickerId === note.id}

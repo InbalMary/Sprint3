@@ -1,6 +1,7 @@
 import { ColorInput } from '../cmps/ColorInput.jsx'
 import { NotePin } from './NotePin.jsx'
-// import { UrlInput } from './UrlInput.jsx'
+import { UrlInput } from './UrlInput.jsx'
+import { utilService } from '../../../services/util.service.js'
 
 const { useState, useEffect, useRef } = React
 
@@ -24,7 +25,7 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
             setIsPinned(note.isPinned)
             setNoteStyle(note.style || { backgroundColor: '#ffffff' })
             titleRef.current.innerText = note.info.title || ''
-            txtRef.current.innerText = note.info.txt || ''
+            txtRef.current.innerHTML = note.info.txt || ''
             // Set cursor focus immediately to txt
             txtRef.current.focus()
         } else {
@@ -44,6 +45,7 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
                 if (!isEdit && isExpanded) {
                     setIsExpanded(false)
                 }
+                setCmpType('text')
             }
             if (isColorInputOpen && colorInputRef.current && !colorInputRef.current.contains(event.target)) {
                 setIsColorInputOpen(false)
@@ -62,14 +64,15 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
         }
     }, [isEdit, isExpanded])
 
-    function handleSetNoteStyle(newStyle) {
-        console.log('newStyle:', newStyle)
-        setNoteStyle(prevStyle => {
-            const updatedStyle = { ...prevStyle, ...newStyle }
-            if (onSetNoteStyle) onSetNoteStyle(updatedStyle) //notify parent
-            return updatedStyle
-        })
-    }
+    // useEffect(() => {
+    //     if (isEdit && (note.type === 'NoteImg' || note.type === 'NoteVideo') && titleRef.current) {
+    //         if (titleRef.current.innerText.trim() === '') {
+    //             titleRef.current.innerText = '<br>'
+    //         }
+    //         titleRef.current.focus()
+    //     }
+    // }, [isEdit, note.type])
+
     useEffect(() => {
         let placeholderText
         if (cmpType === 'image') placeholderText = 'Paste image URL'
@@ -79,6 +82,15 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
         setTextPlaceholder(placeholderText)
     }, [cmpType])
 
+    function handleSetNoteStyle(newStyle) {
+        console.log('newStyle:', newStyle)
+        setNoteStyle(prevStyle => {
+            const updatedStyle = { ...prevStyle, ...newStyle }
+            if (onSetNoteStyle) onSetNoteStyle(updatedStyle) //notify parent
+            return updatedStyle
+        })
+    }
+    //TODO: remove log after fixed
     function toggleColorInput() {
         console.log('toggleColorInput called')
         setCmpType('color')
@@ -86,7 +98,6 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
             console.log('previous isColorInputOpen:', prev)
             return !prev
         })
-        // setIsColorInputOpen(prev => !prev)
     }
 
     function togglePin() {
@@ -103,9 +114,24 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
         }
     }
 
+    const typeMap = {
+        text: 'NoteTxt',
+        image: 'NoteImg',
+        video: 'NoteVideo',
+        color: 'NoteTxt'
+    }
+
+    function getNoteType(cmpType = 'text') {
+        return typeMap[cmpType] || 'NoteTxt'
+    }
+
+    function formatUrlToHtml(cmpType, url) {
+        return utilService.formatUrlToHtml(cmpType, url)
+    }
+
     function handleSave() {
         const title = titleRef.current.innerText || '' // get text content from title div
-        const txt = txtRef.current.innerText || ''
+        const txt = txtRef.current.innerHTML || ''
 
         if (isEdit) {
             onSave({
@@ -115,18 +141,20 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
                     txt
                 },
                 style: noteStyle,
-                isPinned
+                isPinned,
+                type: note.type,
             }, onClose)
         } else {
             onAddNote({
                 title,
                 txt,
                 style: noteStyle,
-                isPinned
+                isPinned,
+                type: getNoteType(cmpType),
             })
             //reset:
             titleRef.current.innerText = ''
-            txtRef.current.innerText = ''
+            txtRef.current.innerHTML = ''
             setNoteStyle({ backgroundColor: 'white' })
             setIsPinned(false)
             setIsColorInputOpen(false)
@@ -137,11 +165,18 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
         }
     }
 
+    function handleAddUrlToNote(url) {
+        if (!txtRef.current) return
+        const htmlSnippet = utilService.formatUrlToHtml(cmpType, url)
+        txtRef.current.innerHTML += htmlSnippet
+        setCmpType('text') //reset
+    }
+
     function DynamicCmp(props) {
         const dynamicCmpMap = {
-            color: <ColorInput {...props} />
-            // image: <ImageInput {...props} />,
-            // video: <VideoInput {...props} />
+            color: <ColorInput {...props} />,
+            image: <UrlInput cmpType="image" onAddUrl={props.onAddUrlToNote} />,
+            video: <UrlInput cmpType="video" onAddUrl={props.onAddUrlToNote} />
         }
         return dynamicCmpMap[props.cmpType]
     } // returns the component to be rendered.
@@ -153,6 +188,24 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
         } else {
             elInput.classList.remove('empty')
         }
+    }
+
+    function handlePaste(ev) {
+        const paste = (ev.clipboardData || window.clipboardData).getData('text')
+        if (!paste) return
+
+        ev.preventDefault()
+
+        let pasteType = 'text'
+        if (/\.(jpeg|jpg|gif|png|svg|webp|bmp)$/i.test(paste)) pasteType = 'image'
+        else if (/youtube|vimeo/.test(paste)) pasteType = 'video'
+
+        if (txtRef.current) {
+            const html = utilService.formatUrlToHtml(pasteType, paste)
+            txtRef.current.innerHTML += html
+        }
+
+        setCmpType(pasteType) // update UI type afterwards
     }
 
     function handleExpand() {
@@ -177,14 +230,30 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
                         width="24px" fill="currentColor">
                         <path d="M240-120q-45 0-89-22t-71-58q26 0 53-20.5t27-59.5q0-50 35-85t85-35q50 0 85 35t35 85q0 66-47 113t-113 47Zm0-80q33 0 56.5-23.5T320-280q0-17-11.5-28.5T280-320q-17 0-28.5 11.5T240-280q0 23-5.5 42T220-202q5 2 10 2h10Zm230-160L360-470l358-358q11-11 27.5-11.5T774-828l54 54q12 12 12 28t-12 28L470-360Zm-190 80Z" /></svg>
                 </button> */}
-                <button className="img-note btn" title="New note with image" onClick={() => setCmpType('image')}>
+                <button className="img-note btn"
+                    title="New note with image"
+                    onClick={(ev) => {
+                        ev.stopPropagation()
+                        setCmpType('image')
+                        setIsExpanded(true)
+                        txtRef.current.focus()
+                    }}
+                >
                     <svg xmlns="http://www.w3.org/2000/svg"
                         height="24px" viewBox="0 -960 960 960"
                         width="24px" fill="currentColor">
                         <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm40-80h480L570-480 450-320l-90-120-120 160Zm-40 80v-560 560Z" />
                     </svg>
                 </button>
-                <button className="video-note btn" title="New note with video" onClick={() => setCmpType('video')}>
+                <button className="video-note btn"
+                    title="New note with video"
+                    onClick={(ev) => {
+                        ev.stopPropagation()
+                        setCmpType('video')
+                        setIsExpanded(true)
+                        txtRef.current.focus()
+                    }}
+                >
                     <svg xmlns="http://www.w3.org/2000/svg"
                         height="24px" viewBox="0 -960 960 960"
                         width="24px" fill="currentColor">
@@ -212,9 +281,10 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
                 contentEditable="true"
                 data-placeholder={textPlaceholder}
                 suppressContentEditableWarning={true}
-                onInput={handleInput}>
+                onInput={handleInput}
+                onPaste={handlePaste}
+            >
             </p>
-
             <NotePin isPinned={isPinned} onTogglePin={togglePin} />
 
             <div className="note-footer">
@@ -295,8 +365,11 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
                 </div>
                 {isColorInputOpen && (
                     <div ref={colorInputRef} className="color-picker-popup" onClick={ev => ev.stopPropagation()}>
-                        <DynamicCmp cmpType={cmpType} onSetNoteStyle={handleSetNoteStyle} />
-
+                        <DynamicCmp
+                            cmpType={cmpType}
+                            onSetNoteStyle={handleSetNoteStyle}
+                            onAddUrlToNote={handleAddUrlToNote}
+                        />
                     </div>
                 )}
                 <button className="save btn" onClick={handleSave}>Close</button>

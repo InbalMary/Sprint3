@@ -60,7 +60,9 @@ export function NotePreview({ note, onEditNote, onTogglePin, onBinNote, onRemove
             ) : (
                 <Fragment>
                     <h3>{info.title || 'Title'}</h3>
-                    <p>{info.txt || 'Take a note...'}</p>
+                    {/* <p>{info.txt || 'Take a note...'}</p> */}
+                    <p dangerouslySetInnerHTML={{ __html: info.txt || 'Take a note...' }}></p>
+
                     <NoteActions
                         onBin={(ev) => {
                             ev.stopPropagation()
