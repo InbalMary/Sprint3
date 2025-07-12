@@ -16,7 +16,7 @@ export function NoteFilter({ defaultFilter, onSetFilter }) {
         setFilterByToEdit(prevFilter => ({ ...prevFilter, [field]: value }))
     }
 
-    const { txt } = filterByToEdit
+    const { txt, type } = filterByToEdit
 
     return (
         <section className="note-filter-container">
@@ -34,7 +34,20 @@ export function NoteFilter({ defaultFilter, onSetFilter }) {
                     placeholder="Search"
                     aria-label="Search"
                 />
+                <select
+                    name="type"
+                    value={type}
+                    onChange={handleChange}
+                    className="note-type-filter"
+                >
+                    <option value="all">All Types</option>
+                    <option value="NoteTxt">Text</option>
+                    <option value="NoteList">List</option>
+                    <option value="NoteImg">Image</option>
+                    <option value="NoteVideo">Video</option>
+                </select>
             </form>
+
         </section>
     )
 }

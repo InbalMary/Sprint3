@@ -41,3 +41,37 @@
 .search-form svg {
     color: var(--notes-sidebar-icon-color-default);
 }
+
+/*Filter by type search-select bar*/
+.note-type-filter {
+    position: relative;
+    font-size: 14px;
+    background: transparent;
+    border: none;
+    font-family: RobotoFlex, sans-serif;
+    height: 46px;
+    outline: none;
+    padding: 0 36px 0 12px;
+    border-radius: 8px;
+    background-color: #f1f3f4;
+    cursor: pointer;
+    appearance: none;
+    color: var(--notes-top-bar-icon-color);
+    background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5H7z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    min-width: 110px;
+
+}
+
+.note-type-filter:hover {
+    background-color: #e8eaed;
+}
+
+@media (max-width: 480px) {
+    .note-type-filter {
+        min-width: 90px;
+        font-size: 12px;
+    }
+}

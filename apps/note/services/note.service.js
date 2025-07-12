@@ -29,10 +29,9 @@ function query(filterBy = {}) {
                     regExp.test(note.info.txt || '')
                 )
             }
-            if (filterBy.type) {
+            if (filterBy.type && filterBy.type !== 'all') {
                 notes = notes.filter(note => note.type === filterBy.type)
             }
-            // console.log(' notes:', notes)
             return notes
         })
 }

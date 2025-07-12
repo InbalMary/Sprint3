@@ -117,6 +117,7 @@ export function NoteIndex() {
     }
 
     function onAddNote({ title, txt, style, isPinned, type = 'NoteTxt' }) {
+        console.log('Adding note type:', type)
         const newNote = noteService.getEmptyNote(type, txt, style.backgroundColor)
         newNote.info.title = title
         newNote.info.txt = txt
