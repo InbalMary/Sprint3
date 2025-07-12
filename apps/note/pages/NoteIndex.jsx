@@ -81,14 +81,13 @@ export function NoteIndex() {
                 return
             }
 
-            // Delete all binned notes one by one
-            Promise.all(binnedNotes.map(note => noteService.remove(note.id)))
+            noteService.emptyBin()
                 .then(() => {
                     showSuccessMsg('Bin emptied successfully!')
-                    loadNotes() // reload notes after deletion
+                    loadNotes()
                 })
                 .catch(err => {
-                    console.log(err)
+                    console.error(err)
                     showErrorMsg('Could not empty bin.')
                 })
         })

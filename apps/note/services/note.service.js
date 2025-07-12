@@ -17,6 +17,7 @@ export const noteService = {
     getFilterFromSearchParams,
     binNote,
     archiveNote,
+    emptyBin,
 }
 
 function query(filterBy = {}) {
@@ -92,6 +93,14 @@ function archiveNote(noteId) {
             return save(note)
         })
 }
+
+function emptyBin() {
+    return query().then(allNotes => {
+        const remainingNotes = allNotes.filter(note => !note.isBinned)
+        return storageService.saveMany(NOTE_KEY, remainingNotes)
+    })
+}
+
 
 function _createNotes() {
     let notes = utilService.loadFromStorage(NOTE_KEY)

@@ -4,6 +4,7 @@ export const storageService = {
     post,
     put,
     remove,
+    saveMany,
 }
 
 function query(entityType, delay = 500) {
@@ -20,7 +21,7 @@ function get(entityType, entityId) {
 }
 
 function post(entityType, newEntity) {
-    newEntity = {...newEntity}
+    newEntity = { ...newEntity }
     newEntity.id = _makeId()
     return query(entityType).then(entities => {
         entities.push(newEntity)
@@ -59,4 +60,9 @@ function _makeId(length = 5) {
         txt += possible.charAt(Math.floor(Math.random() * possible.length))
     }
     return txt
+}
+
+function saveMany(entityType, entities) {
+    _save(entityType, entities)
+    return Promise.resolve(entities)
 }
