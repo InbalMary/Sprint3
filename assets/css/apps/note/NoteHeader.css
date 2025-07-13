@@ -41,6 +41,17 @@
     object-fit: contain;
 }
 
+.cls-1 {
+  fill: #ffba00;
+}
+.cls-2 {
+  fill: #ff9500;
+}
+.cls-3 {
+  fill: #fff;
+}
+
+
 .logo-text {
     position: relative;
     color: var(--notes-top-bar-icon-color);
