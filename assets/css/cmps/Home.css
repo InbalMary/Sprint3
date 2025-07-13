@@ -1,7 +1,7 @@
  /* home */
 
  .home {
-    font-family: 'RobotoFlex', 'RobotoRegular', Helvetica, Arial, sans-serif;
+     font-family: 'RobotoFlex', 'RobotoRegular', Helvetica, Arial, sans-serif;
      --s: 105px;
      /* control the size*/
      --c1: #f2f6fc;
@@ -52,34 +52,49 @@
      fill: var(--mail-body);
  }
 
+ .app-link:hover,
  .link svg:hover,
  .link:hover {
      color: var(--notes-primary-color);
  }
 
  .about {
-    padding: 1em;
+     padding: 1em;
  }
- /* .home .box1 {
-    background-color: var(--color1);
-    min-height: 10em;
-}
 
-.home .box2 {
-    background-color: var(--color2);
-    min-height: 10em;
-}
+ .apps-links-container {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     gap: 4em;
+     height: 100vh;
+     width: 100%;
+     color: var(--mail-body);
+     font-size: 1.5em;
+     font-weight: bold;
+ }
 
- @media (min-width: 750px) {
-    .home .box-container {
-        display: flex;
-        flex-direction: row-reverse;
-    }
-    .home .box1 {
-        flex: 1
-    }
-    .home .box2 {
-        width: 30vw;
-    }
-    
-} */
+ .app-link {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     flex-direction: column;
+ }
+
+ .apps-links-container svg {
+     margin-block-end: 8px;
+     width: 64px;
+     height: 64px;
+     transition: transform 0.3s ease;
+ }
+
+ .app-link:hover svg {
+
+     transform: scale(1.05);
+ }
+
+ @media (max-width: 480px) {
+     .apps-links-container {
+         flex-direction: column;
+     }
+ }
