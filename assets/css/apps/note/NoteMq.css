@@ -29,7 +29,7 @@
         align-items: center;
         justify-content: flex-end;
         gap: 6px;
-        overflow-x: auto;
+        overflow-x: visible;
     }
 
     .note-toolbar {
@@ -39,6 +39,7 @@
         flex-wrap: nowrap;
         gap: 6px;
         justify-content: flex-start;
+        padding-left: 8px;
     }
 
     .note-toolbar button {
@@ -49,7 +50,6 @@
     .color-picker-popup {
         position: fixed;
         top: 50vh;
-
         left: 50%;
         transform: translate(-50%, -50%);
         z-index: 9999;
