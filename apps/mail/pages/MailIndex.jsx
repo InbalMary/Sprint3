@@ -45,7 +45,7 @@ export function MailIndex() {
     function loadCounts() {
         mailService.query()
             .then((allMails) => {
-                console.log('All mails in loadCounts:', allMails)
+                // console.log('All mails in loadCounts:', allMails)
                 const unreadMails = allMails.filter(mail => !mail.isRead).length
                 setUnreadCount(unreadMails)
                 const starredMails = allMails.filter(mail => mail.isStared).length
@@ -89,7 +89,7 @@ export function MailIndex() {
     }
 
     function onSetFilter(filterBy) {
-        console.log('filterBy', filterBy)
+        // console.log('filterBy', filterBy)
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy }))
     }
 

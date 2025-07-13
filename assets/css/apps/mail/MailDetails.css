@@ -9,7 +9,8 @@
     color: var(--mail-details-txt-color);
     overflow-x: hidden;
     margin-block-start: 102.8px;
-
+    margin-inline-start: 72px;
+    width: 100%;
 }
 
 .mail-details header {

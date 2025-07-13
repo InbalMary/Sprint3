@@ -4,7 +4,7 @@
      max-width: calc(100% - 56px);
      background-color: var(--mail-header-bg);
      margin-block-start: 102.8px;
-
+     margin-inline-start: 72px;
  }
 
  .mail-list-header {
@@ -34,11 +34,12 @@
      flex-direction: column;
  }
 
- /* @media (max-width: 480px) {
+
+@media (max-width: 480px) { */
      .mail-list-header {
          grid-template-columns: 40px 80px 1fr 60px;
          padding: 6px 2px;
          gap: 2px;
      }
 
- } */
+ }  

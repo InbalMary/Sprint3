@@ -1,24 +1,30 @@
 const { Link, NavLink } = ReactRouterDOM
+const { useState } = React
 
 export function AppHeader() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-    return <header className="app-header">
-        <Link to="/">
-            <h3><svg
-  fill="#000000"
-  version="1.1"
-  id="Capa_1"
-  xmlns="http://www.w3.org/2000/svg"
-  xmlSpace="preserve"
-  width="64px"
-  height="64px"
-  viewBox="0 0 35.006 35.007"
->
-  <g>
-    <g>
-      <g>
+  function toggleMenu() {
+    setIsMenuOpen(prev => !prev)
+  }
+
+  return <header className="app-header">
+    <Link to="/">
+      <h3><svg
+        fill="#000000"
+        version="1.1"
+        id="Capa_1"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlSpace="preserve"
+        width="64px"
+        height="64px"
+        viewBox="0 0 35.006 35.007"
+      >
         <g>
-                  <path d="M22.58,20.657c-0.455,0.045-0.87,0.076-1.282,0.131c-0.636,0.086-1.269,0.006-1.889-0.093
+          <g>
+            <g>
+              <g>
+                <path d="M22.58,20.657c-0.455,0.045-0.87,0.076-1.282,0.131c-0.636,0.086-1.269,0.006-1.889-0.093
           c-0.535-0.084-1.055-0.272-1.577-0.434c-0.451-0.14-0.904-0.279-1.337-0.464c-0.633-0.271-1.249-0.583-1.871-0.879
           c-0.124-0.06-0.246-0.123-0.38-0.188c-0.037,0.302-0.057,0.567-0.103,0.826c-0.042,0.237-0.114,0.471-0.167,0.708
           c-0.083,0.37-0.18,0.738-0.238,1.113c-0.06,0.393-0.1,0.789-0.11,1.186c-0.007,0.268,0.035,0.541,0.086,0.807
@@ -83,17 +89,20 @@ export function AppHeader() {
           c-0.089-0.053-0.191-0.125-0.282-0.12c-0.195,0.012-0.255-0.095-0.283-0.246c-0.055-0.301-0.099-0.604-0.152-0.904
           c-0.082-0.451-0.172-0.901-0.252-1.353c-0.069-0.386-0.135-0.772-0.197-1.16c-0.045-0.278-0.15-0.534-0.25-0.798
           c-0.232-0.613-0.389-1.257-0.577-1.888C22.658,20.907,22.613,20.763,22.58,20.657z"/>
+              </g>
+            </g>
+          </g>
         </g>
-      </g>
-    </g>
-  </g>
-</svg> Appsus</h3>
-        </Link>
-        <nav>
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/about">About</NavLink>
-            <NavLink to="/mail">Mail</NavLink>
-            <NavLink to="/note">Note</NavLink>
-        </nav>
-    </header>
+      </svg> Appsus</h3>
+    </Link>
+
+    <button className="menu-btn" onClick={toggleMenu}> ☰ </button>
+
+    <nav className={isMenuOpen ? 'open' : ''}>
+      <NavLink to="/" onClick={() => setIsMenuOpen(false)}>Home</NavLink>
+      <NavLink to="/about" onClick={() => setIsMenuOpen(false)}>About</NavLink>
+      <NavLink to="/mail" onClick={() => setIsMenuOpen(false)}>Mail</NavLink>
+      <NavLink to="/note" onClick={() => setIsMenuOpen(false)}>Note</NavLink>
+    </nav>
+  </header>
 }
