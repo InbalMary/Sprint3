@@ -54,7 +54,7 @@
 }
 
 @media (max-width: 600px) {
-    .label-picker-container .label-picker-dropdown {
+    .mail-list .label-picker-container .label-picker-dropdown {
         right: auto;
         left: 0;
     }
