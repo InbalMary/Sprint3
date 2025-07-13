@@ -62,6 +62,10 @@
      padding: 1em;
  }
 
+ .about>* {
+     max-width: 75ch;
+ }
+
  .apps-links-container {
      display: flex;
      align-items: center;
@@ -98,5 +102,9 @@
          flex-direction: column;
          padding-block-end: 1.5em;
          gap: 2em;
+     }
+
+     .about>* {
+         max-width: 60ch;
      }
  }

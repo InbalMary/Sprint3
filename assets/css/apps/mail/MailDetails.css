@@ -13,6 +13,11 @@
     width: 100%;
 }
 
+.mail-details .mail-body,
+.mail-details h2 {
+    max-width: 75ch;
+}
+
 .mail-details header {
     display: flex;
     flex-direction: row;
@@ -149,4 +154,12 @@
     font-size: 16px;
     font-weight: 700;
     color: var(--mail-body);
+}
+
+@media (max-width: 480px) {
+
+    .mail-details .mail-body,
+    .mail-details h2 {
+        max-width: 75ch;
+    }
 }
