@@ -21,7 +21,7 @@ export function NoteHeader({ children, clickedBtn, onToggleMenu }) {
                 {/* Only show logo image on Keep */}
                 {clickedBtn === 'bulb' && (
                     <svg
-                        className="logo-img" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 370.86 509.93">
+                        className="logo-img" style={{ width: '44px', height: '40px' }} id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 370.86 509.93">
                         <title>google-keep</title>
                         <path className="cls-1" d="M336.09,509.93H34.77A34.72,34.72,0,0,1,0,475.16V34.77A34.72,34.72,0,0,1,34.77,0H243.38L370.86,127.48V475.16A34.72,34.72,0,0,1,336.09,509.93Z" />
                         <path className="cls-2" d="M243.38,0,370.86,127.48H243.38Z" />

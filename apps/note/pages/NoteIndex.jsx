@@ -14,7 +14,7 @@ export function NoteIndex() {
     const [notes, setNotes] = useState(null)
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterBy, setFilterBy] = useState(noteService.getFilterFromSearchParams(searchParams))//if it's in url it's seen in the input and filtered results (one way data binding)
-    const [editedNoteId, setEditedNoteId] = useState(null) //track which note is being edited
+    const [editedNoteId, setEditedNoteId] = useState(null)
     const [clickedBtn, setClickedBtn] = useState('bulb')
     const [cmpType, setCmpType] = useState('text')
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
@@ -27,7 +27,7 @@ export function NoteIndex() {
     function loadNotes() {
         noteService.query(filterBy)
             .then(notes => {
-                console.log('Loaded notes:', notes)
+                // console.log('Loaded notes:', notes)
                 setNotes(notes)
             })
             .catch(err => console.log('err:', err))
@@ -260,7 +260,6 @@ export function NoteIndex() {
                     </div>
                 )}
 
-                {/* Show bin or archive notes as a simple list without sections */}
                 {clickedBtn === 'bin' && (
                     <section className="bin-section">
                         <button className="empty-bin" onClick={onEmptyBin}>Empty bin</button>
@@ -292,7 +291,6 @@ export function NoteIndex() {
                         />
                     </section>
                 )}
-                {/* Editor overlay code remains the same */}
                 {editedNoteId && (
                     <div className="editor-overlay" onClick={() => setEditedNoteId(null)}>
                         <div onClick={ev => ev.stopPropagation()}

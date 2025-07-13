@@ -6,13 +6,12 @@ export function NoteList({ notes, onRemoveNote, onBinNote, onArchiveNote, onColo
     const [openColorPickerId, setOpenColorPickerId] = useState(null)
     if (!notes.length) return <div>No Notes To Show...</div>
 
-    // Sort notes to show pinned ones first
+    // Sort notes to show pinned first
     const sortedNotes = [...notes].sort((a, b) => {
-        // Pinned notes first
         if (a.isPinned && !b.isPinned) return -1;
         if (!a.isPinned && b.isPinned) return 1;
 
-        // Then sort by creation date (newest first) or any other criteria
+        // newest first
         return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
     });
 
