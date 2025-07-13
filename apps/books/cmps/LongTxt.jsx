@@ -3,7 +3,7 @@ const { useState, useEffect } = React
 export function LongTxt({ txt, length = 100 }) {
     const [isLong, setIsLong] = useState(false)
 
-    console.log('length', length)
+    // console.log('length', length)
 
     function toggleIsReadMore() {
         setIsLong(isLong => !isLong)

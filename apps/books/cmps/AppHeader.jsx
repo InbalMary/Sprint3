@@ -8,7 +8,7 @@ export function AppHeader() {
     const elH1 = useRef(null)
 
     function handleLinkClick(ev) {
-        console.log('ev inside handel', ev)
+        // console.log('ev inside handel', ev)
         animateCSS(elH1.current, 'pulse')
     }
 

@@ -33,13 +33,13 @@ export function BookIndex() {
                 )
             })
             .catch(err => {
-                console.log(err)
+                // console.log(err)
                 showErrorMsg('Problem removing book')
             })
     }
 
     function onSetFilter(filterBy) {
-        console.log('filterBy', filterBy)
+        // console.log('filterBy', filterBy)
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy }))
     }
 

@@ -26,7 +26,7 @@ export function BookEdit() {
                 setBookToEdit(fullBook)
             })
             .catch(err => {
-                console.error('Failed to load book:', err)
+                // console.error('Failed to load book:', err)
             })
     }
 
@@ -83,7 +83,7 @@ export function BookEdit() {
                 navigate('/book')
             })
             .catch(err => {
-                console.log('Cannot save book:', err)
+                // console.log('Cannot save book:', err)
                 showErrorMsg('Cannot save book')
             })
     }

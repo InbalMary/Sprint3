@@ -30,7 +30,7 @@ export function BookDetails() {
                 // setReviews(book.reviews || [])
             })
             .catch(err => {
-                console.log('err:', err)
+                // console.log('err:', err)
             })
             .finally(() => setIsLoading(false))
     }

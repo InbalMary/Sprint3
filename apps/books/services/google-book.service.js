@@ -11,21 +11,21 @@ export const googleBookService = {
 
 function query(keyword) {
     if (gGoogleBooksMap[keyword]) {
-        console.log('variable')
+        // console.log('variable')
 		return Promise.resolve(gGoogleBooksMap[keyword])
 	}
 
 	return axios.get(`${googleBooksURL}&q=${keyword}`).then(({ data }) => {
-		console.log(data)
+		// console.log(data)
 		gGoogleBooksMap[keyword] = data.items.map(_getBookInfo)
-		console.log(gGoogleBooksMap[keyword])
+		// console.log(gGoogleBooksMap[keyword])
 		utilService.saveToStorage(GOOGLE_BOOKS_KEY, gGoogleBooksMap)
 		return gGoogleBooksMap[keyword]
 	})
 }
 
 function _getBookInfo(book) {
-    console.log('_getBookInfo', book)
+    // console.log('_getBookInfo', book)
     const volumeInfo = book.volumeInfo || {}
 
     return {

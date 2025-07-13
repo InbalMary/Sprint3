@@ -24,19 +24,19 @@ export function BookAdd() {
     // }, [searchTerm])
 
     useEffect(() => {
-        console.log('books', books)
+        // console.log('books', books)
     }, [books])
 
     function getTermSearch(term) {
-        console.log('term from getTermSearch: ', term)
+        // console.log('term from getTermSearch: ', term)
         if (term) {
             googleBookService.query(term)
                 .then((data) => {
-                    console.log('data', data)
+                    // console.log('data', data)
                     setBooks(data)
                 })
                 .catch(err => {
-                    console.error('Search failed:', err)
+                    // console.error('Search failed:', err)
                 })
         } else {
             setBooks([])
@@ -54,9 +54,9 @@ export function BookAdd() {
     }
 
     function onAddGoogleBook(book) {
-        console.log('book on onaddgbook', book)
+        // console.log('book on onaddgbook', book)
         const bookToSave = { ...book, id: null }
-        console.log('bookToSave', bookToSave)
+        // console.log('bookToSave', bookToSave)
         bookService.save(bookToSave)
             .then(() => {
                 showSuccessMsg('Google book added')

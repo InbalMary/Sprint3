@@ -106,7 +106,7 @@ function DynamicCmp(props) {
 
 //** Demo Cmps **/
 function RateBySelect({ onSetRatingStyle, rateBySelect }) {
-    console.log('rateBySelect', rateBySelect)
+    // console.log('rateBySelect', rateBySelect)
     function onSetRating(ev) {
         const newRating = { rateBySelect: +ev.target.value }
         onSetRatingStyle(newRating)

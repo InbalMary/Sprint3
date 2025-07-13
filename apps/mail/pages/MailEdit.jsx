@@ -80,7 +80,7 @@ export function MailEdit() {
         if (!updatedMail.createdAt) {
             updatedMail.createdAt = Date.now()
         }
-        console.log(updatedMail)
+        // console.log(updatedMail)
         mailService.save(updatedMail).then(() => {
             showSuccessMsg('Message sent')
             navigate('/mail')

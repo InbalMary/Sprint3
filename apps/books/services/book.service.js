@@ -176,7 +176,7 @@ function _createBooks() {
             }
             books.push(book)
         }
-        console.log('books', books)
+        // console.log('books', books)
         saveToStorage(BOOK_KEY, books)
     }
 }
@@ -235,7 +235,7 @@ function removeReview(bookId, revId) {
 
 function addGoogleBook(item) {
     const book = { ...getEmptyBook(), ...item }
-    console.log('item in add google book', item)
+    // console.log('item in add google book', item)
     return save(book)
 
 }

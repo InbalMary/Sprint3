@@ -17,7 +17,7 @@ export function BookChart() {
             .then((books) => {
                 setBooks(books)
                 const counts = getCategoryCounts(books)
-                console.log('counts map', counts)
+                // console.log('counts map', counts)
                 setCategoryCounts(counts)
             })
             .catch(err => console.log('err:', err))
