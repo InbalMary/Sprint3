@@ -9,7 +9,7 @@
     position: fixed;
   top: 46px;
   left: 0;
-  z-index: 200000;
+  z-index: 10;
     display: grid;
     grid-template-columns: auto auto 1fr;
     grid-template-rows: auto auto;

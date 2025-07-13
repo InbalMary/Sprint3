@@ -96,5 +96,7 @@
  @media (max-width: 480px) {
      .apps-links-container {
          flex-direction: column;
+         padding-block-end: 1.5em;
+         gap: 2em;
      }
  }
