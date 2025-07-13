@@ -78,7 +78,6 @@
     background-color: var(--notes-sidebar-icon-bg-hover);
 }
 
-/* .sidebar li button.notes-bulb, */
 .sidebar li button.notes-bulb:hover {
     background-color: var(--notes-sidebar-icon-bg-bulb);
 }
