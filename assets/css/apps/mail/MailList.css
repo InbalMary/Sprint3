@@ -34,6 +34,9 @@
      flex-direction: column;
  }
 
+ .mail-index .mail-list.mail-list-empty {
+    border-radius: 0;
+ }
 
 @media (max-width: 480px) { */
      .mail-list-header {

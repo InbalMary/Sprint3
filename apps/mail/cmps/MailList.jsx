@@ -4,6 +4,9 @@ import { MailSortingHeader } from './MailSortingHeader.jsx'
 
 export function MailList({ mails, onRemoveMail, onToggleReadStatus, onToggleStarred, onReplyClick, onMailClick, onSaveMailAsNote, filterByToEdit, handleChange, toggleSort, clearAllFilters, onUpdateMailLabels }) {
 
+    if(mails.length === 0) {
+        return <div className="mail-list mail-list-empty">No mails in this folder...</div>
+    }
     return (
         <section className="mail-list">
             <header className="mail-list-header">
