@@ -39,7 +39,7 @@ export function NotePreview({ note, onEditNote, onTogglePin, onBinNote, onRemove
         <article className="note-preview" style={style}>
             <span className={`note-pin ${isPinned ? 'active' : ''}`}
                 onClick={(ev) => {
-                    ev.stopPropagation()  // prevent triggering edit/open
+                    ev.stopPropagation()
                     onTogglePin()
                 }}
             >

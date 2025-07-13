@@ -62,7 +62,7 @@ export function NoteSidebar({ clickedBtn, setClickedBtn, isSidebarOpen }) {
                 </li>
             </ul>
         </nav>
-    );
+    )
 }
 
 

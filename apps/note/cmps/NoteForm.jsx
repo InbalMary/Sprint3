@@ -63,16 +63,6 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
         }
     }, [isEdit, isExpanded])
 
-    //TODO: Add title cursor when editing video or img
-    // useEffect(() => {
-    //     if (isEdit && (note.type === 'NoteImg' || note.type === 'NoteVideo') && titleRef.current) {
-    //         if (titleRef.current.innerText.trim() === '') {
-    //             titleRef.current.innerText = '<br>'
-    //         }
-    //         titleRef.current.focus()
-    //     }
-    // }, [isEdit, note.type])
-
     useEffect(() => {
         let placeholderText
         if (cmpType === 'image') placeholderText = 'Paste image URL'
@@ -179,7 +169,7 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
         if (!txtRef.current) return
         const htmlSnippet = formatUrlToHtml(cmpType, url)
         txtRef.current.innerHTML += htmlSnippet
-        setCmpType('text') //reset
+        setCmpType('text')
     }
 
     //TODO: check if Redundant
@@ -190,7 +180,7 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
             video: null
         }
         return dynamicCmpMap[props.cmpType]
-    } // returns the component to be rendered.
+    }
 
     function handleInput(ev) { //if user deletes typed text, placeholder returns
         const elInput = ev.target
@@ -247,7 +237,6 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
             <div className="note-toolbar">
                 <button className="new-list btn"
                     onClick={(ev) => {
-                        console.log('List button clicked')
                         ev.stopPropagation()
                         setCmpType('list')
                         setIsExpanded(true)
@@ -263,7 +252,8 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
                     <svg xmlns="http://www.w3.org/2000/svg"
                         height="24px" viewBox="0 -960 960 960"
                         width="24px" fill="currentColor">
-                        <path d="M240-120q-45 0-89-22t-71-58q26 0 53-20.5t27-59.5q0-50 35-85t85-35q50 0 85 35t35 85q0 66-47 113t-113 47Zm0-80q33 0 56.5-23.5T320-280q0-17-11.5-28.5T280-320q-17 0-28.5 11.5T240-280q0 23-5.5 42T220-202q5 2 10 2h10Zm230-160L360-470l358-358q11-11 27.5-11.5T774-828l54 54q12 12 12 28t-12 28L470-360Zm-190 80Z" /></svg>
+                        <path d="M240-120q-45 0-89-22t-71-58q26 0 53-20.5t27-59.5q0-50 35-85t85-35q50 0 85 35t35 85q0 66-47 113t-113 47Zm0-80q33 0 56.5-23.5T320-280q0-17-11.5-28.5T280-320q-17 0-28.5 11.5T240-280q0 23-5.5 42T220-202q5 2 10 2h10Zm230-160L360-470l358-358q11-11 27.5-11.5T774-828l54 54q12 12 12 28t-12 28L470-360Zm-190 80Z" />
+                        </svg>
                 </button> */}
                 <button className="img-note btn"
                     title="New note with image"
@@ -344,13 +334,15 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
                         <svg xmlns="http://www.w3.org/2000/svg"
                             height="24px" viewBox="0 -960 960 960"
                             width="24px" fill="currentColor">
-                            <path d="M440-360h80v-80h80v-80h-80v-80h-80v80h-80v80h80v80ZM160-200v-80h80v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h80v80H160Zm320-300Zm0 420q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80ZM320-280h320v-280q0-66-47-113t-113-47q-66 0-113 47t-47 113v280Z" /></svg>
+                            <path d="M440-360h80v-80h80v-80h-80v-80h-80v80h-80v80h80v80ZM160-200v-80h80v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h80v80H160Zm320-300Zm0 420q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80ZM320-280h320v-280q0-66-47-113t-113-47q-66 0-113 47t-47 113v280Z" />
+                            </svg>
                     </button> */}
                     {/* <button className="add-contact btn">
                         <svg xmlns="http://www.w3.org/2000/svg"
                             height="24px" viewBox="0 -960 960 960"
                             width="24px" fill="currentColor">
-                            <path d="M720-400v-120H600v-80h120v-120h80v120h120v80H800v120h-80Zm-360-80q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Zm80-80h480v-32q0-11-5.5-20T580-306q-54-27-109-40.5T360-360q-56 0-111 13.5T140-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T440-640q0-33-23.5-56.5T360-720q-33 0-56.5 23.5T280-640q0 33 23.5 56.5T360-560Zm0-80Zm0 400Z" /></svg>
+                            <path d="M720-400v-120H600v-80h120v-120h80v120h120v80H800v120h-80Zm-360-80q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Zm80-80h480v-32q0-11-5.5-20T580-306q-54-27-109-40.5T360-360q-56 0-111 13.5T140-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T440-640q0-33-23.5-56.5T360-720q-33 0-56.5 23.5T280-640q0 33 23.5 56.5T360-560Zm0-80Zm0 400Z" />
+                            </svg>
                     </button> */}
                     <button
                         className="img-note btn"
