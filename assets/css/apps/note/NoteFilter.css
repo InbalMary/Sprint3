@@ -11,13 +11,6 @@
     max-width: 600px;
 }
 
-@media (max-width: 480px) {
-    .note-filter-container {
-        flex: 1 1 120px;
-        /* grow, shrink, base 500px */
-    }
-}
-
 #txt.note-input-filter {
     font-size: 16px;
     background: transparent;
@@ -39,6 +32,9 @@
 }
 
 .search-form svg {
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
     color: var(--notes-sidebar-icon-color-default);
 }
 
@@ -62,16 +58,8 @@
     background-position: right 12px center;
     background-size: 16px;
     min-width: 110px;
-
 }
 
 .note-type-filter:hover {
     background-color: #e8eaed;
-}
-
-@media (max-width: 480px) {
-    .note-type-filter {
-        min-width: 90px;
-        font-size: 12px;
-    }
 }

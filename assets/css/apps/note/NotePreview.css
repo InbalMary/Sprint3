@@ -1,4 +1,4 @@
-/* Styles the internal content of the note: title, text, pin icon layout */
+/* style of internal content of the note: title, text, pin icon layout */
 .note-preview {
     position: relative;
     display: flex;
@@ -14,7 +14,6 @@
     transition: opacity 0.2s ease;
 }
 
-/* Show pin on note hover */
 .note-preview:hover .note-pin {
     opacity: 1;
     pointer-events: auto;
@@ -24,7 +23,6 @@
     background-color: var(--notes-sidebar-icon-bg-hover);
 }
 
-/* show pin if pinned */
 .note-preview .note-pin.active {
     opacity: 1;
     pointer-events: auto;
