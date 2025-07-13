@@ -20,7 +20,7 @@ export function NoteHeader({ children, clickedBtn }) {
                 </button>
                 {/* Only show logo image on Keep */}
                 {clickedBtn === 'bulb' && (
-                    <img src="/assets/icons/notes/logo.png" alt="NoteKeep logo" className="logo-img" />
+                    <img src={`${process.env.PUBLIC_URL}/assets/icons/notes/logo.png`} alt="NoteKeep logo" className="logo-img" />
                 )}
 
                 <h1 className="logo-text">{getTitle()}</h1>
