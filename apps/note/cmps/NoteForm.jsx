@@ -83,6 +83,13 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
         setTextPlaceholder(placeholderText)
     }, [cmpType])
 
+    useEffect(() => {
+        if ((cmpType === 'image' || cmpType === 'video') && isExpanded && txtRef.current) {
+            txtRef.current.focus()
+        }
+    }, [cmpType, isExpanded])
+
+
     function handleSetNoteStyle(newStyle) {
         console.log('newStyle:', newStyle)
         setNoteStyle(prevStyle => {
@@ -264,7 +271,6 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
                         ev.stopPropagation()
                         setCmpType('image')
                         setIsExpanded(true)
-                        txtRef.current.focus()
                     }}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -279,7 +285,6 @@ export function NoteForm({ note, onSave, onClose, onAddNote, onSetNoteStyle, onT
                         ev.stopPropagation()
                         setCmpType('video')
                         setIsExpanded(true)
-                        txtRef.current.focus()
                     }}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg"

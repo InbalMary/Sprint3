@@ -17,6 +17,7 @@ export function NoteIndex() {
     const [editedNoteId, setEditedNoteId] = useState(null) //track which note is being edited
     const [clickedBtn, setClickedBtn] = useState('bulb')
     const [cmpType, setCmpType] = useState('text')
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
 
     useEffect(() => {
@@ -30,6 +31,10 @@ export function NoteIndex() {
                 setNotes(notes)
             })
             .catch(err => console.log('err:', err))
+    }
+
+    function toggleSidebar() {
+        setIsSidebarOpen(prev => !prev)
     }
 
     // Filter notes based on sidebar clickedBtn
@@ -66,7 +71,6 @@ export function NoteIndex() {
             })
     }
 
-    //TODO: fix deleting ALL NOTES onclick
     function onEmptyBin() {
         noteService.query().then(allNotes => {
             const binnedNotes = allNotes.filter(note => note.isBinned)
@@ -202,21 +206,23 @@ export function NoteIndex() {
     }
 
     if (!notes) return <div>Loading...</div>
-    console.log('notesToShow:', notesToShow)
+    // console.log('notesToShow:', notesToShow)
     return (
         <section className="container">
             <section className="note-index">
-                <NoteHeader clickedBtn={clickedBtn}>
+                <NoteHeader clickedBtn={clickedBtn} onToggleMenu={toggleSidebar}>
                     <NoteFilter
                         defaultFilter={filterBy}
                         onSetFilter={onSetFilter}
                     />
                 </NoteHeader>
 
-                {/* Pass clickedBtn and setClickedBtn to NoteSidebar */}
-                <NoteSidebar clickedBtn={clickedBtn} setClickedBtn={setClickedBtn} />
+                <NoteSidebar
+                    clickedBtn={clickedBtn}
+                    setClickedBtn={setClickedBtn}
+                    isSidebarOpen={isSidebarOpen}
+                />
 
-                {/* Show NoteForm only on main notes view */}
                 {clickedBtn === 'bulb' && <NoteForm onAddNote={onAddNote} />}
 
                 {/* Render notes depending on selected btn */}

@@ -1,8 +1,9 @@
 
 const { useState } = React
 
-export function NoteSidebar({ clickedBtn, setClickedBtn }) {
-    const [isExpanded, setIsExpanded] = useState(false)
+export function NoteSidebar({ clickedBtn, setClickedBtn, isSidebarOpen }) {
+    const [isHovered, setIsHovered] = useState(false)
+    const isExpanded = isSidebarOpen || isHovered
 
     const handleClick = (btnName) => {
         if (clickedBtn === btnName) {
@@ -15,8 +16,8 @@ export function NoteSidebar({ clickedBtn, setClickedBtn }) {
     return (
         <nav
             className={`sidebar ${isExpanded ? 'expanded' : 'collapsed'}`}
-            onMouseEnter={() => setIsExpanded(true)}
-            onMouseLeave={() => setIsExpanded(false)}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
         >
             <ul>
                 <li>
