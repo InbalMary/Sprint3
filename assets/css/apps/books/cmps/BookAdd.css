@@ -1,0 +1,40 @@
+.book-add {
+    padding-inline: 1.5em;
+    padding-block-start: 70px;
+    background: linear-gradient(135deg,
+            var(--clr1bg-light) 0%,
+            var(--clr2) 40%,
+            var(--clr1bg-light) 70%,
+            var(--clr2) 100%);
+    min-height: 100vh;
+    min-width: 100vw;
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--gray3);
+}
+
+.book-add h2 {
+    margin-block: 1.5em;
+}
+
+.book-add  button {
+  font-family: 'Space Grotesk', sans-serif;
+  cursor: pointer;
+  background-color: var(--clr2);
+  margin: 0.5em;
+  border: 1px solid var(--clr2);
+  padding: 0.5em 0.8em;
+  border-radius: 4px;
+}
+
+.book-add form {
+    display: flex;
+    gap: 1rem;
+}
+
+.book-add input {
+    /* padding: 0.6rem 0.75rem; */
+    border: 1px solid var(--clr2bg);
+    border-radius: 6px;
+    font-size: 1rem;
+
+}

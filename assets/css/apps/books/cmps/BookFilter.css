@@ -1,0 +1,29 @@
+.book-filter {
+    background-color: var(--clr2bg);
+    color: var(--gray3);
+    padding-block: 1em;
+    text-align: start;
+    font-size: 1.2rem;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.book-filter > h2 {
+    margin: .5em 0 .5em;
+    font-family: 'Space Grotesk', sans-serif;
+    margin-top: 0;
+}
+
+.book-filter form {
+    display: grid;
+    grid-template-columns: 100px 200px;
+    place-self: start;
+    gap: .5em;
+}
+
+.book-filter form button {
+    margin-inline: 0
+}
+
+.book-filter select {
+    font-family: inherit;
+}

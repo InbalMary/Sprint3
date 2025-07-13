@@ -1,0 +1,30 @@
+.rating-container,
+.stars-ratings {
+    flex-direction: column;
+}
+
+.stars-ratings .stars {
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+}
+
+.stars-ratings .star {
+    cursor: pointer;
+    font-size: 1em;
+    transition: 0.2s ease;
+}
+
+.stars-ratings .star:hover {
+    scale: 1.1;
+    filter: brightness(1.2);
+}
+
+.stars-ratings .star.active {
+    color: rgb(255, 215, 0);
+    filter: brightness(1.2);
+}
+
+.txt-rating-input {
+    width: 100%;
+}

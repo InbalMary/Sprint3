@@ -10,6 +10,13 @@ import { MailDetails } from './apps/mail/pages/MailDetails.jsx'
 import { MailEdit } from './apps/mail/pages/MailEdit.jsx'
 import { NoteIndex } from './apps/note/pages/NoteIndex.jsx'
 
+import { NotFound } from "./apps/books/cmps/NotFound.jsx"
+import { BookIndex } from "./apps/books/Pages/BookIndex.jsx"
+import { BookDetails } from "./apps/books/Pages/BookDetails.jsx"
+import { BookEdit } from "./apps/books/cmps/BookEdit.jsx"
+import { BookAdd } from "./apps/books/cmps/BookAdd.jsx"
+import { BookChart } from "./apps/books/cmps/BookChart.jsx"
+
 export function RootCmp() {
     return <Router>
         <section className="root-cmp">
@@ -18,11 +25,20 @@ export function RootCmp() {
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/mail" element={<MailIndex />} >
-                <Route path="/mail/:mailId" element={<MailDetails />} />
+                    <Route path="/mail/:mailId" element={<MailDetails />} />
                     <Route path="/mail/edit" element={<MailEdit />} />
                     <Route path="/mail/edit/:mailId" element={<MailEdit />} />
-                </Route>    
+                </Route>
                 <Route path="/note" element={<NoteIndex />} />
+
+                <Route path="/book" element={<BookIndex />} />
+                <Route path="/book/:bookId" element={<BookDetails />} />
+                <Route path="/book/edit" element={<BookEdit />} />
+                <Route path="/book/edit/:bookId" element={<BookEdit />} />
+                <Route path="/book/add" element={<BookAdd />} />
+                <Route path="/book/chart" element={<BookChart />} />
+
+                <Route path="*" element={<NotFound />} />
             </Routes>
             <UserMsg />
         </section>

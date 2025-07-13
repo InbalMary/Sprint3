@@ -1,0 +1,13 @@
+.long-txt .toggleBtn{
+    background-color: var(--clr2bg);
+        padding-inline: 0.22rem;
+        border-radius: 4px;
+}
+
+.long-txt .toggleBtn:hover{
+    cursor: pointer;
+}
+
+.long-txt{
+    flex-direction: column;
+}

@@ -103,6 +103,7 @@ export function AppHeader() {
       <NavLink to="/about" onClick={() => setIsMenuOpen(false)}>About</NavLink>
       <NavLink to="/mail" onClick={() => setIsMenuOpen(false)}>Mail</NavLink>
       <NavLink to="/note" onClick={() => setIsMenuOpen(false)}>Note</NavLink>
+      <NavLink to="/book" onClick={() => setIsMenuOpen(false)}>Books</NavLink>
     </nav>
   </header>
 }

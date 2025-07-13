@@ -1,0 +1,22 @@
+.book-preview {
+    text-align: center;
+    padding: 0.3em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-block-start: 46px;
+    /* background-color: var(--clr1bg); */
+}
+
+.book-preview h4 {
+    text-transform: capitalize;
+    color: black;
+}
+
+.book-preview img {
+    max-width: 100px  !important;
+}
+
+.book-preview p {
+    margin-bottom: 0.5em;
+}

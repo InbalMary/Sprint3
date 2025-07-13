@@ -80,5 +80,17 @@
     --notes-bg11: #efeff1;
 
 
+/* vars-for-books-app */
+    --clr1: #333446;
+    --clr2: #7F8CAA;
 
+    --clr1bg: #B8CFCE;
+    --clr1bg-light: #EAEFEF;
+
+    --clr2bg: #7F8CAA;
+    --clr2bg-light: #B8CFCE;
+
+    --gray1: #EAEFEF;
+    --gray2: #B8CFCE;
+    --gray3: #333446;
 }

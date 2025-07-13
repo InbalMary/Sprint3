@@ -1,0 +1,151 @@
+.book-details {
+    font-family: 'Space Grotesk', sans-serif;
+    position: relative;
+    text-align: center;
+    padding: 0.5em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--clr1bg);
+    border-radius: 12px;
+    margin: 5vw;
+    padding-block-start: 46px;
+
+    background: linear-gradient(135deg,
+            var(--clr1bg-light) 0%,
+            var(--clr2) 40%,
+            var(--clr1bg-light) 70%,
+            var(--clr2) 100%);
+    min-height: 100vh;
+}
+
+.book-details>* {
+    margin-inline: 1em;
+}
+
+.book-details h1 {
+    font-size: 2em;
+}
+
+.book-details .on-sale-badge {
+    position: absolute;
+    top: 1em;
+    right: 6em;
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.book-details .book-price {
+    &.red {
+        color: red
+    }
+
+    &.green {
+        color: green
+    }
+}
+
+.book-details dialog {
+    width: 60%;
+}
+
+
+
+.book-details h4,
+.book-details p,
+.book-details ul {
+    margin: 0;
+    line-height: 1.2;
+}
+
+.book-details .btns-rev {
+    background-color: var(--clr2bg);
+    margin: 0.5em;
+    cursor: pointer;
+    border: 1px solid var(--clr2);
+    padding: 0.5em 0.8em;
+    border-radius: 4px;
+    align-self: start;
+    width: fit-content;
+    margin: 0.5em auto;
+}
+
+button:hover {
+    background-color: var(--clr2);
+    color: white;
+    transition: 0.3s;
+}
+
+.book-details .reviews-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: var(--clr2bg-light);
+    border-radius: 0.5em;
+    padding: 1.5em;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.book-details .reviews-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.book-details .review-card {
+    background: var(--gray1);
+    border-radius: 0.5em;
+    padding: 1.5em;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.book-details .review-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.book-details .add-review-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: var(--gray1);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    border: 2px dashed var(--clr2bg);
+}
+
+.book-details button {
+    font-family: 'Space Grotesk', sans-serif;
+    cursor: pointer;
+        background-color: var(--clr2);
+    margin: 0.5em;
+    border: 1px solid var(--clr2);
+    padding: 0.5em 0.8em;
+    border-radius: 4px;
+}
+
+.book-details form {
+    display: grid;
+    gap: 0.5rem;
+
+}
+
+.book-details section {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    margin-bottom: 0.75em;
+    color: var(--gray3);
+    font-size: 1.2rem;
+    font-family: 'Source Sans Pro', sans-serif;
+}

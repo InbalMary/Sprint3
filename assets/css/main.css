@@ -24,3 +24,14 @@
 @import './apps/mail/MailDetails.css';
 @import './apps/mail/MailEdit.css';
 @import './apps/mail/MailHeader.css';
+
+@import './apps/books/pages/BookIndex.css';
+@import './apps/books/cmps/BookFilter.css';
+@import './apps/books/cmps/BookList.css';
+@import './apps/books/cmps/BookPreview.css';
+@import './apps/books/cmps/BookDetails.css';
+@import './apps/books/cmps/LongTxt.css';
+@import './apps/books/cmps/BookEdit.css';
+@import './apps/books/cmps/BookAdd.css';
+@import './apps/books/cmps/AddReview.css';
+@import './apps/books/cmps/BookChart.css';
