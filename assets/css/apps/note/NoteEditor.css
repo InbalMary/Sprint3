@@ -22,7 +22,9 @@
 }
 
 .editor-overlay .note-editor {
-    margin: 0;
+    margin: 0 15px;
     max-width: 580px;
-    min-width: 500px;
+    min-width: auto;
+    width: auto;
+    max-width: 100%;
 }
