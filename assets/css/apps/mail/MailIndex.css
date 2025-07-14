@@ -88,6 +88,7 @@
      padding-inline: 12px;
      cursor: pointer;
      margin-inline-end: 12px;
+     padding-inline-start: 24px;
  }
 
  .sidebar-expanded .sidebar-item.active,
