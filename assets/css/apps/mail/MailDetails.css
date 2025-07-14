@@ -148,6 +148,7 @@
     overflow-wrap: break-word;
     word-wrap: break-word;
     max-width: calc(100% - 72px);
+    white-space: pre-wrap;
 }
 
 .star-button {

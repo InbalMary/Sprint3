@@ -42,7 +42,7 @@ export function MailPreview({ mail, onClick, onToggleStarred, onToggleReadStatus
             <div className="subject-cell">
                 <span className="subject">{subject}</span>
                 <span> - </span>
-                <span className="body-content">{body.slice(0, 80)}...</span>
+                <span className="body-content">{body.slice(0, 80)}</span>
             </div>
             <div className="time-cell">{setTimeToShow()}</div>
 

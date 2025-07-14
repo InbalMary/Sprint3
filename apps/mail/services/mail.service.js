@@ -134,7 +134,9 @@ function getDefaultFilter() {
         txt: '',
         isRead: '',
         isStared: null,
-        labels: []
+        labels: [],
+        sortBy: 'sentAt',
+        sortDirection: 'desc'
     }
 }
 

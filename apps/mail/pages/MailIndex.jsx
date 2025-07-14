@@ -103,6 +103,9 @@ export function MailIndex() {
         mailService.save({ ...mail, isStared: !mail.isStared })
             .then(() => {
                 loadCounts()
+                if (filterBy.status === 'starred') {
+                    loadMails()
+                }
             })
             .catch(err => {
                 console.log('Error updating starred status:', err)
@@ -122,6 +125,9 @@ export function MailIndex() {
         mailService.save({ ...mail, isRead: !mail.isRead })
             .then(() => {
                 loadCounts()
+                if (filterBy.isRead) {
+                loadMails()
+            }
             })
             .catch(err => {
                 console.log('Error updating read status:', err)
