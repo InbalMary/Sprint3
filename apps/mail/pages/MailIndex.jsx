@@ -96,9 +96,8 @@ export function MailIndex() {
     function onToggleStarred(mailId) {
         const mail = mails.find(mail => mail.id === mailId)
         if (!mail) return
-        const updatedMails = mails.map(mail =>
-            mail.id === mailId ? { ...mail, isStared: !mail.isStared } : mail)
-        setMails(updatedMails)
+        const updatedMail = { ...mail, isStared: !mail.isStared }
+        setMails(prevMails => prevMails.map(m => m.id === mailId ? updatedMail : m))
 
         mailService.save({ ...mail, isStared: !mail.isStared })
             .then(() => {
@@ -118,14 +117,13 @@ export function MailIndex() {
         const mail = mails.find(mail => mail.id === mailId)
         if (!mail) return
         ev.stopPropagation()
-        const updatedMails = mails.map(mail =>
-            mail.id === mailId ? { ...mail, isRead: !mail.isRead } : mail)
-        setMails(updatedMails)
+        const updatedMail = { ...mail, isRead: !mail.isRead }
+        setMails(prevMails => prevMails.map(m => m.id === mailId ? updatedMail : m))
 
         mailService.save({ ...mail, isRead: !mail.isRead })
             .then(() => {
                 loadCounts()
-                if (filterBy.isRead) {
+                if (filterBy.isRead !== '') {
                 loadMails()
             }
             })
@@ -206,8 +204,8 @@ export function MailIndex() {
             isRead: '',
             from: '',
             subject: '',
-            sortBy: null,
-            sortDirection: 'asc',
+            sortBy: 'sentAt',
+            sortDirection: 'desc',
             status
         })
     }

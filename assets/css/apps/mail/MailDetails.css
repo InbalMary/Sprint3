@@ -158,6 +158,9 @@
 }
 
 @media (max-width: 480px) {
+    .mail-details {
+        margin-inline: 1em;
+    }
 
     .mail-details .mail-body,
     .mail-details h2 {
